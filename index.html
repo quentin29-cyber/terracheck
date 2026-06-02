@@ -7,162 +7,119 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0f0f0f;--surface:#191919;--border:#252525;--border2:#333;
-  --text:#e8e8e8;--muted:#666;--muted2:#888;
-  --accent:#d4845a;--accent2:#e89a70;
-  --green:#4caf68;--orange:#e09040;--red:#e05050;--blue:#5090d0;
-  --r:10px;--r-sm:7px;
-}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.55;min-height:100vh;-webkit-font-smoothing:antialiased}
-
-/* HEADER */
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,15,15,.97);backdrop-filter:blur(10px);z-index:100}
+:root{--bg:#0f0f0f;--sf:#191919;--bd:#252525;--bd2:#333;--tx:#e8e8e8;--mu:#666;--mu2:#999;--ac:#d4845a;--ac2:#e89a70;--gr:#4caf68;--or:#e09040;--re:#e05050;--bl:#5090d0;--r:10px;--rs:7px}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.55;min-height:100vh;-webkit-font-smoothing:antialiased}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(15,15,15,.97);backdrop-filter:blur(10px);z-index:100}
 .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;letter-spacing:-.4px}
-.logo-dot{width:26px;height:26px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000}
-.logo em{font-style:normal;color:var(--accent)}
-.tag{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border2);padding:3px 8px;border-radius:20px}
-
-/* PAGE */
+.logo-dot{width:26px;height:26px;background:var(--ac);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000}
+.logo em{font-style:normal;color:var(--ac)}
+.tag{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--mu2);border:1px solid var(--bd2);padding:3px 8px;border-radius:20px}
 .page{max-width:620px;margin:0 auto;padding:0 16px 80px}
-
-/* HERO */
 .hero{padding:40px 0 28px;text-align:center}
 .hero h1{font-size:clamp(23px,5vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.8px;margin-bottom:10px}
-.hero h1 b{color:var(--accent)}
-.hero p{color:var(--muted2);font-size:14px;max-width:400px;margin:0 auto 24px}
-
-/* CARD */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.hero h1 b{color:var(--ac)}
+.hero p{color:var(--mu2);font-size:14px;max-width:420px;margin:0 auto 24px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:20px}
 .field+.field{margin-top:16px}
-.flabel{display:block;font-size:11px;font-weight:600;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
-.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--r-sm);padding:11px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;appearance:none;transition:border-color .15s;min-height:44px}
-.field input:focus,.field select:focus{border-color:var(--accent)}
+.flabel{display:block;font-size:11px;font-weight:600;color:var(--mu2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd2);border-radius:var(--rs);padding:11px 14px;color:var(--tx);font-family:inherit;font-size:15px;outline:none;appearance:none;transition:border-color .15s;min-height:44px}
+.field input:focus,.field select:focus{border-color:var(--ac)}
 .field input::placeholder{color:#383838}
 .sel-w{position:relative}
-.sel-w::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted2);pointer-events:none;font-size:12px}
+.sel-w::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mu2);pointer-events:none;font-size:12px}
 select option{background:#1a1a1a}
-
-/* PILLS */
 .pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{padding:8px 14px;border:1px solid var(--border2);border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;color:var(--muted2);transition:all .15s;user-select:none;min-height:40px;display:flex;align-items:center}
-.pill:hover{border-color:var(--accent);color:var(--text)}
-.pill.on{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
-
-/* AUTOCOMPLETE */
+.pill{padding:8px 14px;border:1px solid var(--bd2);border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;color:var(--mu2);transition:all .15s;user-select:none;min-height:40px;display:flex;align-items:center}
+.pill:hover{border-color:var(--ac);color:var(--tx)}
+.pill.on{background:var(--ac);color:#000;border-color:var(--ac);font-weight:600}
 .ac-w{position:relative}
-.ac-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1d1d1d;border:1px solid var(--border2);border-radius:var(--r-sm);z-index:200;max-height:210px;overflow-y:auto;display:none}
+.ac-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1d1d1d;border:1px solid var(--bd2);border-radius:var(--rs);z-index:200;max-height:210px;overflow-y:auto;display:none}
 .ac-drop.open{display:block}
-.ac-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s}
+.ac-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);transition:background .1s}
 .ac-item:last-child{border-bottom:none}
-.ac-item:hover{background:var(--surface)}
+.ac-item:hover{background:var(--sf)}
 .ac-name{font-size:14px;font-weight:500}
-.ac-city{font-size:12px;color:var(--muted2);margin-top:1px}
+.ac-city{font-size:12px;color:var(--mu2);margin-top:1px}
 .addr-hint{font-size:12px;margin-top:5px;display:none}
-
-/* SUBMIT */
-.btn-go{width:100%;margin-top:16px;padding:13px;background:var(--accent);color:#000;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;min-height:46px;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-go:hover{background:var(--accent2)}
+.btn-go{width:100%;margin-top:16px;padding:13px;background:var(--ac);color:#000;border:none;border-radius:var(--rs);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;min-height:46px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-go:hover{background:var(--ac2)}
 .btn-go:active{transform:scale(.99)}
-.err{display:none;margin-top:10px;padding:10px 14px;background:rgba(224,80,80,.08);border:1px solid rgba(224,80,80,.25);border-radius:var(--r-sm);font-size:13px;color:var(--red)}
+.err{display:none;margin-top:10px;padding:10px 14px;background:rgba(224,80,80,.08);border:1px solid rgba(224,80,80,.25);border-radius:var(--rs);font-size:13px;color:var(--re)}
 .err.on{display:block}
-
-/* LOADING */
 .loading{display:none;padding:48px 0;text-align:center}
 .loading.on{display:block}
-.spin{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:sp .75s linear infinite;margin:0 auto 16px}
+.spin{width:36px;height:36px;border:3px solid var(--bd2);border-top-color:var(--ac);border-radius:50%;animation:sp .75s linear infinite;margin:0 auto 16px}
 @keyframes sp{to{transform:rotate(360deg)}}
 .loading h3{font-size:16px;font-weight:600;margin-bottom:4px}
-.loading p{font-size:13px;color:var(--muted2);margin-bottom:18px}
-.steps{display:flex;flex-direction:column;gap:5px;max-width:310px;margin:0 auto}
-.step{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);font-size:13px;color:var(--muted2);opacity:.3;transition:all .3s;text-align:left}
-.step.on{opacity:1;border-color:var(--accent);color:var(--text)}
+.loading p{font-size:13px;color:var(--mu2);margin-bottom:18px}
+.steps{display:flex;flex-direction:column;gap:5px;max-width:340px;margin:0 auto}
+.step{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);font-size:13px;color:var(--mu2);opacity:.3;transition:all .3s;text-align:left}
+.step.on{opacity:1;border-color:var(--ac);color:var(--tx)}
 .step.done{opacity:.5}
-
-/* RESULT */
 .result{display:none}
 .result.on{display:block}
-.addr-bar{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:12px;font-size:13px;color:var(--muted2)}
-.addr-bar strong{color:var(--text);display:block;font-size:14px;margin-bottom:1px}
-
-/* VERDICT */
-.verdict{border-radius:var(--r);padding:16px 18px;margin-bottom:12px;display:flex;gap:13px;align-items:flex-start}
+.addr-bar{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:12px;font-size:13px;color:var(--mu2)}
+.addr-bar strong{color:var(--tx);display:block;font-size:14px;margin-bottom:1px}
+.verdict{border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;gap:13px;align-items:flex-start}
 .verdict.ok{background:rgba(76,175,104,.07);border:1px solid rgba(76,175,104,.22)}
 .verdict.warn{background:rgba(224,144,64,.07);border:1px solid rgba(224,144,64,.22)}
 .verdict.danger{background:rgba(224,80,80,.07);border:1px solid rgba(224,80,80,.22)}
 .verdict.info{background:rgba(80,144,208,.07);border:1px solid rgba(80,144,208,.22)}
 .v-ico{font-size:28px;flex-shrink:0;line-height:1;margin-top:1px}
 .v-title{font-size:15px;font-weight:700;margin-bottom:3px}
-.verdict.ok .v-title{color:var(--green)}
-.verdict.warn .v-title{color:var(--orange)}
-.verdict.danger .v-title{color:var(--red)}
-.verdict.info .v-title{color:var(--blue)}
-.v-desc{font-size:13px;color:var(--muted2);line-height:1.5}
-
-/* SECTIONS */
-.sec{margin-bottom:12px}
-.sec-head{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.sec-head::after{content:"";flex:1;height:1px;background:var(--border)}
-
-/* DATA ROW */
-.dr{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:4px;font-size:14px}
+.verdict.ok .v-title{color:var(--gr)}
+.verdict.warn .v-title{color:var(--or)}
+.verdict.danger .v-title{color:var(--re)}
+.verdict.info .v-title{color:var(--bl)}
+.v-desc{font-size:13px;color:var(--mu2);line-height:1.5}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:14px;font-size:11px}
+.legend-it{display:flex;align-items:center;gap:5px;color:var(--mu2)}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ld-conf{background:var(--re)}
+.ld-none{background:var(--gr)}
+.ld-nc{background:var(--mu)}
+.sec{margin-bottom:14px}
+.sec-head{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--mu2);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.sec-head::after{content:"";flex:1;height:1px;background:var(--bd)}
+.dr{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--bd2);border-radius:var(--rs);margin-bottom:4px;font-size:14px}
 .dr:last-child{margin-bottom:0}
+.dr.s-conf{border-left-color:var(--re)}
+.dr.s-conf-o{border-left-color:var(--or)}
+.dr.s-none{border-left-color:var(--gr)}
+.dr.s-nc{border-left-color:var(--mu)}
 .dr-ico{font-size:15px;flex-shrink:0;width:18px;text-align:center;margin-top:2px}
 .dr-body{flex:1;min-width:0}
 .dr-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px}
-.dr-label{font-weight:600;color:var(--text);font-size:14px}
-.dr-val{font-size:13px;color:var(--muted2);line-height:1.45}
-.dr-val a{color:var(--accent);text-decoration:none}
+.dr-label{font-weight:600;color:var(--tx);font-size:14px}
+.dr-val{font-size:13px;color:var(--mu2);line-height:1.45}
+.dr-val a{color:var(--ac);text-decoration:none}
 .dr-val a:hover{text-decoration:underline}
-
-/* RECOMMANDATIONS dans data-row */
-.rec-list{margin-top:7px;border-top:1px solid var(--border);padding-top:7px;display:flex;flex-direction:column;gap:4px}
-.rec-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--muted2);line-height:1.45}
-.rec-item::before{content:"→";color:var(--accent);flex-shrink:0;font-weight:600;margin-top:1px}
-
-/* CHIPS */
+.rec-list{margin-top:7px;border-top:1px solid var(--bd);padding-top:7px;display:flex;flex-direction:column;gap:5px}
+.rec-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--mu2);line-height:1.45}
+.rec-item::before{content:"→";color:var(--ac);flex-shrink:0;font-weight:600;margin-top:1px}
+.todo-list{margin-top:7px;border-top:1px dashed var(--bd2);padding-top:7px;display:flex;flex-direction:column;gap:5px}
+.todo-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--ac2);line-height:1.45;font-weight:500}
+.todo-item::before{content:"☐";flex-shrink:0;margin-top:0}
 .chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
-.c-green{background:rgba(76,175,104,.13);color:var(--green);border:1px solid rgba(76,175,104,.28)}
-.c-orange{background:rgba(224,144,64,.13);color:var(--orange);border:1px solid rgba(224,144,64,.28)}
-.c-red{background:rgba(224,80,80,.13);color:var(--red);border:1px solid rgba(224,80,80,.28)}
-.c-grey{background:rgba(136,136,136,.1);color:var(--muted2);border:1px solid var(--border2)}
-.c-blue{background:rgba(80,144,208,.13);color:var(--blue);border:1px solid rgba(80,144,208,.28)}
-
-/* MISSING */
-.miss{padding:9px 13px;background:rgba(136,136,136,.04);border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;color:var(--muted);margin-bottom:4px;display:flex;gap:7px;align-items:flex-start}
-
-/* LINKS */
-.links{display:flex;flex-wrap:wrap;gap:6px;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm)}
-.links a{color:var(--accent);font-size:13px;text-decoration:none;padding:5px 10px;border:1px solid var(--border2);border-radius:6px;white-space:nowrap;transition:border-color .15s}
-.links a:hover{border-color:var(--accent)}
-
-/* BOTTOM */
+.cg{background:rgba(76,175,104,.13);color:var(--gr);border:1px solid rgba(76,175,104,.28)}
+.co{background:rgba(224,144,64,.13);color:var(--or);border:1px solid rgba(224,144,64,.28)}
+.cr{background:rgba(224,80,80,.13);color:var(--re);border:1px solid rgba(224,80,80,.28)}
+.cb{background:rgba(80,144,208,.13);color:var(--bl);border:1px solid rgba(80,144,208,.28)}
+.cz{background:rgba(136,136,136,.1);color:var(--mu2);border:1px solid var(--bd2)}
+.links{display:flex;flex-wrap:wrap;gap:6px;padding:11px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs)}
+.links a{color:var(--ac);font-size:13px;text-decoration:none;padding:5px 10px;border:1px solid var(--bd2);border-radius:6px;white-space:nowrap;transition:border-color .15s}
+.links a:hover{border-color:var(--ac)}
 .btns{display:flex;gap:8px;margin-top:16px}
-.btn-sec{flex:1;padding:11px;border:1px solid var(--border2);border-radius:var(--r-sm);background:transparent;color:var(--text);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-sec:hover{border-color:var(--accent);color:var(--accent)}
-.btn-pri{flex:1;padding:11px;background:var(--accent);border:none;border-radius:var(--r-sm);color:#000;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-pri:hover{background:var(--accent2)}
-.note{margin-top:12px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;color:var(--muted2);line-height:1.6;display:flex;gap:8px}
-
-/* FOOTER */
-.footer{border-top:1px solid var(--border);margin-top:40px;padding:24px 16px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.fstat{text-align:center}
-.fn{font-size:20px;font-weight:700;color:var(--accent)}
-.fl{font-size:12px;color:var(--muted2);margin-top:2px}
-
-@media(max-width:480px){
-  .hdr{padding:0 14px}
-  .hero{padding:28px 0 20px}
-  .hero h1{font-size:22px}
-  .card{padding:16px}
-  .btns{flex-direction:column}
-  .footer{gap:18px;padding:20px 14px}
-}
-@media print{
-  .hdr,.hero,.btns,.footer,.btn-go,.err{display:none!important}
-  .result{display:block!important}
-  body{background:#fff;color:#000}
-}
+.btn-sec{flex:1;padding:11px;border:1px solid var(--bd2);border-radius:var(--rs);background:transparent;color:var(--tx);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-sec:hover{border-color:var(--ac);color:var(--ac)}
+.btn-pri{flex:1;padding:11px;background:var(--ac);border:none;border-radius:var(--rs);color:#000;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-pri:hover{background:var(--ac2)}
+.note{margin-top:12px;padding:10px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);font-size:12px;color:var(--mu2);line-height:1.6;display:flex;gap:8px}
+.footer{border-top:1px solid var(--bd);margin-top:40px;padding:24px 16px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.fn{font-size:20px;font-weight:700;color:var(--ac)}
+.fl{font-size:12px;color:var(--mu2);margin-top:2px;text-align:center}
+@media(max-width:480px){.hdr{padding:0 14px}.hero{padding:28px 0 20px}.hero h1{font-size:22px}.card{padding:16px}.btns{flex-direction:column}.footer{gap:18px;padding:20px 14px}.legend{gap:10px}}
+@media print{.hdr,.hero,.btns,.footer,.btn-go,.err{display:none!important}.result{display:block!important}body{background:#fff;color:#000}}
 </style>
 </head>
 <body>
@@ -174,13 +131,13 @@ select option{background:#1a1a1a}
   <div id="homeSection">
     <div class="hero">
       <h1>Contraintes de chantier<br><b>en 30 secondes</b></h1>
-      <p>TerraCheck interroge les bases officielles de l'Etat et compile les donnees et demarches applicables pour chaque adresse.</p>
+      <p>TerraCheck interroge les bases officielles de l'Etat, vous montre ce qu'elles contiennent pour votre adresse, et vous dit quoi faire quand l'information n'y figure pas.</p>
     </div>
     <div class="card">
       <div class="field">
         <label class="flabel">Adresse du chantier</label>
         <div class="ac-w">
-          <input type="text" id="aInput" placeholder="Ex : 12 chemin des Pins, Bormes-les-Mimosas" autocomplete="off" inputmode="search">
+          <input type="text" id="aIn" placeholder="Ex : 180 chemin de la Bayole, Sollies-Pont" autocomplete="off" inputmode="search">
           <div class="ac-drop" id="acDrop"></div>
         </div>
         <div class="addr-hint" id="aHint"></div>
@@ -203,37 +160,35 @@ select option{background:#1a1a1a}
       <div class="err" id="errBox"></div>
     </div>
   </div>
-
   <div class="loading" id="loadSec">
     <div class="spin"></div>
     <h3>Interrogation des bases officielles...</h3>
     <p>Merci de patienter</p>
     <div class="steps">
       <div class="step on" id="st1">📍 Geolocalisation de l'adresse</div>
-      <div class="step" id="st2">🗺 Zone PLU — IGN Geoportail</div>
+      <div class="step" id="st2">🗺 Couverture et zone PLU — IGN</div>
       <div class="step" id="st3">🌿 Zones protegees — IGN Nature</div>
       <div class="step" id="st4">🌊 Risques naturels — Georisques</div>
-      <div class="step" id="st5">📋 Compilation des donnees</div>
+      <div class="step" id="st5">🚛 Acces vehicules — OpenStreetMap</div>
+      <div class="step" id="st6">📋 Compilation du rapport</div>
     </div>
   </div>
-
   <div class="result" id="resSec">
     <div id="resContent"></div>
     <div class="btns">
-      <button class="btn-sec" onclick="reset()">&#8592; Nouveau chantier</button>
+      <button class="btn-sec" onclick="rst()">&#8592; Nouveau chantier</button>
       <button class="btn-pri" onclick="window.print()">Imprimer</button>
     </div>
     <div class="note">
       <span>i</span>
-      <span>Les donnees proviennent exclusivement des bases officielles de l'Etat (IGN GPU, IGN Nature, Georisques, Base Adresse Nationale). TerraCheck est un agregateur — il affiche les donnees brutes et les demarches reglementairement attachees a chacune. <strong>Consultez toujours la mairie avant de demarrer des travaux.</strong></span>
+      <span>TerraCheck reunit en un seul endroit les donnees officielles dispersees sur plusieurs services de l'Etat (IGN GPU, IGN Nature, Georisques, BAN) et OpenStreetMap. Il affiche ce que ces sources contiennent et signale ce qu'elles ne couvrent pas. Il ne remplace pas la consultation de la mairie, seule autorite pour confirmer les regles applicables a une parcelle.</span>
     </div>
   </div>
 </div>
-
 <footer class="footer" id="ftSec">
-  <div class="fstat"><div class="fn">10</div><div class="fl">Bases officielles interrogees</div></div>
-  <div class="fstat"><div class="fn">35 000+</div><div class="fl">Communes couvertes</div></div>
-  <div class="fstat"><div class="fn">0</div><div class="fl">Interpretation — donnees brutes</div></div>
+  <div><div class="fn">11</div><div class="fl">Sources interrogees</div></div>
+  <div><div class="fn">35 000+</div><div class="fl">Communes couvertes</div></div>
+  <div><div class="fn">0</div><div class="fl">Interpretation inventee</div></div>
 </footer>
 
 <script>
@@ -241,172 +196,57 @@ const LITTORAL=new Set(["06003","06004","06007","06012","06023","06027","06029",
 
 const TRAVAUX={
   paysagiste:[
-    {v:"elagage",l:"Elagage / abattage d'arbres"},
-    {v:"debroussaillage",l:"Debroussaillage / defrichement"},
-    {v:"cloture",l:"Cloture / portail"},
-    {v:"terrasse",l:"Terrasse / dallage exterieur"},
-    {v:"abri_jardin",l:"Abri de jardin / carport bois"},
-    {v:"bassin",l:"Bassin / mare ornementale"},
+    {v:"elagage",l:"Elagage / abattage d'arbres"},{v:"debroussaillage",l:"Debroussaillage / defrichement"},
+    {v:"cloture",l:"Cloture / portail"},{v:"terrasse",l:"Terrasse / dallage exterieur"},
+    {v:"abri_jardin",l:"Abri de jardin / carport bois"},{v:"bassin",l:"Bassin / mare ornementale"},
     {v:"amenagement_ext",l:"Amenagement exterieur general"},
   ],
   terrassier:[
-    {v:"terrassement",l:"Terrassement / nivellement"},
-    {v:"drainage",l:"Drainage / assainissement"},
-    {v:"voirie_privee",l:"Voirie privee / allee"},
-    {v:"fondations",l:"Fondations"},
-    {v:"mur_soutenement",l:"Mur de soutenement"},
-    {v:"remblai",l:"Remblai / deblai important"},
+    {v:"terrassement",l:"Terrassement / nivellement"},{v:"drainage",l:"Drainage / assainissement"},
+    {v:"voirie_privee",l:"Voirie privee / allee"},{v:"fondations",l:"Fondations"},
+    {v:"mur_soutenement",l:"Mur de soutenement"},{v:"remblai",l:"Remblai / deblai important"},
   ],
 };
 
-// ── RECOMMANDATIONS OFFICIELLES ─────────────────────────────
-// Chaque cle = une donnee retournee par l'API
-// Les valeurs = demarches reglementairement attachees a cette donnee
+// Recommandations officielles attachees a chaque donnee CONFIRMEE
 const REC={
-  zone_U:[
-    "Consulter le reglement de zone du PLU en mairie pour les prescriptions specifiques applicables a cette parcelle",
-    "Verifier les reculs obligatoires par rapport aux limites separatives et a la voie publique",
-  ],
-  zone_AU:[
-    "Consulter obligatoirement la mairie — zone AU (urbanisation future) soumise a conditions strictes",
-    "Une declaration prealable ou un permis de construire peut etre requis selon la nature des travaux (art. L421-1 Code urb.)",
-  ],
-  zone_A:[
-    "Consulter obligatoirement la mairie — en zone agricole, seules les constructions necessaires a l'exploitation agricole sont autorisees (art. L151-11 Code urb.)",
-    "Tout amenagement non agricole necessite une autorisation speciale de la CDPENAF",
-  ],
-  zone_N:[
-    "Consulter obligatoirement la mairie — en zone naturelle, constructions et amenagements sont tres strictement encadres (art. L151-13 Code urb.)",
-    "La plupart des travaux sont soumis a permis de construire ou declaration prealable",
-  ],
-  rnu:[
-    "Commune soumise au Reglement National d'Urbanisme — consulter la mairie pour connaitre les regles applicables",
-    "En RNU, toute construction en dehors des parties actuellement urbanisees est interdite (art. L111-3 Code urb.)",
-    "Demander un certificat d'urbanisme avant tout projet",
-  ],
-  ebc:[
-    "Espace Boise Classe (EBC) detecte — tout defrichement, coupe ou abattage est interdit sans autorisation (art. L113-1 Code urb.)",
-    "Deposer une declaration prealable en mairie avant toute intervention sur les arbres",
-    "Le non-respect est passible d'une amende de 1 200 EUR par arbre coupe",
-  ],
-  site_classe:[
-    "Site classe — toute modification de l'etat des lieux est soumise a autorisation ministerielle ou prefectorale (art. L341-10 Code env.)",
-    "Aucun travail ne peut commencer sans accord prealable de la DREAL ou du Ministere de la Culture",
-    "Contacter la DREAL de la region pour connaitre la procedure d'autorisation applicable",
-    "Delai d'instruction : 4 mois minimum pour les travaux autorises",
-  ],
-  reserve_naturelle:[
-    "Reserve naturelle — tout travail est soumis a autorisation du prefet (art. L332-6 Code env.)",
-    "Contacter la DDT du departement pour connaitre les activites autorisees et les conditions d'acces au chantier",
-    "Le non-respect est passible de sanctions penales (art. L332-22 Code env.) — amende jusqu'a 150 000 EUR",
-  ],
-  natura_habitat:[
-    "Zone Natura 2000 (Directive Habitats) — une evaluation des incidences peut etre requise avant tout projet (art. L414-4 Code env.)",
-    "Contacter la DDT du departement avant de demarrer — certains travaux declenchent obligatoirement cette procedure",
-    "Si evaluation requise : le dossier doit etre depose avec la demande de permis ou de declaration prealable",
-  ],
-  natura_oiseaux:[
-    "Zone Natura 2000 (Directive Oiseaux) — une evaluation des incidences peut etre requise (art. L414-4 Code env.)",
-    "Contacter la DDT du departement avant tout projet",
-  ],
-  znieff1:[
-    "ZNIEFF type 1 — inventaire du patrimoine naturel (pas de protection reglementaire directe)",
-    "La presence d'une ZNIEFF doit etre mentionnee dans tout dossier de permis ou declaration prealable",
-    "Pris en compte dans les decisions d'autorisation — peut conduire a des prescriptions supplementaires",
-  ],
-  loi_littoral:[
-    "Commune littorale — Loi Littoral applicable (loi n°86-2 du 3 jan. 1986, codifiee art. L121-1 Code urb.)",
-    "Dans la bande des 100m du rivage : toute construction est interdite sauf exception stricte (art. L121-16)",
-    "Dans les espaces proches du rivage : extension limitee de l'urbanisation, consulter le PLU et la mairie",
-    "Demander un certificat d'urbanisme en mairie pour connaitre les regles specifiques a cette parcelle",
-  ],
-  risque_inondation:[
-    "Zone soumise a risque inondation — consulter le Plan de Prevention des Risques inondation (PPRi) en mairie ou prefecture",
-    "Le PPRi peut interdire ou soumettre a conditions les travaux de terrassement, remblai et impermeabilisation",
-    "Toute demande de permis doit integrer une note sur la prise en compte du risque inondation",
-    "En zone rouge du PPRi : les travaux sont generalement interdits — contacter la mairie avant tout projet",
-  ],
-  risque_feu_foret:[
-    "Zone a risque incendie de foret — debroussaillage obligatoire sur 50 a 100m autour des constructions (art. L131-10 Code forestier)",
-    "Verifier les obligations DFCI (Defense des Forets Contre l'Incendie) aupres de la mairie ou du SDIS",
-    "Le non-respect expose le proprietaire a une amende et a la mise en oeuvre des travaux par la collectivite",
-  ],
-  risque_argile:[
-    "Zone argileuse (retrait-gonflement) — etude geotechnique G1 ou G2 obligatoire pour toute construction (art. L132-5 Code constr.)",
-    "L'etude de sol doit etre annexee a tout dossier de permis de construire",
-  ],
-  risque_seisme:[
-    "Zone sismique — travaux de construction soumis aux regles parasismiques (Eurocode 8, arrete du 22 oct. 2010)",
-    "Mentionner la zone sismique dans tout dossier de permis de construire ou declaration prealable",
-  ],
-  dict:[
-    "DICT obligatoire avant tout terrassement ou travaux a proximite de reseaux (art. R554-22 Code env.)",
-    "Delai minimum : 10 jours ouvres avant le debut des travaux",
-    "A deposer sur le guichet unique des reseaux : reseaux-et-canalisations.ineris.fr",
-    "Amende jusqu'a 6 000 EUR par infraction en cas de non-respect",
-  ],
-  acces_voie:[
-    "Pour le passage de camions ou engins lourds sur voie publique : verifier les limitations de gabarit et de tonnage aupres du gestionnaire de voirie (mairie, departement ou prefecture selon la route)",
-    "Un arrete de voirie peut etre necessaire pour les vehicules > 3,5t ou > 7,5t selon la classification de la route",
-    "Pour une route a acces reglemente (lotissement prive, domaine) : demander une autorisation de passage aupres du gestionnaire du domaine",
-    "En cas de doute : contacter la DDE/DDT du departement pour connaitre les restrictions applicables",
-  ],
+  zone_U:["Consulter le reglement de la zone en mairie pour les prescriptions applicables a cette parcelle","Verifier les reculs imposes par rapport aux limites separatives et a la voie"],
+  zone_AU:["Consulter la mairie : zone d'urbanisation future, soumise a conditions","Selon les travaux, deposer une declaration prealable ou un permis de construire (art. L421-1 Code urb.)"],
+  zone_A:["Consulter la mairie : zone agricole, seules les constructions liees a l'exploitation sont autorisees (art. L151-11 Code urb.)","Tout amenagement non agricole passe par une autorisation de la CDPENAF"],
+  zone_N:["Consulter la mairie : zone naturelle, constructions et amenagements strictement encadres (art. L151-13 Code urb.)","Selon les travaux, deposer une declaration prealable ou un permis de construire"],
+  rnu:["Demander un certificat d'urbanisme en mairie pour connaitre les regles applicables a la parcelle","En RNU, la construction hors des parties urbanisees est interdite (art. L111-3 Code urb.)"],
+  ebc:["Espace Boise Classe : tout abattage ou defrichement est interdit sans autorisation prealable (art. L113-1 Code urb.)","Deposer une declaration prealable en mairie avant toute intervention sur les arbres"],
+  site_classe:["Toute modification de l'etat des lieux passe par une autorisation prefectorale ou ministerielle (art. L341-10 Code env.)","Contacter la DREAL avant tout commencement — delai d'instruction de plusieurs mois"],
+  reserve_naturelle:["Tout travail passe par une autorisation du prefet (art. L332-6 Code env.)","Contacter la DDT du departement pour les conditions d'acces et d'intervention"],
+  natura_habitat:["Selon les travaux, une evaluation des incidences Natura 2000 est requise (art. L414-4 Code env.)","Contacter la DDT du departement avant de demarrer"],
+  natura_oiseaux:["Selon les travaux, une evaluation des incidences Natura 2000 est requise (art. L414-4 Code env.)","Contacter la DDT du departement avant de demarrer"],
+  znieff1:["Mentionner la ZNIEFF dans tout dossier de declaration prealable ou de permis","Inventaire pris en compte par l'administration dans ses decisions"],
+  loi_littoral:["Demander un certificat d'urbanisme en mairie pour les regles applicables a la parcelle","Bande des 100m du rivage : construction interdite hors espaces urbanises (art. L121-16 Code urb.)"],
+  risque_inondation:["Consulter le PPRi en mairie : il fixe ce qui est autorise ou interdit sur la parcelle","Integrer la prise en compte du risque dans tout dossier d'autorisation"],
+  risque_feu_foret:["Debroussaillement reglementaire autour des constructions (art. L131-10 Code forestier)","Verifier les obligations exactes aupres de la mairie ou du SDIS"],
+  risque_argile:["Etude geotechnique obligatoire avant construction en zone d'alea moyen ou fort (art. L132-5 Code constr.)","Annexer l'etude de sol au dossier de permis"],
+  risque_seisme:["Respecter les regles parasismiques Eurocode 8 pour toute construction (arrete du 22 oct. 2010)"],
+  dict:["Declarer l'intention de commencement des travaux (DICT) avant tout terrassement (art. R554-22 Code env.)","Depot sur le guichet unique au moins 10 jours ouvres avant"],
 };
 
-function recs(keys){
-  const items=[];
-  keys.forEach(k=>{if(REC[k])REC[k].forEach(r=>items.push(r));});
-  if(!items.length)return"";
-  return'<div class="rec-list">'+items.map(r=>'<div class="rec-item">'+r+'</div>').join("")+'</div>';
-}
-
-// ── ETAT ────────────────────────────────────────────────────
 let curMet="paysagiste",curAddr=null,acTmr=null;
 
 document.addEventListener("DOMContentLoaded",()=>{
-  updateTrav();
+  updT();
   document.querySelectorAll(".pill").forEach(p=>{
-    p.addEventListener("click",()=>{
-      document.querySelectorAll(".pill").forEach(x=>x.classList.remove("on"));
-      p.classList.add("on");
-      curMet=p.dataset.v;
-      document.getElementById("fMet").value=curMet;
-      updateTrav();
-    });
+    p.addEventListener("click",()=>{document.querySelectorAll(".pill").forEach(x=>x.classList.remove("on"));p.classList.add("on");curMet=p.dataset.v;document.getElementById("fMet").value=curMet;updT();});
   });
-  const inp=document.getElementById("aInput");
-  inp.addEventListener("input",()=>{
-    clearTimeout(acTmr);curAddr=null;hint("","");
-    const q=inp.value.trim();
-    if(q.length<3){closeAC();return;}
-    acTmr=setTimeout(()=>searchAC(q),350);
-  });
+  const inp=document.getElementById("aIn");
+  inp.addEventListener("input",()=>{clearTimeout(acTmr);curAddr=null;hint("","");const q=inp.value.trim();if(q.length<3){closeAC();return;}acTmr=setTimeout(()=>searchAC(q),350);});
   document.addEventListener("click",e=>{if(!e.target.closest(".ac-w"))closeAC();});
 });
 
-function updateTrav(){
-  const sel=document.getElementById("fTrav");
-  sel.innerHTML="<option value=''>-- Selectionnez --</option>";
-  (TRAVAUX[curMet]||[]).forEach(t=>{const o=document.createElement("option");o.value=t.v;o.textContent=t.l;sel.appendChild(o);});
-}
+function updT(){const sel=document.getElementById("fTrav");sel.innerHTML="<option value=''>-- Selectionnez --</option>";(TRAVAUX[curMet]||[]).forEach(t=>{const o=document.createElement("option");o.value=t.v;o.textContent=t.l;sel.appendChild(o);});}
 
-// ── GEOCODAGE ────────────────────────────────────────────────
 const GAPIS=[
-  {n:"BAN",fn:async q=>{
-    const r=await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=6`);
-    const d=await r.json();
-    return(d.features||[]).map(f=>({label:f.properties.label,name:f.properties.name||f.properties.label,city:f.properties.city||"",cp:f.properties.postcode||"",insee:f.properties.citycode||"",lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]}));
-  }},
-  {n:"Nom",fn:async q=>{
-    const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q+", France")}&limit=5&addressdetails=1`,{headers:{"Accept-Language":"fr"}});
-    const d=await r.json();
-    return d.map(i=>({label:i.display_name.split(",").slice(0,3).join(",").trim(),name:i.name||i.display_name.split(",")[0],city:i.address?.city||i.address?.town||i.address?.village||"",cp:i.address?.postcode||"",insee:"",lat:parseFloat(i.lat),lon:parseFloat(i.lon)}));
-  }},
-  {n:"Pho",fn:async q=>{
-    const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=fr&bbox=-5.1,41.3,9.6,51.1`);
-    const d=await r.json();
-    return(d.features||[]).filter(f=>!f.properties.country||f.properties.country==="France").map(f=>({label:[f.properties.name,f.properties.postcode,f.properties.city].filter(Boolean).join(", "),name:f.properties.name||"",city:f.properties.city||"",cp:f.properties.postcode||"",insee:"",lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]}));
-  }},
+  {n:"BAN",fn:async q=>{const r=await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=6`);const d=await r.json();return(d.features||[]).map(f=>({label:f.properties.label,name:f.properties.name||f.properties.label,city:f.properties.city||"",cp:f.properties.postcode||"",insee:f.properties.citycode||"",lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]}));}},
+  {n:"Nom",fn:async q=>{const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q+", France")}&limit=5&addressdetails=1`,{headers:{"Accept-Language":"fr"}});const d=await r.json();return d.map(i=>({label:i.display_name.split(",").slice(0,3).join(",").trim(),name:i.name||i.display_name.split(",")[0],city:i.address?.city||i.address?.town||i.address?.village||"",cp:i.address?.postcode||"",insee:"",lat:parseFloat(i.lat),lon:parseFloat(i.lon)}));}},
+  {n:"Pho",fn:async q=>{const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=fr&bbox=-5.1,41.3,9.6,51.1`);const d=await r.json();return(d.features||[]).filter(f=>!f.properties.country||f.properties.country==="France").map(f=>({label:[f.properties.name,f.properties.postcode,f.properties.city].filter(Boolean).join(", "),name:f.properties.name||"",city:f.properties.city||"",cp:f.properties.postcode||"",insee:"",lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]}));}},
 ];
 
 function closeAC(){document.getElementById("acDrop").classList.remove("open");}
@@ -414,17 +254,11 @@ function hint(msg,col){const el=document.getElementById("aHint");if(!msg){el.sty
 
 async function searchAC(q){
   const dp=document.getElementById("acDrop");
-  dp.innerHTML="<div class='ac-item' style='color:#555;cursor:default;font-size:13px;'>Recherche...</div>";
-  dp.classList.add("open");
-  for(const api of GAPIS){
-    try{
-      const res=await Promise.race([api.fn(q),new Promise((_,rej)=>setTimeout(()=>rej(),4000))]);
-      if(res&&res.length){renderAC(res);return;}
-    }catch(e){console.warn(api.n,e.message);}
-  }
+  dp.innerHTML="<div class='ac-item' style='color:#555;cursor:default;font-size:13px;'>Recherche...</div>";dp.classList.add("open");
+  for(const api of GAPIS){try{const res=await Promise.race([api.fn(q),new Promise((_,rej)=>setTimeout(()=>rej(),4000))]);if(res&&res.length){renderAC(res);return;}}catch(e){}}
   dp.innerHTML="";dp.classList.remove("open");
-  hint("Suggestions indisponibles — saisissez l'adresse complete et cliquez Analyser","#555");
-  curAddr={label:document.getElementById("aInput").value,lat:null,lon:null,insee:"",manual:true};
+  hint("Suggestions indisponibles — saisissez l'adresse complete puis cliquez Analyser","#999");
+  curAddr={label:document.getElementById("aIn").value,lat:null,lon:null,insee:"",manual:true};
 }
 
 function renderAC(items){
@@ -433,51 +267,64 @@ function renderAC(items){
     const div=document.createElement("div");div.className="ac-item";
     div.innerHTML=`<div class="ac-name">${it.name||it.label}</div><div class="ac-city">${it.cp} ${it.city}</div>`;
     div.addEventListener("click",()=>{
-      document.getElementById("aInput").value=it.label;
-      document.getElementById("fLat").value=it.lat;
-      document.getElementById("fLon").value=it.lon;
-      document.getElementById("fInsee").value=it.insee||"";
-      document.getElementById("fCity").value=it.city;
-      document.getElementById("fLabel").value=it.label;
-      curAddr=it;closeAC();
-      hint("\u2713 "+it.label,"#4caf68");
+      document.getElementById("aIn").value=it.label;document.getElementById("fLat").value=it.lat;document.getElementById("fLon").value=it.lon;
+      document.getElementById("fInsee").value=it.insee||"";document.getElementById("fCity").value=it.city;document.getElementById("fLabel").value=it.label;
+      curAddr=it;closeAC();hint("\u2713 Adresse localisee : "+it.label,"#4caf68");
     });
     dp.appendChild(div);
   });
   dp.classList.add("open");
 }
 
-async function geoFallback(q){
-  for(const api of GAPIS){
-    try{const res=await Promise.race([api.fn(q),new Promise((_,rej)=>setTimeout(()=>rej(),5000))]);if(res&&res.length&&res[0].lat)return res[0];}catch(e){}
+async function geoFB(q){for(const api of GAPIS){try{const res=await Promise.race([api.fn(q),new Promise((_,rej)=>setTimeout(()=>rej(),5000))]);if(res&&res.length&&res[0].lat)return res[0];}catch(e){}}return null;}
+
+// Appel API avec 1 retry automatique
+async function apicall(url,retries){
+  retries=retries===undefined?1:retries;
+  for(let i=0;i<=retries;i++){
+    try{
+      const r=await Promise.race([fetch(url),new Promise((_,rej)=>setTimeout(()=>rej(new Error("to")),9000))]);
+      if(!r.ok){if(i<retries)continue;return{ok:false,err:"HTTP "+r.status};}
+      return{ok:true,d:await r.json()};
+    }catch(e){if(i<retries)continue;return{ok:false,err:e.message};}
   }
-  return null;
+  return{ok:false,err:"echec"};
 }
 
-// ── APPELS APIs ───────────────────────────────────────────────
-async function call(url){
-  try{
-    const r=await Promise.race([fetch(url),new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),8000))]);
-    if(!r.ok)return{ok:false,err:"HTTP "+r.status};
-    return{ok:true,d:await r.json()};
-  }catch(e){return{ok:false,err:e.message};}
+async function nat(ep,lat,lon){const g=encodeURIComponent(JSON.stringify({type:"Point",coordinates:[lon,lat]}));return apicall(`https://apicarto.ign.fr/api/nature/${ep}?geom=${g}`);}
+
+async function fetchOSM(lat,lon){
+  const query=`[out:json][timeout:12];(way(around:250,${lat},${lon})[maxweight];way(around:250,${lat},${lon})[maxweightrating];way(around:250,${lat},${lon})["maxweight:hgv"];way(around:250,${lat},${lon})[access=private];way(around:250,${lat},${lon})[access=destination];way(around:250,${lat},${lon})[hgv=no];way(around:250,${lat},${lon})[hgv=destination];way(around:250,${lat},${lon})[vehicle=no];way(around:250,${lat},${lon})[motor_vehicle=no];way(around:250,${lat},${lon})[maxwidth];);out tags;`;
+  const endpoints=["https://overpass-api.de/api/interpreter","https://overpass.kumi.systems/api/interpreter"];
+  for(const ep of endpoints){
+    try{
+      const r=await Promise.race([fetch(ep,{method:"POST",body:"data="+encodeURIComponent(query),headers:{"Content-Type":"application/x-www-form-urlencoded"}}),new Promise((_,rej)=>setTimeout(()=>rej(),11000))]);
+      if(!r.ok)continue;
+      const d=await r.json();
+      const els=d.elements||[];
+      const restr=[];
+      els.forEach(el=>{
+        const t=el.tags||{};const name=t.name||t["addr:street"]||"Voie proche";
+        if(t.maxweight)restr.push({type:"weight",val:parseFloat(t.maxweight),name,raw:t.maxweight});
+        if(t["maxweight:hgv"])restr.push({type:"weight",val:parseFloat(t["maxweight:hgv"]),name,raw:t["maxweight:hgv"]});
+        if(t.maxweightrating)restr.push({type:"weight",val:parseFloat(t.maxweightrating),name,raw:t.maxweightrating});
+        if(t.maxwidth)restr.push({type:"width",val:parseFloat(t.maxwidth),name,raw:t.maxwidth});
+        if(t.hgv==="no")restr.push({type:"hgv_no",name});
+        if(t.hgv==="destination")restr.push({type:"hgv_dest",name});
+        if(t.vehicle==="no"||t.motor_vehicle==="no")restr.push({type:"veh_no",name});
+        if(t.access==="private")restr.push({type:"private",name});
+        if(t.access==="destination")restr.push({type:"dest",name});
+      });
+      return{ok:true,found:els.length>0,restr};
+    }catch(e){}
+  }
+  return{ok:false};
 }
 
-async function nat(ep,lat,lon){
-  const g=encodeURIComponent(JSON.stringify({type:"Point",coordinates:[lon,lat]}));
-  return call(`https://apicarto.ign.fr/api/nature/${ep}?geom=${g}`);
-}
+function gStep(id){document.querySelectorAll(".step").forEach(s=>{if(s.classList.contains("on")){s.classList.remove("on");s.classList.add("done");}});const el=document.getElementById(id);if(el)el.classList.add("on");}
 
-function nm(p){return p?.site_name||p?.sitename||p?.NOM_SITE||p?.nom_site||p?.libelle||p?.NOM||"";}
-
-function goStep(id){
-  document.querySelectorAll(".step").forEach(s=>{if(s.classList.contains("on")){s.classList.remove("on");s.classList.add("done");}});
-  const el=document.getElementById(id);if(el)el.classList.add("on");
-}
-
-// ── LANCEMENT ─────────────────────────────────────────────────
 async function go(){
-  const av=document.getElementById("aInput").value.trim();
+  const av=document.getElementById("aIn").value.trim();
   const tv=document.getElementById("fTrav").value;
   const er=document.getElementById("errBox");er.classList.remove("on");
   if(!av){er.textContent="Veuillez saisir une adresse.";er.classList.add("on");return;}
@@ -487,207 +334,204 @@ async function go(){
   document.getElementById("ftSec").style.display="none";
   document.getElementById("loadSec").classList.add("on");
   document.getElementById("resSec").classList.remove("on");
-  goStep("st1");
+  gStep("st1");
 
   let lat=parseFloat(document.getElementById("fLat").value)||curAddr?.lat;
   let lon=parseFloat(document.getElementById("fLon").value)||curAddr?.lon;
   let insee=document.getElementById("fInsee").value||curAddr?.insee||"";
   let label=document.getElementById("fLabel").value||curAddr?.label||av;
+  let geoOk=true;
+  if(!lat||!lon){const g=await geoFB(av);if(g){lat=g.lat;lon=g.lon;insee=g.insee||"";label=g.label||av;}else{geoOk=false;}}
 
-  if(!lat||!lon){const g=await geoFallback(av);if(g){lat=g.lat;lon=g.lon;insee=g.insee||"";label=g.label||av;}}
-
-  goStep("st2");
+  gStep("st2");
   let pluZ={ok:false},pluD={ok:false},presc={ok:false};
   if(lat&&lon){
     const g=encodeURIComponent(JSON.stringify({type:"Point",coordinates:[lon,lat]}));
-    [pluZ,pluD,presc]=await Promise.all([
-      call(`https://apicarto.ign.fr/api/gpu/zone-urba?geom=${g}`),
-      call(`https://apicarto.ign.fr/api/gpu/document?geom=${g}`),
-      call(`https://apicarto.ign.fr/api/gpu/prescription-surf?geom=${g}`),
-    ]);
+    [pluZ,pluD,presc]=await Promise.all([apicall(`https://apicarto.ign.fr/api/gpu/zone-urba?geom=${g}`),apicall(`https://apicarto.ign.fr/api/gpu/document?geom=${g}`),apicall(`https://apicarto.ign.fr/api/gpu/prescription-surf?geom=${g}`)]);
   }
-
-  goStep("st3");
+  gStep("st3");
   let siteC={ok:false},resN={ok:false},natH={ok:false},natO={ok:false},zni={ok:false};
-  if(lat&&lon){
-    [siteC,resN,natH,natO,zni]=await Promise.all([
-      nat("site-classe",lat,lon),
-      nat("reserve-naturelle",lat,lon),
-      nat("natura-habitat",lat,lon),
-      nat("natura-oiseaux",lat,lon),
-      nat("znieff1",lat,lon),
-    ]);
-  }
-
-  goStep("st4");
+  if(lat&&lon){[siteC,resN,natH,natO,zni]=await Promise.all([nat("site-classe",lat,lon),nat("reserve-naturelle",lat,lon),nat("natura-habitat",lat,lon),nat("natura-oiseaux",lat,lon),nat("znieff1",lat,lon)]);}
+  gStep("st4");
   let geo={ok:false};
-  if(lat&&lon)geo=await call(`https://georisques.gouv.fr/api/v1/gaspar/risques?latlon=${lon},${lat}&rayon=500`);
-
-  const littor=LITTORAL.has(insee);
-  goStep("st5");
-  await new Promise(r=>setTimeout(r,400));
+  if(lat&&lon)geo=await apicall(`https://georisques.gouv.fr/api/v1/gaspar/risques?latlon=${lon},${lat}&rayon=500`);
+  gStep("st5");
+  let osm={ok:false};
+  if(lat&&lon)osm=await fetchOSM(lat,lon);
+  const littor=insee?LITTORAL.has(insee):null;
+  gStep("st6");
+  await new Promise(r=>setTimeout(r,300));
 
   document.getElementById("loadSec").classList.remove("on");
   document.getElementById("resSec").classList.add("on");
-
   const tl=document.querySelector(`#fTrav option[value="${tv}"]`)?.textContent||tv;
   const ml=document.querySelector(".pill.on")?.textContent?.trim()||curMet;
-
-  render({label,ml,tl,pluZ,pluD,presc,siteC,resN,natH,natO,zni,geo,littor,lat,lon,insee});
+  render({label,ml,tl,geoOk,pluZ,pluD,presc,siteC,resN,natH,natO,zni,geo,osm,littor,lat,lon,insee});
 }
 
-// ── RENDU ─────────────────────────────────────────────────────
-function dr(ico,labelHtml,valHtml,recKeys){
-  const recHtml=recKeys&&recKeys.length?recs(recKeys):"";
-  return`<div class="dr"><div class="dr-ico">${ico}</div><div class="dr-body"><div class="dr-top"><span class="dr-label">${labelHtml}</span></div><div class="dr-val">${valHtml}</div>${recHtml}</div></div>`;
+// dr(statut, ico, label, valeur, recsKeys, todoArr)
+// statut: 'conf'(rouge) 'conf-o'(orange) 'none'(vert) 'nc'(gris/non couvert)
+function dr(statut,ico,labelHtml,valHtml,recKeys,todo){
+  const cls={conf:"s-conf",["conf-o"]:"s-conf-o",none:"s-none",nc:"s-nc"}[statut]||"";
+  let extra="";
+  if(recKeys&&recKeys.length){const items=[];recKeys.forEach(k=>{if(REC[k])REC[k].forEach(r=>items.push(r));});if(items.length)extra+='<div class="rec-list">'+items.map(r=>'<div class="rec-item">'+r+'</div>').join("")+'</div>';}
+  if(todo&&todo.length){extra+='<div class="todo-list">'+todo.map(t=>'<div class="todo-item">'+t+'</div>').join("")+'</div>';}
+  return`<div class="dr ${cls}"><div class="dr-ico">${ico}</div><div class="dr-body"><div class="dr-top"><span class="dr-label">${labelHtml}</span></div><div class="dr-val">${valHtml}</div>${extra}</div></div>`;
 }
 function chip(t,c){return`<span class="chip ${c}">${t}</span>`;}
-function miss(txt){return`<div class="miss"><span>!</span><span>Donnees non disponibles — ${txt} (API non joignable ou commune non couverte)</span></div>`;}
 function sh(t){return`<div class="sec"><div class="sec-head">${t}</div>`;}
+function nmOf(p){return p?.site_name||p?.sitename||p?.NOM_SITE||p?.nom_site||p?.libelle||p?.NOM||"";}
 
-function render({label,ml,tl,pluZ,pluD,presc,siteC,resN,natH,natO,zni,geo,littor,lat,lon,insee}){
-  const rouge=[],orange=[];
-  if(siteC.ok&&siteC.d?.features?.length>0)rouge.push("Site classe");
-  if(resN.ok&&resN.d?.features?.length>0)rouge.push("Reserve naturelle");
-  if(geo.ok){const codes=(geo.d?.data||[]).map(x=>(x.code_risque||"").toUpperCase());if(codes.some(c=>c.includes("INOND")||["11","12","13"].includes(c)))rouge.push("Zone inondable");}
-  if(natH.ok&&natH.d?.features?.length>0)orange.push("Natura 2000 Habitats");
-  if(natO.ok&&natO.d?.features?.length>0)orange.push("Natura 2000 Oiseaux");
-  if(zni.ok&&zni.d?.features?.length>0)orange.push("ZNIEFF type 1");
-  if(littor)orange.push("Loi Littoral");
+function render(D){
+  const {label,ml,tl,geoOk,pluZ,pluD,presc,siteC,resN,natH,natO,zni,geo,osm,littor,lat,lon,insee}=D;
+
+  // Comptage pour le verdict
+  let nbConf=0,nbAttention=0,nbNonCouvert=0;
+  if(siteC.ok&&siteC.d?.features?.length>0)nbConf++;
+  if(resN.ok&&resN.d?.features?.length>0)nbConf++;
+  if(geo.ok){const c=(geo.d?.data||[]).map(x=>(x.code_risque||"").toUpperCase());if(c.some(x=>x.includes("INOND")||["11","12","13"].includes(x)))nbConf++;}
+  if(natH.ok&&natH.d?.features?.length>0)nbAttention++;
+  if(natO.ok&&natO.d?.features?.length>0)nbAttention++;
+  if(zni.ok&&zni.d?.features?.length>0)nbAttention++;
+  if(littor===true)nbAttention++;
+  if(osm.ok&&osm.restr?.some(r=>r.type==="hgv_no"||r.type==="veh_no"||(r.type==="weight"&&r.val<=3.5)))nbConf++;
+  // Non couvert
+  if(!pluZ.ok)nbNonCouvert++;
+  if(!geo.ok)nbNonCouvert++;
+  if(!osm.ok||!osm.found)nbNonCouvert++;
+  if(littor===null)nbNonCouvert++;
 
   let vcl,vic,vtit,vdesc;
-  if(rouge.length>0){vcl="danger";vic="🚫";vtit="Contraintes reglementaires identifiees";vdesc=rouge.join(", ")+" — consultez la mairie et les organismes competents avant tout commencement.";}
-  else if(orange.length>0){vcl="warn";vic="⚠️";vtit="Zones de vigilance identifiees";vdesc=orange.join(", ")+" — des demarches complementaires sont requises avant de demarrer.";}
-  else if(!pluZ.ok&&!geo.ok){vcl="info";vic="ℹ️";vtit="Donnees partiellement disponibles";vdesc="Certaines bases n'ont pas repondu — consultez la mairie avant tout commencement.";}
-  else{vcl="ok";vic="✅";vtit="Aucune contrainte detectee dans les bases interrogees";vdesc="Les bases officielles ne signalent pas de zone protegee ou a risque sur cette adresse. Confirmez toujours en mairie.";}
+  if(nbConf>0){vcl="danger";vic="🚫";vtit="Contraintes confirmees sur cette adresse";vdesc="Une ou plusieurs contraintes reglementaires sont confirmees par les sources officielles. Detail et demarches ci-dessous.";}
+  else if(nbAttention>0){vcl="warn";vic="⚠️";vtit="Points de vigilance confirmes";vdesc="Des zones de vigilance sont confirmees sur cette adresse. Demarches a prevoir ci-dessous.";}
+  else if(nbNonCouvert>=3){vcl="info";vic="ℹ️";vtit="Couverture des donnees limitee sur cette adresse";vdesc="Plusieurs sources n'ont pas de donnee pour cette adresse. Suivez les actions indiquees dans chaque rubrique.";}
+  else{vcl="ok";vic="✅";vtit="Aucune contrainte trouvee dans les sources officielles";vdesc="Les sources interrogees ne signalent ni zone protegee ni risque sur cette adresse. La mairie reste l'autorite a consulter pour confirmer.";}
 
   const lGPU=lat?`https://www.geoportail-urbanisme.gouv.fr/map/#tile=1&lon=${lon}&lat=${lat}&zoom=18`:"https://www.geoportail-urbanisme.gouv.fr";
   const lGeo=lat?`https://www.georisques.gouv.fr/mes-risques/connaitre-les-risques-pres-de-chez-moi/rapport2?typeForm=adresse&adresse=${encodeURIComponent(label)}&lon=${lon}&lat=${lat}`:"https://www.georisques.gouv.fr";
+  const lSat=lat?`https://www.google.com/maps/@${lat},${lon},80m/data=!3m1!1e3`:"";
+  const lSV=lat?`https://www.google.com/maps?q=&layer=c&cbll=${lat},${lon}`:"";
 
   let h="";
-  h+=`<div class="addr-bar"><span>📍</span><div><strong>${label}</strong><br><span style="font-size:12px;color:var(--muted2)">${ml} — ${tl}</span></div></div>`;
+  h+=`<div class="addr-bar"><span>📍</span><div><strong>${label}</strong><span style="font-size:12px;color:var(--mu2)">${ml} — ${tl}</span></div></div>`;
   h+=`<div class="verdict ${vcl}"><div class="v-ico">${vic}</div><div><div class="v-title">${vtit}</div><div class="v-desc">${vdesc}</div></div></div>`;
+  // Legende des 3 etats
+  h+=`<div class="legend"><div class="legend-it"><span class="legend-dot ld-conf"></span>Contrainte confirmee par la source</div><div class="legend-it"><span class="legend-dot ld-none"></span>Aucune contrainte dans la source</div><div class="legend-it"><span class="legend-dot ld-nc"></span>Source non disponible — action indiquee</div></div>`;
 
-  // ── URBANISME PLU
+  if(!geoOk){
+    h+=sh("Geolocalisation");
+    h+=dr("nc","📍","Adresse non localisee","Les services de geolocalisation n'ont pas pu situer cette adresse precisement.",null,["Verifier l'orthographe et le format de l'adresse (numero, voie, code postal, commune)","Reessayer en selectionnant une suggestion dans la liste deroulante"]);
+    h+="</div>";
+  }
+
+  // ── 1. ACCES VEHICULES (priorite artisan)
+  h+=sh("Acces au chantier — vehicules et engins");
+  if(!lat||!lon){
+    h+=dr("nc","🚛","Acces vehicules","Adresse non localisee — impossible d'interroger les donnees de voirie.",null,["Verifier l'adresse pour relancer l'analyse"]);
+  }else if(!osm.ok){
+    h+=dr("nc","🚛","Restrictions de circulation","Le service OpenStreetMap n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants","Verifier sur place les panneaux en debut de voie (limitation de tonnage, largeur, sens interdit)"]);
+  }else if(osm.restr&&osm.restr.length>0){
+    const w=osm.restr.filter(r=>r.type==="weight"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
+    const wd=osm.restr.filter(r=>r.type==="width"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
+    const hgvNo=osm.restr.find(r=>r.type==="hgv_no");
+    const vehNo=osm.restr.find(r=>r.type==="veh_no");
+    const hgvDest=osm.restr.find(r=>r.type==="hgv_dest");
+    const priv=osm.restr.find(r=>r.type==="private");
+    const dest=osm.restr.find(r=>r.type==="dest");
+    if(vehNo)h+=dr("conf","⛔",`Circulation interdite — ${vehNo.name}`,"Une voie proche est fermee a la circulation des vehicules dans OpenStreetMap.",null,["Identifier un autre acces au chantier","Verifier sur place et contacter la mairie en cas de doute"]);
+    if(hgvNo)h+=dr("conf","🚛",`Poids lourds interdits — ${hgvNo.name}`,"Une voie proche interdit les poids lourds dans OpenStreetMap. L'acces en vehicule > 3,5 t n'est pas autorise sans derogation.",null,["Prevoir un vehicule leger ou un transbordement","Demander une derogation de tonnage a la mairie (voie communale) ou au Departement (route departementale)"]);
+    if(w.length>0){const mn=w[0];const st=mn.val<=3.5?"conf":"conf-o";h+=dr(st,"⚖️",`Limite de tonnage : ${mn.raw} t — ${mn.name}`,`Une voie proche porte une limite de masse de ${mn.raw} tonnes dans OpenStreetMap.`,null,[`Verifier le PTAC charge de votre vehicule par rapport a ${mn.raw} t`,"Si depassement : demander une derogation au gestionnaire de voirie (mairie ou Departement)"]);}
+    if(wd.length>0){const mn=wd[0];h+=dr("conf-o","↔️",`Largeur max : ${mn.raw} m — ${mn.name}`,`Une voie proche porte une limite de largeur de ${mn.raw} metres dans OpenStreetMap.`,null,[`Verifier la largeur de votre vehicule par rapport a ${mn.raw} m`]);}
+    if(hgvDest&&!hgvNo)h+=dr("conf-o","🚛",`Poids lourds : riverains uniquement — ${hgvDest.name}`,"Une voie proche reserve l'acces poids lourds aux riverains dans OpenStreetMap.",null,["Justifier l'intervention sur place (chantier riverain)","Contacter la mairie pour les conditions d'acces"]);
+    if(priv)h+=dr("conf-o","🔒",`Voie privee — ${priv.name}`,"Une voie d'acces est marquee comme privee dans OpenStreetMap.",null,["Obtenir l'autorisation du proprietaire, du syndic ou de l'association de riverains"]);
+    if(dest&&!hgvDest)h+=dr("conf-o","🚧",`Acces riverains — ${dest.name}`,"Une voie proche est reservee a la desserte locale dans OpenStreetMap.",null,["Acces autorise pour une intervention sur place ; verifier en cas de controle"]);
+    // Verif physique systematique
+    h+=dr("nc","🛰️","Verification de l'acces physique",`OpenStreetMap ne renseigne pas la largeur reelle ni la praticabilite de toutes les voies, en particulier les chemins ruraux. ${lat?`<a href="${lSat}" target="_blank">Vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:""}`,null,["Verifier visuellement l'acces (largeur, virages, surface, hauteur sous branches/cables) avant d'engager un vehicule lourd"]);
+  }else{
+    // OSM a repondu mais aucune restriction trouvee : etat NON COUVERT, pas un feu vert
+    h+=dr("nc","🚛","Restrictions de tonnage sur la voie d'acces","Aucune restriction n'est repertoriee dans OpenStreetMap autour de cette adresse. Pour les chemins ruraux, l'absence de donnee ne garantit pas l'absence de restriction ou d'obstacle physique.",null,["Verifier sur place les panneaux en debut de voie (tonnage, largeur, hauteur)",`Verifier l'acces physique : ${lat?`<a href="${lSat}" target="_blank">vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:"vue aerienne"} (largeur, virages, surface)`,"En cas de doute, contacter la mairie pour les arretes de circulation en vigueur"]);
+  }
+  h+="</div>";
+
+  // ── 2. URBANISME PLU
   h+=sh("Urbanisme — PLU (IGN Geoportail)");
-  if(!lat||!lon){h+="<div class='miss'><span>!</span><span>Adresse non geolocalisee.</span></div>";}
-  else if(!pluZ.ok){h+=miss("Zone PLU — IGN Geoportail");}
+  if(!lat||!lon){h+=dr("nc","🗂","Zone PLU","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
+  else if(!pluZ.ok){h+=dr("nc","🗂","Zone PLU","Le service IGN Geoportail n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants",`Consulter directement <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a> pour cette parcelle`]);}
   else{
     const feats=pluZ.d?.features||[];
     if(!feats.length){
-      h+=dr("📋","Document d'urbanisme","Aucun PLU numerique pour cette commune — Reglement National d'Urbanisme (RNU)",["rnu"]);
+      // PLU non couvert : la commune n'a pas numerise son document
+      h+=dr("nc","🗂","Document d'urbanisme","Cette commune n'a pas publie de document d'urbanisme numerise sur le Geoportail. Le Reglement National d'Urbanisme (RNU) s'applique alors par defaut.",["rnu"],["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
     }else{
-      const p=feats[0].properties;
-      const zone=p.typezone||"?";
-      const lib=p.libelle||p.libelong||zone;
-      const typeDoc=p.typedoc||"PLU";
-      const commune=p.nomcommune||"";
+      const p=feats[0].properties;const zone=p.typezone||"?";const lib=p.libelle||p.libelong||zone;const typeDoc=p.typedoc||"PLU";const commune=p.nomcommune||"";
       const zkey="zone_"+zone.charAt(0);
-      h+=dr("🗂","Zone "+chip(zone,"c-grey"),`${lib}${commune?" — "+commune:""}${pluZ.d?.features?.length>1?" <em style='color:var(--muted2);font-size:12px'>("+pluZ.d.features.length+" zones detectees)</em>":""}`,[zkey]);
-      if(pluD.ok&&pluD.d?.features?.length>0){
-        const dp=pluD.d.features[0].properties;
-        h+=dr("📄","Document",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,[]);
-      }else{h+=dr("📄","Type",typeDoc,[]);}
-      if(presc.ok){
-        const pf=presc.d?.features||[];
-        if(!pf.length){h+=dr("📌","Prescriptions surfaciques","Aucune prescription sur cette parcelle (pas d'EBC, etc.)",[]);}
-        else{pf.forEach(f=>{const pl=f.properties?.libelle||f.properties?.txtlibelle||f.properties?.typepsc||"Prescription";const isEBC=pl.toLowerCase().includes("boise")||pl.toLowerCase().includes("ebc");h+=dr("📌","Prescription "+chip("Detectee","c-orange"),pl,isEBC?["ebc"]:[]);});} 
-      }else{h+=miss("Prescriptions surfaciques (EBC, etc.) — IGN GPU");}
-      h+=dr("🔗","Consulter",`<a href="${lGPU}" target="_blank">Voir cette parcelle sur le Geoportail Urbanisme →</a>`,[]);
+      h+=dr("conf-o","🗂","Zone "+chip(zone,"cz"),`${lib}${commune?" — "+commune:""}${feats.length>1?` (${feats.length} zonages a cette adresse)`:""}`,[zkey],null);
+      if(pluD.ok&&pluD.d?.features?.length>0){const dp=pluD.d.features[0].properties;h+=dr("conf-o","📄","Document applicable",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,null,null);}
+      if(presc.ok){const pf=presc.d?.features||[];if(!pf.length){h+=dr("none","📌","Prescriptions (EBC, etc.)","Aucune prescription surfacique relevee sur cette parcelle.",null,null);}else{pf.forEach(f=>{const pl=f.properties?.libelle||f.properties?.txtlibelle||f.properties?.typepsc||"Prescription";const isEBC=(pl||"").toLowerCase().includes("bois");h+=dr("conf","📌","Prescription "+chip("Confirmee","cr"),pl,isEBC?["ebc"]:null,null);});}}
+      else{h+=dr("nc","📌","Prescriptions (EBC, etc.)","Donnee des prescriptions non disponible lors de cette recherche.",null,[`Verifier sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);}
+      h+=dr("none","🔗","Plan de la parcelle",`<a href="${lGPU}" target="_blank">Ouvrir cette parcelle sur le Geoportail Urbanisme →</a>`,null,null);
     }
   }
   h+="</div>";
 
-  // ── ACCES VEHICULES (demarche transversale importante)
-  h+=sh("Acces au chantier — vehicules et engins");
-  h+=dr("🚛","Passage de vehicules lourds ou engins",`Information a obtenir aupres du gestionnaire de voirie avant tout deplacement.`,["acces_voie"]);
-  h+="</div>";
-
-  // ── ZONES PROTEGEES
+  // ── 3. ZONES PROTEGEES
   h+=sh("Zones protegees — IGN Nature");
-  if(!lat||!lon){h+="<div class='miss'><span>!</span><span>Adresse non geolocalisee.</span></div>";}
+  if(!lat||!lon){h+=dr("nc","🌿","Zones protegees","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
   else{
-    if(!siteC.ok){h+=miss("Sites classes — IGN Nature");}
-    else{const sf=siteC.d?.features||[];if(!sf.length){h+=dr("🏛","Site classe",chip("Non detecte","c-green")+" dans la base IGN",[]);}else{sf.forEach(f=>{const n=nm(f.properties)||"Site classe";h+=dr("🏛","Site classe "+chip("DETECTE","c-red"),n,["site_classe"]);});}}
-
-    if(!resN.ok){h+=miss("Reserves naturelles — IGN Nature");}
-    else{const rf=resN.d?.features||[];if(!rf.length){h+=dr("🌳","Reserve naturelle",chip("Non detectee","c-green")+" dans la base IGN",[]);}else{rf.forEach(f=>{const n=nm(f.properties)||"Reserve naturelle";const t=f.properties?.type_espace||"Reserve naturelle";h+=dr("🌳",t+" "+chip("DETECTEE","c-red"),n,["reserve_naturelle"]);});}}
-
-    if(!natH.ok){h+=miss("Natura 2000 Habitats — IGN Nature");}
-    else{const hf=natH.d?.features||[];if(!hf.length){h+=dr("🌿","Natura 2000 Habitats",chip("Non detecte","c-green")+"",[]);}else{hf.forEach(f=>{const n=nm(f.properties)||"Site Natura 2000";h+=dr("🌿","Natura 2000 Habitats "+chip("DETECTE","c-orange"),n,["natura_habitat"]);});}}
-
-    if(!natO.ok){h+=miss("Natura 2000 Oiseaux — IGN Nature");}
-    else{const of=natO.d?.features||[];if(!of.length){h+=dr("🦅","Natura 2000 Oiseaux",chip("Non detecte","c-green")+"",[]);}else{of.forEach(f=>{const n=nm(f.properties)||"Zone Oiseaux";h+=dr("🦅","Natura 2000 Oiseaux "+chip("DETECTE","c-orange"),n,["natura_oiseaux"]);});}}
-
-    if(!zni.ok){h+=miss("ZNIEFF type 1 — IGN Nature");}
-    else{const zf=zni.d?.features||[];if(!zf.length){h+=dr("🔬","ZNIEFF type 1",chip("Non detecte","c-green")+"",[]);}else{zf.forEach(f=>{const n=nm(f.properties)||"ZNIEFF type 1";h+=dr("🔬","ZNIEFF type 1 "+chip("Inventaire","c-orange"),n,["znieff1"]);});}}
+    const blocks=[
+      {r:siteC,ic:"🏛",nom:"Site classe",rec:"site_classe"},
+      {r:resN,ic:"🌳",nom:"Reserve naturelle",rec:"reserve_naturelle"},
+      {r:natH,ic:"🌿",nom:"Natura 2000 (Habitats)",rec:"natura_habitat"},
+      {r:natO,ic:"🦅",nom:"Natura 2000 (Oiseaux)",rec:"natura_oiseaux"},
+      {r:zni,ic:"🔬",nom:"ZNIEFF type 1",rec:"znieff1"},
+    ];
+    blocks.forEach(b=>{
+      if(!b.r.ok){h+=dr("nc",b.ic,b.nom,"Donnee non disponible lors de cette recherche.",null,["Relancer l'analyse, ou verifier aupres de la DDT du departement"]);}
+      else{const f=b.r.d?.features||[];if(!f.length){h+=dr("none",b.ic,b.nom,chip("Aucune trouvee","cg"),null,null);}else{f.forEach(ft=>{const isHard=(b.rec==="site_classe"||b.rec==="reserve_naturelle");h+=dr(isHard?"conf":"conf-o",b.ic,b.nom+" "+chip("Confirmee",isHard?"cr":"co"),nmOf(ft.properties)||b.nom,[b.rec],null);});}}
+    });
   }
   h+="</div>";
 
-  // ── LOI LITTORAL
+  // ── 4. LOI LITTORAL
   h+=sh("Loi Littoral");
-  if(!insee){h+="<div class='miss'><span>!</span><span>Code INSEE non disponible — verification Loi Littoral impossible. Verifiez en mairie.</span></div>";}
-  else if(littor){h+=dr("🌊","Loi Littoral "+chip("APPLICABLE","c-orange"),`Cette commune est dans la liste officielle des communes soumises a la Loi Littoral (loi n°86-2 du 3 jan. 1986).`,["loi_littoral"]);}
-  else{h+=dr("🌊","Loi Littoral",chip("Non applicable","c-green")+" — commune non listee dans la liste officielle des communes littorales",[]);}
+  if(littor===null){h+=dr("nc","🌊","Loi Littoral","Code INSEE de la commune non disponible — verification impossible.",null,["Selectionner l'adresse dans la liste deroulante pour obtenir le code commune","Ou verifier le statut littoral aupres de la mairie"]);}
+  else if(littor===true){h+=dr("conf-o","🌊","Loi Littoral "+chip("Applicable","co"),"Commune inscrite dans la liste officielle des communes soumises a la Loi Littoral (loi n°86-2 du 3 janvier 1986).",["loi_littoral"],null);}
+  else{h+=dr("none","🌊","Loi Littoral",chip("Non applicable","cg")+" — commune absente de la liste officielle des communes littorales",null,null);}
   h+="</div>";
 
-  // ── RISQUES NATURELS
-  h+=sh("Risques naturels — Georisques (base GASPAR)");
-  if(!lat||!lon){h+="<div class='miss'><span>!</span><span>Adresse non geolocalisee.</span></div>";}
-  else if(!geo.ok){h+=miss("Risques naturels — API Georisques");}
+  // ── 5. RISQUES NATURELS
+  h+=sh("Risques naturels — Georisques (GASPAR)");
+  if(!lat||!lon){h+=dr("nc","🌊","Risques naturels","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
+  else if(!geo.ok){h+=dr("nc","🌊","Risques naturels","Le service Georisques n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse",`Consulter directement <a href="${lGeo}" target="_blank">le rapport Georisques</a> pour cette adresse`]);}
   else{
     const rd=geo.d?.data||[];
-    if(!rd.length){h+=dr("✅","Risques repertories","Aucun risque naturel ou technologique repertorie dans un rayon de 500m (base GASPAR)",[]);}
-    else{
-      const codes=rd.map(x=>(x.code_risque||"").toUpperCase());
-      const hasInond=codes.some(c=>c.includes("INOND")||["11","12","13"].includes(c));
-      const hasFeu=codes.some(c=>c.includes("FEU")||c==="51");
-      const hasArg=codes.some(c=>c.includes("ARGIL")||c==="61");
-      const hasSeis=codes.some(c=>c.includes("SEISM")||c==="55");
-      rd.forEach(r=>{
-        const code=(r.code_risque||"").toUpperCase();
-        let rk=[];
-        if(code.includes("INOND")||["11","12","13"].includes(code))rk=["risque_inondation"];
-        else if(code.includes("FEU")||code==="51")rk=["risque_feu_foret"];
-        else if(code.includes("ARGIL")||code==="61")rk=["risque_argile"];
-        else if(code.includes("SEISM")||code==="55")rk=["risque_seisme"];
-        h+=dr("⚠️",(r.libelle_risque||r.code_risque||"Risque")+" "+chip("Repertorie","c-orange"),"Repertorie dans la base GASPAR de Georisques",rk);
-      });
-      h+=dr("🔗","Rapport complet",`<a href="${lGeo}" target="_blank">Voir le rapport detaille Georisques pour cette adresse →</a>`,[]);
-    }
+    if(!rd.length){h+=dr("none","🌊","Risques naturels","Aucun risque repertorie dans un rayon de 500 m (base GASPAR).",null,null);}
+    else{rd.forEach(r=>{const code=(r.code_risque||"").toUpperCase();let rk=null;if(code.includes("INOND")||["11","12","13"].includes(code))rk=["risque_inondation"];else if(code.includes("FEU")||code==="51")rk=["risque_feu_foret"];else if(code.includes("ARGIL")||code==="61")rk=["risque_argile"];else if(code.includes("SEISM")||code==="55")rk=["risque_seisme"];const hard=code.includes("INOND")||["11","12","13"].includes(code);h+=dr(hard?"conf":"conf-o","⚠️",(r.libelle_risque||r.code_risque||"Risque")+" "+chip("Confirme",hard?"cr":"co"),"Repertorie dans la base officielle Georisques pour cette commune.",rk,null);});
+    h+=dr("none","🔗","Rapport complet",`<a href="${lGeo}" target="_blank">Ouvrir le rapport Georisques de cette adresse →</a>`,null,null);}
   }
   h+="</div>";
 
-  // ── DICT — obligatoire systematique
-  h+=sh("Demarche systematique — toutes zones");
-  h+=dr("⚡","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","c-orange"),`Obligatoire avant tout commencement de travaux impliquant des fouilles ou terrassement. <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">Guichet unique des reseaux →</a>`,["dict"]);
+  // ── 6. DICT (systematique terrassement/fouille)
+  h+=sh("Avant de creuser — toutes zones");
+  h+=dr("conf-o","⚡","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","co"),"Obligatoire avant tout terrassement, fouille ou abattage avec engins, pour eviter d'endommager les reseaux enterres.",["dict"],[`Deposer la DICT sur <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">le guichet unique</a> au moins 10 jours ouvres avant`]);
   h+="</div>";
 
-  // ── SOURCES
+  // ── LIENS
   h+=sh("Sources officielles");
-  h+=`<div class="links">
-    <a href="${lGPU}" target="_blank">🗺 Geoportail Urbanisme</a>
-    <a href="${lGeo}" target="_blank">🌊 Georisques</a>
-    <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">⚡ Reseaux DICT</a>
-    <a href="https://www.service-public.fr/particuliers/vosdroits/N319" target="_blank">🏛 Autorisations</a>
-    <a href="https://www.natura2000.fr" target="_blank">🌿 Natura 2000</a>
-  </div></div>`;
+  h+=`<div class="links"><a href="${lGPU}" target="_blank">🗺 Geoportail Urbanisme</a><a href="${lGeo}" target="_blank">🌊 Georisques</a>${lSat?`<a href="${lSat}" target="_blank">🛰️ Vue satellite</a>`:""}<a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">⚡ DICT reseaux</a><a href="https://www.service-public.fr/particuliers/vosdroits/N319" target="_blank">🏛 Autorisations</a></div></div>`;
 
   document.getElementById("resContent").innerHTML=h;
 }
 
-function reset(){
+function rst(){
   document.getElementById("homeSection").style.display="block";
   document.getElementById("ftSec").style.display="flex";
-  document.getElementById("resSec").classList.remove("on");
-  document.getElementById("loadSec").classList.remove("on");
-  document.getElementById("aInput").value="";
+  document.getElementById("resSec").classList.remove("on");document.getElementById("loadSec").classList.remove("on");
+  document.getElementById("aIn").value="";
   ["fLat","fLon","fInsee","fCity","fLabel"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
-  document.getElementById("fTrav").value="";
-  document.getElementById("errBox").classList.remove("on");
+  document.getElementById("fTrav").value="";document.getElementById("errBox").classList.remove("on");
   curAddr=null;hint("","");
-  document.querySelectorAll(".step").forEach(s=>s.classList.remove("on","done"));
-  document.getElementById("st1").classList.add("on");
+  document.querySelectorAll(".step").forEach(s=>s.classList.remove("on","done"));document.getElementById("st1").classList.add("on");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 </script>
