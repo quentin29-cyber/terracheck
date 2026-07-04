@@ -97,6 +97,22 @@ select option{background:#1c1712}
 .verdict.danger .v-title{color:var(--re)}
 .verdict.info .v-title{color:var(--bl)}
 .v-desc{font-size:13px;color:var(--mu2);line-height:1.5}
+.v-body{flex:1;min-width:0}
+.v-q{margin-top:12px}
+.v-q-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu2);margin-bottom:5px}
+.v-q-txt{font-size:13px;color:var(--tx);line-height:1.5}
+.v-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.v-list li{font-size:13px;color:var(--tx);line-height:1.45;padding-left:14px;position:relative}
+.v-list li::before{content:"•";position:absolute;left:0;color:var(--ac);font-weight:700}
+.dr-concret{margin-top:7px;padding-top:7px;border-top:1px solid var(--bd);font-size:12px;color:var(--mu2);line-height:1.55}
+.dr-concret strong{color:var(--tx)}
+.prio-zone{margin-bottom:4px}
+details.acc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+details.acc summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:13px;color:var(--tx);gap:10px}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"";width:8px;height:8px;border-right:2px solid var(--mu2);border-bottom:2px solid var(--mu2);transform:rotate(45deg);transition:transform .2s;flex-shrink:0}
+details.acc[open] summary::after{transform:rotate(-135deg)}
+details.acc .acc-body{padding:0 16px 16px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:14px;font-size:11px}
 .legend-it{display:flex;align-items:center;gap:6px;color:var(--mu2)}
 .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -160,6 +176,11 @@ select option{background:#1c1712}
   .print-head{display:block!important;font-weight:700;font-size:13px;margin-bottom:12px;color:#000}
   body{background:#fff;color:#000}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  /* L'accordeon "informations complementaires" doit toujours etre imprime deplie : aucune information ne doit
+     disparaitre silencieusement sur un rapport imprime/emporte sur chantier. */
+  details.acc{border:1px dashed #999}
+  details.acc summary::after{display:none}
+  details.acc>*:not(summary){display:block!important}
 }
 </style>
 </head>
@@ -285,6 +306,52 @@ const REC={
   old:["Debroussaillement obligatoire autour des constructions en zone exposee au feu de foret (art. L131-10 Code forestier)","Non-respect de l'OLD : amende possible et responsabilite engagee en cas de sinistre"],
   haies:["Destruction d'une haie : selon les cas, declaration prealable ou autorisation (PLU, art. L350-3 Code env., reglementation PAC/BCAE)","Alignements d'arbres bordant les voies : abattage soumis a declaration/autorisation prealable (art. L350-3 Code env.)"],
   paysage:["Element de paysage protege par le PLU (haie, arbre, plantation — art. L151-19 / L151-23 Code urb.) : travaux soumis a declaration prealable","Consulter le reglement du PLU en mairie avant intervention"],
+};
+
+// Priorisation critique(C)/secondaire(S) par type de travaux — cf. Specifications/Priorisation_Info_Par_Travaux_2026-07.md §1.4
+// Tranche de facon definitive par expert-produit : ne change QUE la place d'une rubrique dans le rapport, jamais sa presence.
+// 1 = critique (affichee directement) ; 0 = secondaire (accordeon "Voir aussi", jamais masque).
+const CRIT_TABLE={
+  acces_vehicule:            {elagage:1,debroussaillage:1,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  zone_plu:                  {elagage:0,debroussaillage:0,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  ebc:                       {elagage:1,debroussaillage:1,cloture:1,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:1,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  paysage_plu:               {elagage:1,debroussaillage:1,cloture:1,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:1,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  haies_l350:                {elagage:1,debroussaillage:1,cloture:1,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:1,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  site_classe:               {elagage:1,debroussaillage:1,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  reserve_naturelle:         {elagage:1,debroussaillage:1,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  natura2000:                {elagage:0,debroussaillage:1,cloture:0,terrasse:0,abri_jardin:0,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:0,fondations:1,mur_soutenement:1,remblai:1},
+  znieff1:                   {elagage:0,debroussaillage:0,cloture:0,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:0,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  littoral:                  {elagage:0,debroussaillage:0,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  risque_inondation:         {elagage:0,debroussaillage:0,cloture:0,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  risque_mvt_avalanche:      {elagage:0,debroussaillage:0,cloture:0,terrasse:0,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+  risque_feu_old:            {elagage:1,debroussaillage:1,cloture:0,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:1,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  risque_transport_matieres: {elagage:0,debroussaillage:0,cloture:0,terrasse:0,abri_jardin:0,bassin:0,amenagement_ext:0,terrassement:0,drainage:0,voirie_privee:0,fondations:0,mur_soutenement:0,remblai:0},
+  rga_argile:                {elagage:0,debroussaillage:0,cloture:0,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:0,terrassement:1,drainage:1,voirie_privee:0,fondations:1,mur_soutenement:1,remblai:1},
+  sismicite:                 {elagage:0,debroussaillage:0,cloture:0,terrasse:0,abri_jardin:1,bassin:0,amenagement_ext:0,terrassement:0,drainage:0,voirie_privee:0,fondations:1,mur_soutenement:1,remblai:0},
+  dict:                      {elagage:0,debroussaillage:0,cloture:1,terrasse:1,abri_jardin:1,bassin:1,amenagement_ext:1,terrassement:1,drainage:1,voirie_privee:1,fondations:1,mur_soutenement:1,remblai:1},
+};
+function isCrit(rid,trav){return !!(CRIT_TABLE[rid]&&CRIT_TABLE[rid][trav]);}
+
+// Paragraphes "Concretement" — texte fixe fourni par expert-produit (Specifications §2.2), injecte tel quel, jamais reformule.
+const CONCRET={
+  zone_U:"Zone deja urbanisee : construire ou amenager y est en principe autorise, sous reserve du reglement local (hauteur, emprise au sol, distances aux limites).",
+  zone_AU:"Zone pas encore urbanisee mais destinee a l'etre : construire y est possible mais generalement sous conditions, parfois apres une modification du PLU — le premier projet sur ce secteur n'est pas toujours simple a faire aboutir.",
+  zone_A:"Zone agricole : seules les constructions liees a l'activite agricole sont en principe autorisees. Un amenagement exterieur ou une construction non agricole y est interdit sauf autorisation speciale de la CDPENAF.",
+  zone_N:"Zone naturelle a preserver : les possibilites de construire ou d'amenager y sont tres limitees, qu'il y ait ou non un espace boise classe sur la parcelle.",
+  rnu:"Pas de document d'urbanisme local : ce sont les regles nationales par defaut qui s'appliquent — en general, construire est interdit en dehors des parties deja urbanisees de la commune, sauf exceptions precises.",
+  ebc:"la taille d'entretien courant d'un arbre reste en general possible sans demarche. C'est l'ABATTAGE, ou une coupe qui remet en cause la vocation boisee de la parcelle, qui est interdit sans declaration prealable en mairie. En cas de doute sur le geste prevu, demandez confirmation a la mairie avant d'intervenir : une taille mal interpretee comme un abattage peut etre verbalisee.",
+  site_classe:"toute intervention — meme un entretien d'espaces verts, la pose d'une cloture ou un simple terrassement — peut necessiter un accord prealable de la prefecture (site classe) ou du prefet (reserve naturelle). Le delai d'instruction se compte en semaines, parfois en mois : a anticiper avant de vous engager sur un delai de chantier aupres du client.",
+  reserve_naturelle:"toute intervention — meme un entretien d'espaces verts, la pose d'une cloture ou un simple terrassement — peut necessiter un accord prealable de la prefecture (site classe) ou du prefet (reserve naturelle). Le delai d'instruction se compte en semaines, parfois en mois : a anticiper avant de vous engager sur un delai de chantier aupres du client.",
+  natura2000:"la majorite des petits travaux (cloture, terrasse, entretien courant) n'ont pas a passer par une evaluation d'incidences Natura 2000 — le seuil depend de la nature et de l'ampleur precises du projet. Pour un defrichement, un terrassement de grande ampleur, ou un chantier proche d'une zone humide, verifiez aupres de la DDT(M) avant de demarrer.",
+  littoral:"dans la bande des 100 metres depuis le rivage, toute construction nouvelle est en principe interdite en dehors des espaces deja urbanises — cela vaut aussi pour une extension, un abri de jardin ou un bassin/une piscine. Au-dela de cette bande, d'autres regles peuvent s'appliquer (espaces proches du rivage, espaces remarquables). Le certificat d'urbanisme delivre par la mairie precise la regle exacte applicable a la parcelle.",
+  risque_inondation:"en zone inondable reglementee, le reglement du PPRi peut imposer une hauteur de plancher minimale, interdire les sous-sols, ou interdire purement et simplement de construire selon la zone (rouge/bleue). Ignorer cette regle peut rendre une construction illegale, pas seulement mal assuree : consultez le reglement en mairie avant de chiffrer le projet.",
+  risque_mvt:"ce risque concerne la stabilite du sol lui-meme (glissement, affaissement, eboulement). Pour des fondations, un mur de soutenement ou un remblai/deblai important, une etude geotechnique n'est pas un luxe : elle conditionne le dimensionnement de l'ouvrage et peut engager votre responsabilite en cas de sinistre si le risque etait connu et qu'elle n'a pas ete realisee.",
+  old:"l'obligation de debroussaillement (souvent 50 m autour des constructions, parfois 100 m selon arrete prefectoral) est a la charge du PROPRIETAIRE, mais l'artisan qui intervient a interet a connaitre le rayon exact pour dimensionner sa prestation et alerter son client en cas de non-conformite constatee. Le non-respect expose le proprietaire a une amende et engage sa responsabilite en cas d'incendie.",
+  rga_argile:"un sol argileux gonfle avec l'humidite et se retracte avec la secheresse — c'est l'une des principales causes de fissures sur les constructions recentes en France. En exposition moyenne ou forte, la loi ELAN impose une etude geotechnique avant la construction d'une maison individuelle ; pour un ouvrage annexe (mur de soutenement, dallage, terrasse), ce n'est pas toujours une obligation legale mais c'est fortement recommande pour eviter un sinistre qui reviendrait sur votre responsabilite professionnelle.",
+  sismicite:"a partir de la zone 2, les regles parasismiques (Eurocode 8) s'appliquent aux constructions neuves selon leur categorie d'importance — cela concerne la conception (ferraillage, fondations, chainages), pas uniquement les grands batiments. Un carport ou un mur de soutenement de plusieurs metres peut etre concerne selon sa hauteur et son usage.",
+  haies:"meme en dehors d'un Espace Boise Classe, une haie ou un alignement d'arbres bordant une voie peut etre protege par un arrete municipal ou par la reglementation PAC/BCAE pour les exploitants agricoles. L'arrachage ou la coupe a blanc peut alors necessiter une declaration prealable. Dans le doute, mieux vaut demander en mairie avant d'intervenir que risquer une remise en etat imposee apres coup.",
+  dict:"la DICT n'est pas une formalite optionnelle — c'est ce qui vous protege en cas de rupture d'un reseau enterre (gaz, electricite, fibre, eau) pendant vos travaux. Sans DICT deposee, la responsabilite de l'artisan est presque systematiquement retenue en cas d'incident, y compris financierement. Le delai legal (10 jours ouvres minimum) est a integrer dans le planning annonce au client, pas a decouvrir la veille du chantier.",
+  acces_vehicule:"une limite de tonnage affichee sur une voie concerne le poids total en charge autorise de votre vehicule (PTAC), pas son poids a vide — verifiez la carte grise. Un depassement sans derogation peut etre verbalise et engage votre assurance en cas d'accident sur un ouvrage non dimensionne pour ce poids (pont, chaussee).",
 };
 
 let curMet="paysagiste",curAddr=null,acTmr=null;
@@ -470,14 +537,16 @@ function svg(key,size,cls){const s=size||18;return`<svg viewBox="0 0 24 24" widt
 // Icone d'etat (codage redondant a la couleur, cf. §6.8) : rouge=croix, ambre=triangle, vert=coche, gris=point d'interrogation
 function stIco(statut){return{conf:"cross",["conf-o"]:"alert",none:"check",nc:"help"}[statut]||"help";}
 
-// dr(statut, sujetIcone, label, valeur, recsKeys, todoArr)
+// dr(statut, sujetIcone, label, valeur, recsKeys, todoArr, concret)
 // statut: 'conf'(rouge) 'conf-o'(orange) 'none'(vert) 'nc'(gris/non couvert)
 // sujetIcone: cle du sujet dans ICONS (ex. "pin","truck","waves"...)
-function dr(statut,sujetIcone,labelHtml,valHtml,recKeys,todo){
+// concret (optionnel): paragraphe "Concretement" fixe (cf. CONCRET), affiche sous les recommandations existantes, jamais a la place.
+function dr(statut,sujetIcone,labelHtml,valHtml,recKeys,todo,concret){
   const cls={conf:"s-conf",["conf-o"]:"s-conf-o",none:"s-none",nc:"s-nc"}[statut]||"";
   let extra="";
   if(recKeys&&recKeys.length){const items=[];recKeys.forEach(k=>{if(REC[k])REC[k].forEach(r=>items.push(r));});if(items.length)extra+='<div class="rec-list">'+items.map(r=>'<div class="rec-item">'+r+'</div>').join("")+'</div>';}
   if(todo&&todo.length){extra+='<div class="todo-list">'+todo.map(t=>'<div class="todo-item">'+t+'</div>').join("")+'</div>';}
+  if(concret){extra+='<div class="dr-concret"><strong>Concretement : </strong>'+concret+'</div>';}
   const icoHtml=svg(stIco(statut),13,"dr-state")+svg(sujetIcone,18,"dr-subj");
   return`<div class="dr ${cls}"><div class="dr-ico">${icoHtml}</div><div class="dr-body"><div class="dr-top"><span class="dr-label">${labelHtml}</span></div><div class="dr-val">${valHtml}</div>${extra}</div></div>`;
 }
@@ -493,27 +562,12 @@ function seisFor(seis,insee){if(!seis||!seis.ok)return null;const arr=seis.d?.da
 
 function render(D){
   const {label,ml,tl,met,trav,geoOk,pluZ,pluD,presc,siteC,resN,natH,natO,zni,geo,rga,seis,osm,littor,isRnu,lat,lon,insee}=D;
+  const crit=rid=>isCrit(rid,trav);
 
-  // Comptage pour le verdict
-  let nbConf=0,nbAttention=0,nbNonCouvert=0;
-  if(siteC.ok&&siteC.d?.features?.length>0)nbConf++;
-  if(resN.ok&&resN.d?.features?.length>0)nbConf++;
-  const _fam=geoFamilies(geo);
-  if(_fam){
-    if(_fam.some(f=>f.code==="11"))nbConf++; // inondation
-    // feu de foret, mouvement de terrain, avalanche, transport de matieres dangereuses : tous affiches "Confirme" en detail, donc tous comptes ici
-    if(_fam.some(f=>f.code==="16"||f.code==="12"||f.code==="14"||f.code==="24"))nbAttention++;
-  }
+  // Comptage "sources non couvertes" (inchange dans la logique, sert desormais la Regle 2 du bandeau a 3 questions)
+  let nbNonCouvert=0;
   const _rgaCe=rgaExpo(rga);
-  if(_rgaCe!==null&&_rgaCe>=2)nbAttention++;
   const _seisZ=seisFor(seis,insee);
-  if(_seisZ){const cz=parseInt(_seisZ.code_zone);if(cz>=2)nbAttention++;}
-  if(natH.ok&&natH.d?.features?.length>0)nbAttention++;
-  if(natO.ok&&natO.d?.features?.length>0)nbAttention++;
-  if(zni.ok&&zni.d?.features?.length>0)nbAttention++;
-  if(littor===true)nbAttention++;
-  if(osm.ok&&osm.restr?.some(r=>r.type==="hgv_no"||r.type==="veh_no"||(r.type==="weight"&&r.val<=3.5)))nbConf++;
-  // Non couvert (sources indisponibles pour cette adresse)
   if(!pluZ.ok)nbNonCouvert++;
   if(!geo.ok)nbNonCouvert++;
   if(_rgaCe===null)nbNonCouvert++;
@@ -522,172 +576,343 @@ function render(D){
   if(!osm.ok||!osm.found)nbNonCouvert++;
   if(littor===null)nbNonCouvert++;
 
-  let vcl,vic,vtit,vdesc;
-  if(nbConf>0){vcl="danger";vic="cross";vtit="Contraintes confirmees sur cette adresse";vdesc="Une ou plusieurs contraintes reglementaires sont confirmees par les sources officielles. Detail et demarches ci-dessous.";}
-  else if(nbAttention>0){vcl="warn";vic="alert";vtit="Points de vigilance confirmes";vdesc="Des zones de vigilance sont confirmees sur cette adresse. Demarches a prevoir ci-dessous.";}
-  else if(nbNonCouvert>=3){vcl="info";vic="info";vtit="Couverture des donnees limitee sur cette adresse";vdesc="Plusieurs sources n'ont pas de donnee pour cette adresse. Suivez les actions indiquees dans chaque rubrique.";}
-  else{vcl="ok";vic="check";vtit="Aucune contrainte trouvee dans les sources officielles";vdesc="Les sources interrogees ne signalent ni zone protegee ni risque sur cette adresse. La mairie reste l'autorite a consulter pour confirmer.";}
-
   const lGPU=lat?`https://www.geoportail-urbanisme.gouv.fr/map/#tile=1&lon=${lon}&lat=${lat}&zoom=18`:"https://www.geoportail-urbanisme.gouv.fr";
   const lGeo=lat?`https://www.georisques.gouv.fr/mes-risques/connaitre-les-risques-pres-de-chez-moi/rapport2?typeForm=adresse&adresse=${encodeURIComponent(label)}&lon=${lon}&lat=${lat}`:"https://www.georisques.gouv.fr";
   const lSat=lat?`https://www.google.com/maps/@${lat},${lon},80m/data=!3m1!1e3`:"";
   const lSV=lat?`https://www.google.com/maps?q=&layer=c&cbll=${lat},${lon}`:"";
 
+  // ---- Sections : chaque rubrique alimente soit la zone "prioritaire" soit la zone "secondaire" (accordeon),
+  // jamais aucune des deux n'est omise (principe directeur paragraphe 0 de la spec) ----
+  const SEC={};const SECORDER=[];
+  function S(key,title){if(!SEC[key]){SEC[key]={title,crit:[],sec:[]};SECORDER.push(key);}return SEC[key];}
+  function put(sectionKey,sectionTitle,rid,htmlStr){const s=S(sectionKey,sectionTitle);(crit(rid)?s.crit:s.sec).push(htmlStr);}
+
+  // ---- Etats de rubrique pour le bandeau a 3 questions (calcules a cote du HTML, jamais recalcules autrement) ----
+  const RUB=[];
+  // Addendum 2 (2026-07 §7) : classification A/B/C. Par defaut "C" (risque site-specifique, pese normalement sur Q1/Q2/Q3).
+  // "A" = obligation administrative routiniere et universelle (ex. dict) : jamais Q1, jamais Q2, toujours Q3 si confirmee.
+  // "B" = absence de donnee structurelle et permanente : etat "nc-structurel" (jamais Q1, toujours Q2, jamais Q3) ;
+  //       ce n'est pas un champ separe, l'etat "nc-structurel" lui-meme porte cette semantique quelle que soit la rubrique.
+  function addRub(id,label,state,val,opts){RUB.push(Object.assign({id,label,state,val,category:"C",recKeys:null,demarcheText:null,porteDemarche:true,ncAction:"verifier aupres de la mairie"},opts||{}));}
+
+  if(!geoOk){
+    S("geoloc","Geolocalisation").crit.push(dr("nc","pin","Adresse non localisee","Les services de geolocalisation n'ont pas pu situer cette adresse precisement.",null,["Verifier l'orthographe et le format de l'adresse (numero, voie, code postal, commune)","Reessayer en selectionnant une suggestion dans la liste deroulante"]));
+  }
+
+  // 1. ACCES VEHICULES - toujours critique
+  {
+    const T="Acces au chantier — vehicules et engins";
+    let accState="nc",accVal="Donnee non disponible pour cette adresse";
+    if(!lat||!lon){
+      put("acces",T,"acces_vehicule",dr("nc","truck","Acces vehicules","Adresse non localisee — impossible d'interroger les donnees de voirie.",null,["Verifier l'adresse pour relancer l'analyse"]));
+    }else if(!osm.ok){
+      put("acces",T,"acces_vehicule",dr("nc","truck","Restrictions de circulation","Le service OpenStreetMap n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants","Verifier sur place les panneaux en debut de voie (limitation de tonnage, largeur, sens interdit)"]));
+    }else if(osm.restr&&osm.restr.length>0){
+      const w=osm.restr.filter(r=>r.type==="weight"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
+      const wd=osm.restr.filter(r=>r.type==="width"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
+      const hgvNo=osm.restr.find(r=>r.type==="hgv_no");
+      const vehNo=osm.restr.find(r=>r.type==="veh_no");
+      const hgvDest=osm.restr.find(r=>r.type==="hgv_dest");
+      const priv=osm.restr.find(r=>r.type==="private");
+      const dest=osm.restr.find(r=>r.type==="dest");
+      const blocking=!!(vehNo||hgvNo||(w.length>0&&w[0].val<=3.5));
+      accState=blocking?"conf":"conf-o";
+      if(vehNo)accVal=`Circulation interdite — ${vehNo.name}`;
+      else if(hgvNo)accVal=`Poids lourds interdits — ${hgvNo.name}`;
+      else if(w.length>0)accVal=`Limite de tonnage ${w[0].raw} t — ${w[0].name}`;
+      else if(wd.length>0)accVal=`Largeur max ${wd[0].raw} m — ${wd[0].name}`;
+      else if(hgvDest)accVal=`Poids lourds riverains uniquement — ${hgvDest.name}`;
+      else if(priv)accVal=`Voie privee — ${priv.name}`;
+      else if(dest)accVal=`Acces riverains — ${dest.name}`;
+      if(vehNo)put("acces",T,"acces_vehicule",dr("conf","ban",`Circulation interdite — ${vehNo.name}`,"Une voie proche est fermee a la circulation des vehicules dans OpenStreetMap.",null,["Identifier un autre acces au chantier","Verifier sur place et contacter la mairie en cas de doute"]));
+      if(hgvNo)put("acces",T,"acces_vehicule",dr("conf","truck",`Poids lourds interdits — ${hgvNo.name}`,"Une voie proche interdit les poids lourds dans OpenStreetMap. L'acces en vehicule > 3,5 t n'est pas autorise sans derogation.",null,["Prevoir un vehicule leger ou un transbordement","Demander une derogation de tonnage a la mairie (voie communale) ou au Departement (route departementale)"]));
+      if(w.length>0){const mn=w[0];const st=mn.val<=3.5?"conf":"conf-o";put("acces",T,"acces_vehicule",dr(st,"weight",`Limite de tonnage : ${mn.raw} t — ${mn.name}`,`Une voie proche porte une limite de masse de ${mn.raw} tonnes dans OpenStreetMap.`,null,[`Verifier le PTAC charge de votre vehicule par rapport a ${mn.raw} t`,"Si depassement : demander une derogation au gestionnaire de voirie (mairie ou Departement)"],CONCRET.acces_vehicule));}
+      if(wd.length>0){const mn=wd[0];put("acces",T,"acces_vehicule",dr("conf-o","width",`Largeur max : ${mn.raw} m — ${mn.name}`,`Une voie proche porte une limite de largeur de ${mn.raw} metres dans OpenStreetMap.`,null,[`Verifier la largeur de votre vehicule par rapport a ${mn.raw} m`]));}
+      if(hgvDest&&!hgvNo)put("acces",T,"acces_vehicule",dr("conf-o","truck",`Poids lourds : riverains uniquement — ${hgvDest.name}`,"Une voie proche reserve l'acces poids lourds aux riverains dans OpenStreetMap.",null,["Justifier l'intervention sur place (chantier riverain)","Contacter la mairie pour les conditions d'acces"]));
+      if(priv)put("acces",T,"acces_vehicule",dr("conf-o","lock",`Voie privee — ${priv.name}`,"Une voie d'acces est marquee comme privee dans OpenStreetMap.",null,["Obtenir l'autorisation du proprietaire, du syndic ou de l'association de riverains"]));
+      if(dest&&!hgvDest)put("acces",T,"acces_vehicule",dr("conf-o","cone",`Acces riverains — ${dest.name}`,"Une voie proche est reservee a la desserte locale dans OpenStreetMap.",null,["Acces autorise pour une intervention sur place ; verifier en cas de controle"]));
+      put("acces",T,"acces_vehicule",dr("nc","satellite","Verification de l'acces physique",`OpenStreetMap ne renseigne pas la largeur reelle ni la praticabilite de toutes les voies, en particulier les chemins ruraux. ${lat?`<a href="${lSat}" target="_blank">Vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:""}`,null,["Verifier visuellement l'acces (largeur, virages, surface, hauteur sous branches/cables) avant d'engager un vehicule lourd"]));
+    }else{
+      put("acces",T,"acces_vehicule",dr("nc","truck","Restrictions de tonnage sur la voie d'acces","Aucune restriction n'est repertoriee dans OpenStreetMap autour de cette adresse. Pour les chemins ruraux, l'absence de donnee ne garantit pas l'absence de restriction ou d'obstacle physique.",null,["Verifier sur place les panneaux en debut de voie (tonnage, largeur, hauteur)",`Verifier l'acces physique : ${lat?`<a href="${lSat}" target="_blank">vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:"vue aerienne"} (largeur, virages, surface)`,"En cas de doute, contacter la mairie pour les arretes de circulation en vigueur"]));
+      // Addendum 2026-07 §6.3 : OSM a repondu mais ne reference aucune restriction dans son perimetre (250m) -> lacune
+      // structurelle et quasi universelle sur les chemins ruraux (cf. Faisabilite_Gabarits_Limitants), distincte d'un
+      // service indisponible. Rendu visuel inchange (toujours "nc" gris) ; seule la participation au calcul de la
+      // Question 1 change (exclue de l'etape 3 de la Regle 1, cf. banniere plus bas). La puce Question 2 reste obligatoire.
+      accState="nc-structurel";
+      accVal="Aucune restriction repertoriee (donnee non garantie sur chemin rural)";
+    }
+    addRub("acces_vehicule","Acces vehicule",accState,accVal,{demarcheText:accState==="conf"?"Demander une derogation de tonnage/gabarit a la mairie (voie communale) ou au Departement (route departementale) avant d'engager le vehicule.":null,ncAction:"verifiez sur place les panneaux et l'acces physique avant d'engager un vehicule"});
+  }
+
+  // 2. URBANISME PLU
+  {
+    const T="Urbanisme — PLU (IGN Geoportail)";
+    let zoneState="nc",zoneVal="Statut non determine",zoneRecKey=null,zoneConcret=null;
+    let ebcState="nc",ebcVal="Donnee non disponible";
+    let paysState="nc",paysVal="Donnee non disponible";
+    if(!lat||!lon){
+      put("urba",T,"zone_plu",dr("nc","map","Zone PLU","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]));
+    }else if(!pluZ.ok){
+      put("urba",T,"zone_plu",dr("nc","map","Zone PLU","Le service IGN Geoportail n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants",`Consulter directement <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a> pour cette parcelle`]));
+    }else{
+      const feats=pluZ.d?.features||[];
+      if(!feats.length){
+        if(isRnu===true){
+          zoneState="conf-o";zoneVal="RNU (pas de document d'urbanisme local)";zoneRecKey="rnu";zoneConcret=CONCRET.rnu;
+          put("urba",T,"zone_plu",dr("conf-o","map","Commune au Reglement National d'Urbanisme "+chip("RNU","co"),"Cette commune n'a pas de document d'urbanisme local : c'est le Reglement National d'Urbanisme qui s'applique (statut confirme par l'IGN).",["rnu"],["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"],CONCRET.rnu));
+        }else if(isRnu===false){
+          put("urba",T,"zone_plu",dr("nc","map","Zonage non restitue a cette adresse","La commune dispose bien d'un document d'urbanisme (elle n'est pas au RNU), mais aucun zonage n'est renvoye pour ce point precis : document seulement partiellement numerise sur le Geoportail, ou point en limite de parcelle.",null,["Demander un certificat d'urbanisme gratuit en mairie : seul document qui fait foi sur les regles de la parcelle",`Verifier la parcelle sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]));
+        }else{
+          put("urba",T,"zone_plu",dr("nc","map","Document d'urbanisme","Aucun zonage numerise n'est renvoye pour cette adresse et le statut RNU de la commune n'a pas pu etre verifie.",null,["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]));
+        }
+      }else{
+        const p=feats[0].properties;const zone=p.typezone||"?";const lib=p.libelle||p.libelong||zone;const typeDoc=p.typedoc||"PLU";const commune=p.nomcommune||"";
+        const zkey=zone.startsWith("AU")?"zone_AU":"zone_"+zone.charAt(0);
+        const zLetter=zone.startsWith("AU")?"AU":zone.charAt(0);
+        const zConcretKey={U:"zone_U",AU:"zone_AU",A:"zone_A",N:"zone_N"}[zLetter];
+        // Addendum 2026-07 §6.2 : une zone U (constructible standard) n'est pas en soi une contrainte -> etat "none" (vert).
+        // AU/A/N et le statut RNU restent une contrainte reelle -> etat "conf-o" (orange), inchange. Les recommandations
+        // deja associees a chaque zone (y compris zone_U) restent affichees a l'identique, quel que soit l'etat.
+        const zoneStatut=zLetter==="U"?"none":"conf-o";
+        zoneState=zoneStatut;zoneVal=`Zone ${zone}${commune?" — "+commune:""}`;zoneRecKey=zkey;zoneConcret=zConcretKey?CONCRET[zConcretKey]:null;
+        put("urba",T,"zone_plu",dr(zoneStatut,"map","Zone "+chip(zone,"cz"),`${lib}${commune?" — "+commune:""}${feats.length>1?` (${feats.length} zonages a cette adresse)`:""}`,[zkey],null,zoneConcret));
+        if(pluD.ok&&pluD.d?.features?.length>0){const dp=pluD.d.features[0].properties;put("urba",T,"zone_plu",dr("conf-o","file","Document applicable",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,null,null));}
+      }
+      if(presc.ok){
+        ebcState="none";ebcVal="Aucune prescription EBC relevee";paysState="none";paysVal="Aucun element de paysage protege releve";
+        const pf=presc.d?.features||[];
+        if(!pf.length){
+          put("urba",T,"ebc",dr("none","file","Prescriptions (EBC, etc.)","Aucune prescription surfacique relevee sur cette parcelle.",null,null));
+        }else{
+          pf.forEach(f=>{
+            const pr=f.properties||{};const pl=pr.libelle||pr.txt||pr.lib_idpsc||"Prescription";const code=String(pr.typepsc||"");const lc=(pl||"").toLowerCase();
+            const isEBC=code==="01"||/espaces*bois|ebc/.test(lc);
+            const isPaysage=code==="07"||code==="08"||/paysage|haie|arbre|alignement|planta/.test(lc);
+            const ico=isEBC?"tree":"file";
+            if(isEBC){ebcState="conf";ebcVal=pl;}
+            if(isPaysage){paysState="conf";paysVal=pl;}
+            put("urba",T,isEBC?"ebc":"paysage_plu",dr("conf",ico,(isEBC?"Espace Boise Classe (EBC) ":"Prescription ")+chip("Confirmee","cr"),pl,isEBC?["ebc"]:(isPaysage?["paysage"]:null),null,isEBC?CONCRET.ebc:null));
+          });
+        }
+      }else{
+        put("urba",T,"ebc",dr("nc","file","Prescriptions (EBC, etc.)","Donnee des prescriptions non disponible lors de cette recherche.",null,[`Verifier sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]));
+      }
+      put("urba",T,"zone_plu",dr("none","link","Plan de la parcelle",`<a href="${lGPU}" target="_blank">Ouvrir cette parcelle sur le Geoportail Urbanisme →</a>`,null,null));
+    }
+    addRub("zone_plu","Zone PLU / RNU",zoneState,zoneVal,{recKeys:zoneRecKey?[zoneRecKey]:null,ncAction:"demander un certificat d'urbanisme gratuit en mairie"});
+    addRub("ebc","Espace Boise Classe (EBC)",ebcState,ebcVal,{recKeys:ebcState==="conf"?["ebc"]:null,ncAction:"verifier sur le Geoportail Urbanisme ou en mairie"});
+    addRub("paysage_plu","Element de paysage protege (PLU)",paysState,paysVal,{recKeys:paysState==="conf"?["paysage"]:null,ncAction:"verifier sur le Geoportail Urbanisme ou en mairie"});
+  }
+
+  // 3. ZONES PROTEGEES
+  {
+    const T="Zones protegees — IGN Nature";
+    function stateOf(r,hard){if(!r.ok)return"nc";const n=r.d?.features?.length||0;return n>0?(hard?"conf":"conf-o"):"none";}
+    if(!lat||!lon){
+      put("zones",T,"site_classe",dr("nc","leaf","Zones protegees","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]));
+    }else{
+      const blocks=[
+        {r:siteC,ic:"landmark",nom:"Site classe",rec:"site_classe",rid:"site_classe"},
+        {r:resN,ic:"tree",nom:"Reserve naturelle",rec:"reserve_naturelle",rid:"reserve_naturelle"},
+        {r:natH,ic:"leaf",nom:"Natura 2000 (Habitats)",rec:"natura_habitat",rid:"natura2000"},
+        {r:natO,ic:"bird",nom:"Natura 2000 (Oiseaux)",rec:"natura_oiseaux",rid:"natura2000"},
+        {r:zni,ic:"search",nom:"ZNIEFF type 1",rec:"znieff1",rid:"znieff1"},
+      ];
+      blocks.forEach(b=>{
+        if(!b.r.ok){put("zones",T,b.rid,dr("nc",b.ic,b.nom,"Donnee non disponible lors de cette recherche.",null,["Relancer l'analyse, ou verifier aupres de la DDT du departement"]));}
+        else{const f=b.r.d?.features||[];if(!f.length){put("zones",T,b.rid,dr("none",b.ic,b.nom,chip("Aucune trouvee","cg"),null,null));}else{const isHard=(b.rec==="site_classe"||b.rec==="reserve_naturelle");f.forEach(ft=>{const concretText=b.rec==="site_classe"?CONCRET.site_classe:(b.rec==="reserve_naturelle"?CONCRET.reserve_naturelle:(b.rid==="natura2000"?CONCRET.natura2000:null));put("zones",T,b.rid,dr(isHard?"conf":"conf-o",b.ic,b.nom+" "+chip("Confirmee",isHard?"cr":"co"),nmOf(ft.properties)||b.nom,[b.rec],null,concretText));});}}
+      });
+    }
+    const siteState=stateOf(siteC,true);const siteVal=siteState==="conf"?(nmOf(siteC.d?.features?.[0]?.properties)||"Site classe confirme"):"Site classe";
+    const resState=stateOf(resN,true);const resVal=resState==="conf"?(nmOf(resN.d?.features?.[0]?.properties)||"Reserve naturelle confirmee"):"Reserve naturelle";
+    const natHstate=stateOf(natH,false),natOstate=stateOf(natO,false);
+    let natState,natVal;
+    if(natHstate==="conf-o"||natOstate==="conf-o"){natState="conf-o";natVal=natHstate==="conf-o"?(nmOf(natH.d?.features?.[0]?.properties)||"Natura 2000 (Habitats)"):(nmOf(natO.d?.features?.[0]?.properties)||"Natura 2000 (Oiseaux)");}
+    else if(natHstate==="nc"||natOstate==="nc"){natState="nc";natVal="Donnee Natura 2000 non disponible";}
+    else{natState="none";natVal="Aucune zone Natura 2000 trouvee";}
+    const zniState=stateOf(zni,false);const zniVal=zniState==="conf-o"?(nmOf(zni.d?.features?.[0]?.properties)||"ZNIEFF type 1"):"ZNIEFF type 1";
+    addRub("site_classe","Site classe",siteState,siteVal,{recKeys:siteState==="conf"?["site_classe"]:null,ncAction:"verifier aupres de la DDT du departement"});
+    addRub("reserve_naturelle","Reserve naturelle",resState,resVal,{recKeys:resState==="conf"?["reserve_naturelle"]:null,ncAction:"verifier aupres de la DDT du departement"});
+    addRub("natura2000","Natura 2000",natState,natVal,{recKeys:(natState==="conf-o")?["natura_habitat"]:null,ncAction:"verifier aupres de la DDT du departement"});
+    addRub("znieff1","ZNIEFF type 1",zniState,zniVal,{porteDemarche:false});
+  }
+
+  // 4. LOI LITTORAL
+  {
+    const T="Loi Littoral";
+    if(littor===null){put("littoral",T,"littoral",dr("nc","waves","Loi Littoral","Statut littoral de la commune non verifie (service IGN indisponible ou commune non identifiee).",null,["Selectionner l'adresse dans la liste deroulante","Ou verifier le statut littoral aupres de la mairie"]));}
+    else if(littor===true){put("littoral",T,"littoral",dr("conf-o","waves","Loi Littoral "+chip("Applicable","co"),"Commune classee littorale par l'IGN (Geoportail de l'Urbanisme), au titre de la loi n°86-2 du 3 janvier 1986.",["loi_littoral"],null,CONCRET.littoral));}
+    else{put("littoral",T,"littoral",dr("none","waves","Loi Littoral",chip("Non applicable","cg")+" — commune non classee littorale (mer/estuaire) par l'IGN. Certaines communes riveraines de grands lacs peuvent l'etre sans figurer ici.",null,null));}
+    const littState=littor===null?"nc":(littor===true?"conf-o":"none");
+    addRub("littoral","Loi Littoral",littState,"Loi Littoral confirmee applicable",{recKeys:littor===true?["loi_littoral"]:null,ncAction:"verifier le statut littoral aupres de la mairie"});
+  }
+
+  // 5. RISQUES NATURELS (Georisques/GASPAR)
+  let feuGasparState="nc";
+  {
+    const T="Risques naturels — Georisques (GASPAR)";
+    let inondState="nc",inondVal="Donnee non disponible";
+    let mvtState="nc",mvtVal="Donnee non disponible";
+    let transportState="nc",transportVal="Donnee non disponible";
+    if(!lat||!lon){
+      put("risques",T,"risque_inondation",dr("nc","waves","Risques naturels","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]));
+    }else if(!geo.ok){
+      put("risques",T,"risque_inondation",dr("nc","waves","Risques naturels","Le service Georisques n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse",`Consulter directement <a href="${lGeo}" target="_blank">le rapport Georisques</a> pour cette adresse`]));
+    }else{
+      inondState="none";mvtState="none";feuGasparState="none";transportState="none";
+      const fam=geoFamilies(geo)||[];
+      let shown=0;
+      fam.forEach(f=>{
+        let rk=null,hard=false,ico="alert",rid="risque_inondation",concret=null;
+        if(f.code==="11"){rk=["risque_inondation"];hard=true;ico="waves";rid="risque_inondation";inondState="conf";inondVal=f.label;concret=CONCRET.risque_inondation;}
+        else if(f.code==="16"){rk=["risque_feu_foret"];ico="flame";rid="risque_feu_old";feuGasparState="conf-o";}
+        else if(f.code==="12"){rk=["risque_mvt"];ico="mountain";rid="risque_mvt_avalanche";mvtState="conf-o";mvtVal=f.label;concret=CONCRET.risque_mvt;}
+        else if(f.code==="14"){ico="mountain";rid="risque_mvt_avalanche";mvtState="conf-o";mvtVal=f.label;concret=CONCRET.risque_mvt;}
+        else if(f.code==="24"){rid="risque_transport_matieres";transportState="conf-o";transportVal=f.label;}
+        else if(f.code==="13"||f.code==="18"||f.code==="17"){return;}
+        shown++;
+        put("risques",T,rid,dr(hard?"conf":"conf-o",ico,f.label+" "+chip("Confirme",hard?"cr":"co"),"Risque repertorie dans la base officielle Georisques pour cette commune.",rk,null,concret));
+      });
+      {
+        const ce=rgaExpo(rga);const ex=rga.d?.exposition||"";
+        if(ce!==null){
+          if(ce>=2){put("risques",T,"rga_argile",dr("conf-o","layers","Retrait-gonflement des argiles "+chip(ex,"co"),"Sol argileux, "+(ex||"").toLowerCase()+" au retrait-gonflement (Georisques). Peut imposer une etude geotechnique avant construction.",["risque_argile"],null,CONCRET.rga_argile));shown++;}
+          else{put("risques",T,"rga_argile",dr("none","layers","Retrait-gonflement des argiles",chip(ex||"Exposition faible ou nulle","cg"),null,null));shown++;}
+        }else{
+          put("risques",T,"rga_argile",dr("nc","layers","Retrait-gonflement des argiles","Le service Georisques (argiles) n'a pas repondu ou a renvoye une reponse vide lors de cette recherche.",null,["Relancer l'analyse","Verifier ce risque aupres de la mairie ou d'un bureau d'etudes geotechniques avant fondations"]));
+        }
+      }
+      {
+        const zc=seisFor(seis,insee);
+        if(zc){
+          const cz=parseInt(zc.code_zone);
+          if(cz>=2){put("risques",T,"sismicite",dr("conf-o","activity","Sismicite : "+(zc.zone_sismicite||cz),"Zone sismique : regles parasismiques (Eurocode 8) applicables aux constructions neuves selon leur categorie.",["risque_seisme"],null,CONCRET.sismicite));shown++;}
+        }else{
+          put("risques",T,"sismicite",dr("nc","activity","Zone de sismicite","Le service Georisques (zonage sismique) n'a pas repondu ou n'a pas identifie cette commune precisement lors de cette recherche.",null,["Consulter le zonage sismique national aupres de la mairie ou sur georisques.gouv.fr"]));
+        }
+      }
+      if(!shown)put("risques",T,"risque_inondation",dr("none","waves","Risques naturels","Aucun risque naturel repertorie pour cette commune (base GASPAR).",null,null));
+      put("risques",T,"risque_inondation",dr("none","link","Rapport complet",`<a href="${lGeo}" target="_blank">Ouvrir le rapport Georisques de cette adresse →</a>`,null,null));
+    }
+    const rgaCeForRub=rgaExpo(rga);
+    const argileState=rgaCeForRub===null?"nc":(rgaCeForRub>=2?"conf-o":"none");
+    const argileVal=rgaCeForRub===null?"Donnee non disponible":(rgaCeForRub>=2?("Sol argileux, "+(rga.d?.exposition||"exposition moyenne ou forte").toLowerCase()):"Exposition faible ou nulle");
+    const seisZForRub=seisFor(seis,insee);
+    const seisState=!seisZForRub?"nc":(parseInt(seisZForRub.code_zone)>=2?"conf-o":"none");
+    const seisVal=!seisZForRub?"Donnee non disponible":("Zone sismique "+(seisZForRub.zone_sismicite||seisZForRub.code_zone));
+    addRub("risque_inondation","Risque inondation",inondState,inondVal,{recKeys:inondState==="conf"?["risque_inondation"]:null,ncAction:"consulter le PPRi en mairie"});
+    addRub("risque_mvt_avalanche","Mouvement de terrain / avalanche",mvtState,mvtVal,{recKeys:null,porteDemarche:false,ncAction:"verifier aupres de la mairie ou d'un bureau d'etudes geotechniques"});
+    addRub("risque_transport_matieres","Transport de matieres dangereuses",transportState,transportVal,{porteDemarche:false});
+    addRub("rga_argile","Retrait-gonflement des argiles",argileState,argileVal,{recKeys:argileState==="conf-o"?["risque_argile"]:null,ncAction:"verifier aupres d'un bureau d'etudes geotechniques"});
+    addRub("sismicite","Zonage sismique",seisState,seisVal,{recKeys:seisState==="conf-o"?["risque_seisme"]:null,ncAction:"consulter le zonage sismique national en mairie"});
+  }
+
+  // 5bis. ARBRES, HAIES ET DEBROUSSAILLEMENT - desormais generee pour les deux metiers (correctif bug paragraphe 0 de la spec)
+  {
+    const T="Arbres, haies et debroussaillement";
+    const feuFam=(geoFamilies(geo)||[]).some(f=>f.code==="16");
+    if(feuFam){
+      put("arbres",T,"risque_feu_old",dr("conf-o","flame","Obligation Legale de Debroussaillement (OLD) "+chip("Probable","co"),"Commune concernee par le risque feu de foret : une OLD s'applique tres probablement autour des constructions et le long des voies (art. L131-10 et suivants du Code forestier).",["old"],["Verifier le zonage OLD exact et le rayon (souvent 50 m autour du bati, parfois porte a 100 m) aupres de la mairie, de la DDT(M) ou du SDIS"],CONCRET.old));
+    }
+    // Haies/alignements hors PLU : angle mort assume (aucune API), toujours "nc" - rendue pour les 13 travaux desormais
+    put("arbres",T,"haies_l350",dr("nc","tree","Haies, arbres et alignements proteges","Ces protections ne figurent pas dans une base interrogeable en ligne : au-dela des EBC (verifies ci-dessus), un arbre ou une haie peut etre protege par le PLU, par un arrete, ou au titre des alignements d'arbres bordant les voies (art. L350-3 Code env.).",["haies"],["Avant tout abattage/arrachage : verifier le reglement du PLU en mairie et l'eventuelle protection des haies/alignements","Eviter la periode de nidification (mi-mars a fin juillet) pour la taille et l'arrachage des haies"],CONCRET.haies));
+    const combinedFeuOld=!geo.ok?"nc":(feuFam?"conf-o":"none");
+    addRub("risque_feu_old","Risque feu de foret + OLD",combinedFeuOld,feuFam?"Obligation de debroussaillement probable":"Risque feu de foret",{recKeys:combinedFeuOld==="conf-o"?["risque_feu_foret","old"]:null,ncAction:"verifier aupres de la mairie, de la DDT(M) ou du SDIS"});
+    // Addendum 2 (2026-07 §7.3) : haies_l350 reclassee Categorie B — aucune source ne permet jamais de la confirmer,
+    // c'est une lacune structurelle et permanente (identique par nature au cas OSM de acces_vehicule), pas un risque
+    // site-specifique. Etat interne "nc-structurel" (jamais Q1, toujours Q2, jamais Q3) ; rendu visuel inchange (dr("nc",...) ci-dessus).
+    addRub("haies_l350","Haies et alignements proteges (hors PLU)","nc-structurel","Protection non verifiable en ligne",{recKeys:null,porteDemarche:false,ncAction:"verifier le reglement du PLU en mairie avant toute intervention"});
+  }
+
+  // 6. DICT - toujours en confirme-vigilance, permanent et volontaire
+  {
+    const T="Avant de creuser — toutes zones";
+    put("dict",T,"dict",dr("conf-o","zap","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","co"),"Obligatoire avant tout terrassement, fouille ou abattage avec engins, pour eviter d'endommager les reseaux enterres.",["dict"],[`Deposer la DICT sur <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">le guichet unique</a> au moins 10 jours ouvres avant`],CONCRET.dict));
+    // Addendum 2 (2026-07 §7.3) : dict reclassee Categorie A — demarche universelle, routiniere, gerable, ne revele
+    // rien de site-specifique. Ne pese plus sur Q1, n'apparait plus en Q2 ; reste presente en Q3 comme avant (inchange).
+    addRub("dict","DICT","conf-o","DICT obligatoire avant fouille",{category:"A",recKeys:["dict"],ncAction:"deposer la DICT sur le guichet unique"});
+  }
+
+  // ---- BANDEAU A 3 QUESTIONS (remplace l'ancien verdict a 4 etats) ----
+  let bannerHtml;
+  if(!geoOk){
+    bannerHtml=`<div class="verdict info"><div class="v-ico-badge">${svg("help",30)}</div><div class="v-body"><div class="v-title">Adresse non localisee</div><div class="v-desc">Impossible d'evaluer les contraintes pour ce chantier tant que l'adresse n'est pas localisee.</div></div></div>`;
+  }else{
+    const critRub=RUB.filter(r=>crit(r.id));
+    // Addendum 2 (2026-07 §7.4) : la Question 1 ne considere que les rubriques critiques de Categorie C — les
+    // Categories A (ex. dict) et B (etat "nc-structurel", quelle que soit la rubrique : haies_l350 toujours,
+    // acces_vehicule parfois) sont totalement exclues du calcul de Q1, quel que soit leur etat.
+    const critC=critRub.filter(r=>r.category!=="A"&&r.state!=="nc-structurel");
+    const anyConf=critC.some(r=>r.state==="conf");
+    const anyConfO=critC.some(r=>r.state==="conf-o");
+    // "nc" ici est le sous-etat "nc-service" (panne ponctuelle) — distinct de "nc-structurel", deja exclu de critC ci-dessus.
+    const anyNc=critC.some(r=>r.state==="nc");
+    let vcl,q1Short,q1Full;
+    if(anyConf){vcl="danger";q1Short="Non, pas en l'etat";q1Full="Non, pas en l'etat — une autorisation ou une declaration prealable est necessaire avant d'intervenir.";}
+    else if(anyConfO){vcl="warn";q1Short="Oui, sous conditions";q1Full="Oui, mais sous conditions — des points de vigilance confirmes doivent etre respectes (voir ci-dessous).";}
+    else if(anyNc){vcl="info";q1Short="Prudence — information manquante";q1Full="Prudence : au moins une information importante pour ce type de travaux est absente des sources officielles — verifiez avant d'intervenir.";}
+    else{vcl="ok";q1Short="Oui, en l'etat";q1Full="Oui, en l'etat — aucune contrainte confirmee par les sources officielles sur les points prioritaires pour ce type de travaux.";}
+    const vic={danger:"cross",warn:"alert",info:"help",ok:"check"}[vcl];
+
+    // Question 2 (Addendum 2 §7.4) : Categorie A (dict) n'apparait JAMAIS ici (deja integralement portee par Q3) ;
+    // Categorie B (etat "nc-structurel") apparait TOUJOURS, sans exception, quel que soit le resultat de Q1 —
+    // c'est le garde-fou qui empeche un "Oui, en l'etat" de devenir un bandeau vert silencieux.
+    let q2=[];
+    critRub.forEach(r=>{if(r.category!=="A"&&r.state==="conf-o")q2.push(`${r.label} — ${r.val}`);});
+    critRub.forEach(r=>{if(r.category!=="A"&&(r.state==="nc"||r.state==="nc-structurel"))q2.push(`Donnee absente : ${r.label} — prudence, ${r.ncAction}.`);});
+    if(q2.length===0&&nbNonCouvert>=3){
+      q2.push("Plusieurs autres sources n'ont pas repondu pour cette adresse — voir le detail dans les informations complementaires.");
+    }
+    RUB.filter(r=>!crit(r.id)&&r.state==="conf").forEach(r=>{
+      q2.push(`Egalement signale, hors priorite de ce type de travaux : ${r.label} — voir le detail dans les informations complementaires.`);
+    });
+    if(q2.length===0)q2=["Aucun point de vigilance identifie par les sources interrogees sur les priorites de ce type de travaux."];
+
+    // Question 3 : inchangee dans son mecanisme, sur l'ensemble des rubriques critiques (critRub, pas critC) — la
+    // Categorie A (dict) doit au contraire y rester pleinement presente ; la Categorie B (haies_l350, etat toujours
+    // "nc-structurel") n'y figure jamais car elle ne remplit jamais la condition (a) conf/conf-o, par construction.
+    let q3=[];
+    critRub.forEach(r=>{
+      if((r.state==="conf"||r.state==="conf-o")&&r.porteDemarche){
+        if(r.recKeys&&r.recKeys.length){
+          const txt=r.recKeys.flatMap(k=>REC[k]||[]).join(" ");
+          if(txt)q3.push(`${r.label} : ${txt}`);
+        }else if(r.demarcheText){
+          q3.push(`${r.label} : ${r.demarcheText}`);
+        }
+      }
+    });
+    if(q3.length===0)q3=["Aucune demarche administrative identifiee par les sources interrogees pour ce chantier. Cela ne dispense pas de verifier aupres de la mairie en cas de doute."];
+
+    bannerHtml=`<div class="verdict ${vcl}"><div class="v-ico-badge">${svg(vic,30)}</div><div class="v-body">`+
+      `<div class="v-title">${q1Short}</div>`+
+      `<div class="v-q"><div class="v-q-label">Peut-on intervenir en l'etat ?</div><div class="v-q-txt">${q1Full}</div></div>`+
+      `<div class="v-q"><div class="v-q-label">Faut-il faire attention a quelque chose ?</div><ul class="v-list">${q2.map(i=>"<li>"+i+"</li>").join("")}</ul></div>`+
+      `<div class="v-q"><div class="v-q-label">Faut-il faire une demarche ?</div><ul class="v-list">${q3.map(i=>"<li>"+i+"</li>").join("")}</ul></div>`+
+      `</div></div>`;
+  }
+
+  // ---- Assemblage final : bandeau, legende, zone prioritaire, accordeon "informations complementaires", liens ----
   let h="";
   h+=`<div class="print-head">TerraCheck — Rapport pour ${label} — genere le ${new Date().toLocaleDateString("fr-FR")}</div>`;
   h+=`<div class="addr-bar">${svg("pin",16)}<div><strong>${label}</strong><span style="font-size:12px;color:var(--mu2)">${ml} — ${tl}</span></div></div>`;
-  h+=`<div class="verdict ${vcl}"><div class="v-ico-badge">${svg(vic,30)}</div><div><div class="v-title">${vtit}</div><div class="v-desc">${vdesc}</div></div></div>`;
-  // Legende des 4 etats reellement utilises par le systeme de couleur (rouge/ambre/vert/gris)
+  h+=bannerHtml;
   h+=`<div class="legend"><div class="legend-it"><span class="legend-dot ld-conf"></span>Contrainte confirmee — bloquante</div><div class="legend-it"><span class="legend-dot ld-conf-o"></span>Contrainte confirmee — vigilance / demarche a prevoir</div><div class="legend-it"><span class="legend-dot ld-none"></span>Aucune contrainte dans la source</div><div class="legend-it"><span class="legend-dot ld-nc"></span>Source non disponible — action indiquee</div></div>`;
 
-  if(!geoOk){
-    h+=sh("Geolocalisation");
-    h+=dr("nc","pin","Adresse non localisee","Les services de geolocalisation n'ont pas pu situer cette adresse precisement.",null,["Verifier l'orthographe et le format de l'adresse (numero, voie, code postal, commune)","Reessayer en selectionnant une suggestion dans la liste deroulante"]);
-    h+="</div>";
-  }
+  let critCount=0,secCount=0;
+  SECORDER.forEach(k=>{critCount+=SEC[k].crit.length;secCount+=SEC[k].sec.length;});
 
-  // ── 1. ACCES VEHICULES (priorite artisan)
-  h+=sh("Acces au chantier — vehicules et engins");
-  if(!lat||!lon){
-    h+=dr("nc","truck","Acces vehicules","Adresse non localisee — impossible d'interroger les donnees de voirie.",null,["Verifier l'adresse pour relancer l'analyse"]);
-  }else if(!osm.ok){
-    h+=dr("nc","truck","Restrictions de circulation","Le service OpenStreetMap n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants","Verifier sur place les panneaux en debut de voie (limitation de tonnage, largeur, sens interdit)"]);
-  }else if(osm.restr&&osm.restr.length>0){
-    const w=osm.restr.filter(r=>r.type==="weight"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
-    const wd=osm.restr.filter(r=>r.type==="width"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
-    const hgvNo=osm.restr.find(r=>r.type==="hgv_no");
-    const vehNo=osm.restr.find(r=>r.type==="veh_no");
-    const hgvDest=osm.restr.find(r=>r.type==="hgv_dest");
-    const priv=osm.restr.find(r=>r.type==="private");
-    const dest=osm.restr.find(r=>r.type==="dest");
-    if(vehNo)h+=dr("conf","ban",`Circulation interdite — ${vehNo.name}`,"Une voie proche est fermee a la circulation des vehicules dans OpenStreetMap.",null,["Identifier un autre acces au chantier","Verifier sur place et contacter la mairie en cas de doute"]);
-    if(hgvNo)h+=dr("conf","truck",`Poids lourds interdits — ${hgvNo.name}`,"Une voie proche interdit les poids lourds dans OpenStreetMap. L'acces en vehicule > 3,5 t n'est pas autorise sans derogation.",null,["Prevoir un vehicule leger ou un transbordement","Demander une derogation de tonnage a la mairie (voie communale) ou au Departement (route departementale)"]);
-    if(w.length>0){const mn=w[0];const st=mn.val<=3.5?"conf":"conf-o";h+=dr(st,"weight",`Limite de tonnage : ${mn.raw} t — ${mn.name}`,`Une voie proche porte une limite de masse de ${mn.raw} tonnes dans OpenStreetMap.`,null,[`Verifier le PTAC charge de votre vehicule par rapport a ${mn.raw} t`,"Si depassement : demander une derogation au gestionnaire de voirie (mairie ou Departement)"]);}
-    if(wd.length>0){const mn=wd[0];h+=dr("conf-o","width",`Largeur max : ${mn.raw} m — ${mn.name}`,`Une voie proche porte une limite de largeur de ${mn.raw} metres dans OpenStreetMap.`,null,[`Verifier la largeur de votre vehicule par rapport a ${mn.raw} m`]);}
-    if(hgvDest&&!hgvNo)h+=dr("conf-o","truck",`Poids lourds : riverains uniquement — ${hgvDest.name}`,"Une voie proche reserve l'acces poids lourds aux riverains dans OpenStreetMap.",null,["Justifier l'intervention sur place (chantier riverain)","Contacter la mairie pour les conditions d'acces"]);
-    if(priv)h+=dr("conf-o","lock",`Voie privee — ${priv.name}`,"Une voie d'acces est marquee comme privee dans OpenStreetMap.",null,["Obtenir l'autorisation du proprietaire, du syndic ou de l'association de riverains"]);
-    if(dest&&!hgvDest)h+=dr("conf-o","cone",`Acces riverains — ${dest.name}`,"Une voie proche est reservee a la desserte locale dans OpenStreetMap.",null,["Acces autorise pour une intervention sur place ; verifier en cas de controle"]);
-    // Verif physique systematique
-    h+=dr("nc","satellite","Verification de l'acces physique",`OpenStreetMap ne renseigne pas la largeur reelle ni la praticabilite de toutes les voies, en particulier les chemins ruraux. ${lat?`<a href="${lSat}" target="_blank">Vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:""}`,null,["Verifier visuellement l'acces (largeur, virages, surface, hauteur sous branches/cables) avant d'engager un vehicule lourd"]);
-  }else{
-    // OSM a repondu mais aucune restriction trouvee : etat NON COUVERT, pas un feu vert
-    h+=dr("nc","truck","Restrictions de tonnage sur la voie d'acces","Aucune restriction n'est repertoriee dans OpenStreetMap autour de cette adresse. Pour les chemins ruraux, l'absence de donnee ne garantit pas l'absence de restriction ou d'obstacle physique.",null,["Verifier sur place les panneaux en debut de voie (tonnage, largeur, hauteur)",`Verifier l'acces physique : ${lat?`<a href="${lSat}" target="_blank">vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:"vue aerienne"} (largeur, virages, surface)`,"En cas de doute, contacter la mairie pour les arretes de circulation en vigueur"]);
-  }
+  h+='<div class="prio-zone">';
+  SECORDER.forEach(k=>{const s=SEC[k];if(s.crit.length){h+=sh(s.title)+s.crit.join("")+"</div>";}});
   h+="</div>";
 
-  // ── 2. URBANISME PLU
-  h+=sh("Urbanisme — PLU (IGN Geoportail)");
-  if(!lat||!lon){h+=dr("nc","map","Zone PLU","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
-  else if(!pluZ.ok){h+=dr("nc","map","Zone PLU","Le service IGN Geoportail n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants",`Consulter directement <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a> pour cette parcelle`]);}
-  else{
-    const feats=pluZ.d?.features||[];
-    if(!feats.length){
-      // Pas de zonage numerise a ce point : distinguer RNU confirme vs document simplement non restitue (statut officiel IGN)
-      if(isRnu===true){
-        h+=dr("conf-o","map","Commune au Reglement National d'Urbanisme "+chip("RNU","co"),"Cette commune n'a pas de document d'urbanisme local : c'est le Reglement National d'Urbanisme qui s'applique (statut confirme par l'IGN).",["rnu"],["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
-      }else if(isRnu===false){
-        h+=dr("nc","map","Zonage non restitue a cette adresse","La commune dispose bien d'un document d'urbanisme (elle n'est pas au RNU), mais aucun zonage n'est renvoye pour ce point precis : document seulement partiellement numerise sur le Geoportail, ou point en limite de parcelle.",null,["Demander un certificat d'urbanisme gratuit en mairie : seul document qui fait foi sur les regles de la parcelle",`Verifier la parcelle sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);
-      }else{
-        h+=dr("nc","map","Document d'urbanisme","Aucun zonage numerise n'est renvoye pour cette adresse et le statut RNU de la commune n'a pas pu etre verifie.",null,["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
-      }
-    }else{
-      const p=feats[0].properties;const zone=p.typezone||"?";const lib=p.libelle||p.libelong||zone;const typeDoc=p.typedoc||"PLU";const commune=p.nomcommune||"";
-      const zkey=zone.startsWith("AU")?"zone_AU":"zone_"+zone.charAt(0);
-      h+=dr("conf-o","map","Zone "+chip(zone,"cz"),`${lib}${commune?" — "+commune:""}${feats.length>1?` (${feats.length} zonages a cette adresse)`:""}`,[zkey],null);
-      if(pluD.ok&&pluD.d?.features?.length>0){const dp=pluD.d.features[0].properties;h+=dr("conf-o","file","Document applicable",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,null,null);}
-      if(presc.ok){const pf=presc.d?.features||[];if(!pf.length){h+=dr("none","file","Prescriptions (EBC, etc.)","Aucune prescription surfacique relevee sur cette parcelle.",null,null);}else{pf.forEach(f=>{const pr=f.properties||{};const pl=pr.libelle||pr.txt||pr.lib_idpsc||"Prescription";const code=String(pr.typepsc||"");const lc=(pl||"").toLowerCase();const isEBC=code==="01"||/espaces*bois|ebc/.test(lc);const isPaysage=code==="07"||code==="08"||/paysage|haie|arbre|alignement|planta/.test(lc);const ico=isEBC?"tree":"file";h+=dr("conf",ico,(isEBC?"Espace Boise Classe (EBC) ":"Prescription ")+chip("Confirmee","cr"),pl,isEBC?["ebc"]:(isPaysage?["paysage"]:null),null);});}}
-      else{h+=dr("nc","file","Prescriptions (EBC, etc.)","Donnee des prescriptions non disponible lors de cette recherche.",null,[`Verifier sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);}
-      h+=dr("none","link","Plan de la parcelle",`<a href="${lGPU}" target="_blank">Ouvrir cette parcelle sur le Geoportail Urbanisme →</a>`,null,null);
-    }
-  }
-  h+="</div>";
-
-  // ── 3. ZONES PROTEGEES
-  h+=sh("Zones protegees — IGN Nature");
-  if(!lat||!lon){h+=dr("nc","leaf","Zones protegees","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
-  else{
-    const blocks=[
-      {r:siteC,ic:"landmark",nom:"Site classe",rec:"site_classe"},
-      {r:resN,ic:"tree",nom:"Reserve naturelle",rec:"reserve_naturelle"},
-      {r:natH,ic:"leaf",nom:"Natura 2000 (Habitats)",rec:"natura_habitat"},
-      {r:natO,ic:"bird",nom:"Natura 2000 (Oiseaux)",rec:"natura_oiseaux"},
-      {r:zni,ic:"search",nom:"ZNIEFF type 1",rec:"znieff1"},
-    ];
-    blocks.forEach(b=>{
-      if(!b.r.ok){h+=dr("nc",b.ic,b.nom,"Donnee non disponible lors de cette recherche.",null,["Relancer l'analyse, ou verifier aupres de la DDT du departement"]);}
-      else{const f=b.r.d?.features||[];if(!f.length){h+=dr("none",b.ic,b.nom,chip("Aucune trouvee","cg"),null,null);}else{f.forEach(ft=>{const isHard=(b.rec==="site_classe"||b.rec==="reserve_naturelle");h+=dr(isHard?"conf":"conf-o",b.ic,b.nom+" "+chip("Confirmee",isHard?"cr":"co"),nmOf(ft.properties)||b.nom,[b.rec],null);});}}
-    });
-  }
-  h+="</div>";
-
-  // ── 4. LOI LITTORAL
-  h+=sh("Loi Littoral");
-  if(littor===null){h+=dr("nc","waves","Loi Littoral","Statut littoral de la commune non verifie (service IGN indisponible ou commune non identifiee).",null,["Selectionner l'adresse dans la liste deroulante","Ou verifier le statut littoral aupres de la mairie"]);}
-  else if(littor===true){h+=dr("conf-o","waves","Loi Littoral "+chip("Applicable","co"),"Commune classee littorale par l'IGN (Geoportail de l'Urbanisme), au titre de la loi n°86-2 du 3 janvier 1986.",["loi_littoral"],null);}
-  else{h+=dr("none","waves","Loi Littoral",chip("Non applicable","cg")+" — commune non classee littorale (mer/estuaire) par l'IGN. Certaines communes riveraines de grands lacs peuvent l'etre sans figurer ici.",null,null);}
-  h+="</div>";
-
-  // ── 5. RISQUES NATURELS
-  h+=sh("Risques naturels — Georisques (GASPAR)");
-  if(!lat||!lon){h+=dr("nc","waves","Risques naturels","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
-  else if(!geo.ok){h+=dr("nc","waves","Risques naturels","Le service Georisques n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse",`Consulter directement <a href="${lGeo}" target="_blank">le rapport Georisques</a> pour cette adresse`]);}
-  else{
-    const fam=geoFamilies(geo)||[];
-    let shown=0;
-    fam.forEach(f=>{
-      let rk=null,hard=false,ico="alert";
-      if(f.code==="11"){rk=["risque_inondation"];hard=true;ico="waves";}
-      else if(f.code==="16"){rk=["risque_feu_foret"];ico="flame";}
-      else if(f.code==="12"){rk=["risque_mvt"];ico="mountain";}
-      else if(f.code==="14"){ico="mountain";}
-      else if(f.code==="13"||f.code==="18"||f.code==="17"){return;} // seisme traite via zonage dedie ; radon/tempete non lies aux travaux
-      shown++;
-      h+=dr(hard?"conf":"conf-o",ico,f.label+" "+chip("Confirme",hard?"cr":"co"),"Risque repertorie dans la base officielle Georisques pour cette commune.",rk,null);
-    });
-    // Retrait-gonflement des argiles (endpoint dedie, absent de GASPAR) — cle pour fondations/terrassement
-    {
-      const ce=rgaExpo(rga);const ex=rga.d?.exposition||"";
-      if(ce!==null){
-        if(ce>=2){h+=dr("conf-o","layers","Retrait-gonflement des argiles "+chip(ex,"co"),"Sol argileux, "+(ex||"").toLowerCase()+" au retrait-gonflement (Georisques). Peut imposer une etude geotechnique avant construction.",["risque_argile"],null);shown++;}
-        else{h+=dr("none","layers","Retrait-gonflement des argiles",chip(ex||"Exposition faible ou nulle","cg"),null,null);shown++;}
-      }else{
-        h+=dr("nc","layers","Retrait-gonflement des argiles","Le service Georisques (argiles) n'a pas repondu ou a renvoye une reponse vide lors de cette recherche.",null,["Relancer l'analyse","Verifier ce risque aupres de la mairie ou d'un bureau d'etudes geotechniques avant fondations"]);
-      }
-    }
-    // Sismicite (zone precise) — parasismique a partir de la zone 2. Filtre sur le code INSEE cible (la source renvoie plusieurs communes voisines).
-    {
-      const zc=seisFor(seis,insee);
-      if(zc){
-        const cz=parseInt(zc.code_zone);
-        if(cz>=2){h+=dr("conf-o","activity","Sismicite : "+(zc.zone_sismicite||cz),"Zone sismique : regles parasismiques (Eurocode 8) applicables aux constructions neuves selon leur categorie.",["risque_seisme"],null);shown++;}
-      }else{
-        h+=dr("nc","activity","Zone de sismicite","Le service Georisques (zonage sismique) n'a pas repondu ou n'a pas identifie cette commune precisement lors de cette recherche.",null,["Consulter le zonage sismique national aupres de la mairie ou sur georisques.gouv.fr"]);
-      }
-    }
-    if(!shown)h+=dr("none","waves","Risques naturels","Aucun risque naturel repertorie pour cette commune (base GASPAR).",null,null);
-    h+=dr("none","link","Rapport complet",`<a href="${lGeo}" target="_blank">Ouvrir le rapport Georisques de cette adresse →</a>`,null,null);
-  }
-  h+="</div>";
-
-  // ── 5bis. ARBRES, HAIES ET DEBROUSSAILLEMENT (metier paysagiste/bucheron)
-  if(met==="paysagiste"){
-    const feuFam=(geoFamilies(geo)||[]).some(f=>f.code==="16");
-    h+=sh("Arbres, haies et debroussaillement");
-    if(feuFam){
-      h+=dr("conf-o","flame","Obligation Legale de Debroussaillement (OLD) "+chip("Probable","co"),"Commune concernee par le risque feu de foret : une OLD s'applique tres probablement autour des constructions et le long des voies (art. L131-10 et suivants du Code forestier).",["old"],["Verifier le zonage OLD exact et le rayon (souvent 50 m autour du bati, parfois porte a 100 m) aupres de la mairie, de la DDT(M) ou du SDIS"]);
-    }
-    if(["elagage","debroussaillage","amenagement_ext","cloture"].includes(trav)){
-      h+=dr("nc","tree","Haies, arbres et alignements proteges","Ces protections ne figurent pas dans une base interrogeable en ligne : au-dela des EBC (verifies ci-dessus), un arbre ou une haie peut etre protege par le PLU, par un arrete, ou au titre des alignements d'arbres bordant les voies (art. L350-3 Code env.).",["haies"],["Avant tout abattage/arrachage : verifier le reglement du PLU en mairie et l'eventuelle protection des haies/alignements","Eviter la periode de nidification (mi-mars a fin juillet) pour la taille et l'arrachage des haies"]);
-    }
-    h+="</div>";
+  if(secCount>0){
+    h+=`<details class="acc"><summary>Voir aussi — ${secCount} information${secCount>1?"s":""} complementaire${secCount>1?"s":""} pour ce type de travaux</summary><div class="acc-body">`;
+    SECORDER.forEach(k=>{const s=SEC[k];if(s.sec.length){h+=sh(s.title)+s.sec.join("")+"</div>";}});
+    h+="</div></details>";
   }
 
-  // ── 6. DICT (systematique terrassement/fouille)
-  h+=sh("Avant de creuser — toutes zones");
-  h+=dr("conf-o","zap","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","co"),"Obligatoire avant tout terrassement, fouille ou abattage avec engins, pour eviter d'endommager les reseaux enterres.",["dict"],[`Deposer la DICT sur <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">le guichet unique</a> au moins 10 jours ouvres avant`]);
-  h+="</div>";
-
-  // ── LIENS
+  // LIENS (reference permanente, hors priorisation critique/secondaire)
   h+=sh("Sources officielles");
   h+=`<div class="links"><a href="${lGPU}" target="_blank">${svg("map",14)} Geoportail Urbanisme</a><a href="${lGeo}" target="_blank">${svg("waves",14)} Georisques</a>${lSat?`<a href="${lSat}" target="_blank">${svg("satellite",14)} Vue satellite</a>`:""}<a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">${svg("zap",14)} DICT reseaux</a><a href="https://www.service-public.fr/particuliers/vosdroits/N319" target="_blank">${svg("landmark",14)} Autorisations</a></div></div>`;
 
