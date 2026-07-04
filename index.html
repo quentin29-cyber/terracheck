@@ -7,33 +7,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0f0f0f;--sf:#191919;--bd:#252525;--bd2:#333;--tx:#e8e8e8;--mu:#666;--mu2:#999;--ac:#d4845a;--ac2:#e89a70;--gr:#4caf68;--or:#e09040;--re:#e05050;--bl:#5090d0;--r:10px;--rs:7px}
+:root{
+  --bg:#110d0a;--sf:#1c1712;--sf2:#221c15;
+  --bd:#2d2620;--bd2:#3d3327;
+  --tx:#ece6de;--mu:#756b5d;--mu2:#a89d8c;
+  --ac:#d4845a;--ac2:#e89a70;--ac-d:#a8613c;
+  --gr:#4caf68;--or:#e3a51f;--re:#e5484d;--bl:#5090d0;
+  --r:12px;--rs:8px;--r-lg:14px;
+  --sh:0 2px 8px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.03);
+}
 body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.55;min-height:100vh;-webkit-font-smoothing:antialiased}
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(15,15,15,.97);backdrop-filter:blur(10px);z-index:100}
-.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;letter-spacing:-.4px}
-.logo-dot{width:26px;height:26px;background:var(--ac);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000}
-.logo em{font-style:normal;color:var(--ac)}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(17,13,10,.97);backdrop-filter:blur(10px);z-index:100}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.3px}
+.logo-mark{flex-shrink:0;display:flex}
+.logo .lt{font-weight:600;color:var(--tx);letter-spacing:.02em}
+.logo .lc{font-weight:700;color:var(--ac)}
 .tag{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--mu2);border:1px solid var(--bd2);padding:3px 8px;border-radius:20px}
 .page{max-width:620px;margin:0 auto;padding:0 16px 80px}
-.hero{padding:40px 0 28px;text-align:center}
-.hero h1{font-size:clamp(23px,5vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.8px;margin-bottom:10px}
+.hero{padding:48px 0 32px;text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2);margin-bottom:12px}
+.hero h1{font-size:clamp(28px,6vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.8px;margin-bottom:10px}
 .hero h1 b{color:var(--ac)}
 .hero p{color:var(--mu2);font-size:14px;max-width:420px;margin:0 auto 24px}
-.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:20px}
+.trustbar{display:flex;align-items:stretch;justify-content:center;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin:0 auto 24px;max-width:420px;overflow:hidden}
+.trust-it{flex:1;padding:10px 8px;text-align:center;border-left:1px solid var(--bd)}
+.trust-it:first-child{border-left:none}
+.trust-n{font-size:18px;font-weight:700;letter-spacing:.02em;color:var(--ac)}
+.trust-l{font-size:10px;color:var(--mu2);margin-top:2px;letter-spacing:.02em}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:24px;box-shadow:var(--sh)}
 .field+.field{margin-top:16px}
-.flabel{display:block;font-size:11px;font-weight:600;color:var(--mu2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.flabel{display:block;font-size:11px;font-weight:700;color:var(--mu2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--bd2);border-radius:var(--rs);padding:11px 14px;color:var(--tx);font-family:inherit;font-size:15px;outline:none;appearance:none;transition:border-color .15s;min-height:44px}
 .field input:focus,.field select:focus{border-color:var(--ac)}
-.field input::placeholder{color:#383838}
+.field input::placeholder{color:#3a332a}
 .sel-w{position:relative}
 .sel-w::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mu2);pointer-events:none;font-size:12px}
-select option{background:#1a1a1a}
+select option{background:#1c1712}
 .pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{padding:8px 14px;border:1px solid var(--bd2);border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;color:var(--mu2);transition:all .15s;user-select:none;min-height:40px;display:flex;align-items:center}
+.pill{padding:8px 14px;border:1px solid var(--bd2);border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;color:var(--mu2);transition:all .15s;user-select:none;min-height:40px;display:flex;align-items:center;gap:7px}
+.pill svg{flex-shrink:0}
 .pill:hover{border-color:var(--ac);color:var(--tx)}
 .pill.on{background:var(--ac);color:#000;border-color:var(--ac);font-weight:600}
 .ac-w{position:relative}
-.ac-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1d1d1d;border:1px solid var(--bd2);border-radius:var(--rs);z-index:200;max-height:210px;overflow-y:auto;display:none}
+.ac-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--rs);z-index:200;max-height:210px;overflow-y:auto;display:none;box-shadow:var(--sh)}
 .ac-drop.open{display:block}
 .ac-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);transition:background .1s}
 .ac-item:last-child{border-bottom:none}
@@ -41,10 +57,12 @@ select option{background:#1a1a1a}
 .ac-name{font-size:14px;font-weight:500}
 .ac-city{font-size:12px;color:var(--mu2);margin-top:1px}
 .addr-hint{font-size:12px;margin-top:5px;display:none}
-.btn-go{width:100%;margin-top:16px;padding:13px;background:var(--ac);color:#000;border:none;border-radius:var(--rs);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;min-height:46px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-go{width:100%;margin-top:16px;padding:14px;background:var(--ac);color:#000;border:none;border-radius:var(--rs);font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:all .15s;min-height:46px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh)}
 .btn-go:hover{background:var(--ac2)}
 .btn-go:active{transform:scale(.99)}
-.err{display:none;margin-top:10px;padding:10px 14px;background:rgba(224,80,80,.08);border:1px solid rgba(224,80,80,.25);border-radius:var(--rs);font-size:13px;color:var(--re)}
+.btn-go .arrow{transition:transform .15s;display:inline-block}
+.btn-go:hover .arrow{transform:translateX(3px)}
+.err{display:none;margin-top:10px;padding:10px 14px;background:rgba(229,72,77,.08);border:1px solid rgba(229,72,77,.25);border-radius:var(--rs);font-size:13px;color:var(--re)}
 .err.on{display:block}
 .loading{display:none;padding:48px 0;text-align:center}
 .loading.on{display:block}
@@ -52,42 +70,56 @@ select option{background:#1a1a1a}
 @keyframes sp{to{transform:rotate(360deg)}}
 .loading h3{font-size:16px;font-weight:600;margin-bottom:4px}
 .loading p{font-size:13px;color:var(--mu2);margin-bottom:18px}
-.steps{display:flex;flex-direction:column;gap:5px;max-width:340px;margin:0 auto}
-.step{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);font-size:13px;color:var(--mu2);opacity:.3;transition:all .3s;text-align:left}
-.step.on{opacity:1;border-color:var(--ac);color:var(--tx)}
-.step.done{opacity:.5}
+.steps{display:flex;flex-direction:column;gap:6px;max-width:340px;margin:0 auto}
+.step{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);font-size:13px;color:var(--mu2);opacity:.3;transition:all .3s;text-align:left}
+.step svg{flex-shrink:0}
+.step.on{opacity:1;border-color:var(--ac);color:var(--ac)}
+.step.done{opacity:.5;color:var(--mu)}
 .result{display:none}
 .result.on{display:block}
+.print-head{display:none}
 .addr-bar{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:12px;font-size:13px;color:var(--mu2)}
 .addr-bar strong{color:var(--tx);display:block;font-size:14px;margin-bottom:1px}
-.verdict{border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;gap:13px;align-items:flex-start}
+.addr-bar svg{flex-shrink:0;margin-top:2px;color:var(--ac)}
+.verdict{border-radius:var(--r-lg);padding:16px 18px;margin-bottom:14px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--sh)}
 .verdict.ok{background:rgba(76,175,104,.07);border:1px solid rgba(76,175,104,.22)}
-.verdict.warn{background:rgba(224,144,64,.07);border:1px solid rgba(224,144,64,.22)}
-.verdict.danger{background:rgba(224,80,80,.07);border:1px solid rgba(224,80,80,.22)}
+.verdict.warn{background:rgba(227,165,31,.07);border:1px solid rgba(227,165,31,.22)}
+.verdict.danger{background:rgba(229,72,77,.07);border:1px solid rgba(229,72,77,.22)}
 .verdict.info{background:rgba(80,144,208,.07);border:1px solid rgba(80,144,208,.22)}
-.v-ico{font-size:28px;flex-shrink:0;line-height:1;margin-top:1px}
-.v-title{font-size:15px;font-weight:700;margin-bottom:3px}
+.v-ico-badge{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.verdict.ok .v-ico-badge{background:rgba(76,175,104,.15);color:var(--gr)}
+.verdict.warn .v-ico-badge{background:rgba(227,165,31,.15);color:var(--or)}
+.verdict.danger .v-ico-badge{background:rgba(229,72,77,.15);color:var(--re)}
+.verdict.info .v-ico-badge{background:rgba(80,144,208,.15);color:var(--bl)}
+.v-title{font-size:17px;font-weight:700;margin-bottom:3px}
 .verdict.ok .v-title{color:var(--gr)}
 .verdict.warn .v-title{color:var(--or)}
 .verdict.danger .v-title{color:var(--re)}
 .verdict.info .v-title{color:var(--bl)}
 .v-desc{font-size:13px;color:var(--mu2);line-height:1.5}
 .legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:14px;font-size:11px}
-.legend-it{display:flex;align-items:center;gap:5px;color:var(--mu2)}
-.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.legend-it{display:flex;align-items:center;gap:6px;color:var(--mu2)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .ld-conf{background:var(--re)}
+.ld-conf-o{background:var(--or)}
 .ld-none{background:var(--gr)}
 .ld-nc{background:var(--mu)}
-.sec{margin-bottom:14px}
-.sec-head{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--mu2);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.sec{margin-bottom:16px}
+.sec-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2);margin-bottom:6px;display:flex;align-items:center;gap:8px}
 .sec-head::after{content:"";flex:1;height:1px;background:var(--bd)}
-.dr{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--bd2);border-radius:var(--rs);margin-bottom:4px;font-size:14px}
+.dr{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--bd2);border-radius:var(--rs);margin-bottom:8px;font-size:14px}
 .dr:last-child{margin-bottom:0}
 .dr.s-conf{border-left-color:var(--re)}
 .dr.s-conf-o{border-left-color:var(--or)}
 .dr.s-none{border-left-color:var(--gr)}
 .dr.s-nc{border-left-color:var(--mu)}
-.dr-ico{font-size:15px;flex-shrink:0;width:18px;text-align:center;margin-top:2px}
+.dr-ico{flex-shrink:0;width:20px;display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:1px}
+.dr-state{width:13px;height:13px}
+.dr.s-conf .dr-state{color:var(--re)}
+.dr.s-conf-o .dr-state{color:var(--or)}
+.dr.s-none .dr-state{color:var(--gr)}
+.dr.s-nc .dr-state{color:var(--mu)}
+.dr-subj{color:var(--mu2);width:18px;height:18px}
 .dr-body{flex:1;min-width:0}
 .dr-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px}
 .dr-label{font-weight:600;color:var(--tx);font-size:14px}
@@ -100,44 +132,65 @@ select option{background:#1a1a1a}
 .todo-list{margin-top:7px;border-top:1px dashed var(--bd2);padding-top:7px;display:flex;flex-direction:column;gap:5px}
 .todo-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--ac2);line-height:1.45;font-weight:500}
 .todo-item::before{content:"☐";flex-shrink:0;margin-top:0}
-.chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
 .cg{background:rgba(76,175,104,.13);color:var(--gr);border:1px solid rgba(76,175,104,.28)}
-.co{background:rgba(224,144,64,.13);color:var(--or);border:1px solid rgba(224,144,64,.28)}
-.cr{background:rgba(224,80,80,.13);color:var(--re);border:1px solid rgba(224,80,80,.28)}
+.co{background:rgba(227,165,31,.13);color:var(--or);border:1px solid rgba(227,165,31,.28)}
+.cr{background:rgba(229,72,77,.13);color:var(--re);border:1px solid rgba(229,72,77,.28)}
 .cb{background:rgba(80,144,208,.13);color:var(--bl);border:1px solid rgba(80,144,208,.28)}
-.cz{background:rgba(136,136,136,.1);color:var(--mu2);border:1px solid var(--bd2)}
+.cz{background:rgba(168,157,140,.13);color:var(--mu2);border:1px solid var(--bd2)}
 .links{display:flex;flex-wrap:wrap;gap:6px;padding:11px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs)}
-.links a{color:var(--ac);font-size:13px;text-decoration:none;padding:5px 10px;border:1px solid var(--bd2);border-radius:6px;white-space:nowrap;transition:border-color .15s}
+.links a{color:var(--ac);font-size:13px;text-decoration:none;padding:5px 10px;border:1px solid var(--bd2);border-radius:6px;white-space:nowrap;transition:border-color .15s;display:inline-flex;align-items:center;gap:6px}
 .links a:hover{border-color:var(--ac)}
 .btns{display:flex;gap:8px;margin-top:16px}
 .btn-sec{flex:1;padding:11px;border:1px solid var(--bd2);border-radius:var(--rs);background:transparent;color:var(--tx);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
 .btn-sec:hover{border-color:var(--ac);color:var(--ac)}
-.btn-pri{flex:1;padding:11px;background:var(--ac);border:none;border-radius:var(--rs);color:#000;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-pri{flex:1;padding:11px;background:var(--ac);border:none;border-radius:var(--rs);color:#000;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--sh)}
 .btn-pri:hover{background:var(--ac2)}
 .note{margin-top:12px;padding:10px 13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);font-size:12px;color:var(--mu2);line-height:1.6;display:flex;gap:8px}
-.footer{border-top:1px solid var(--bd);margin-top:40px;padding:24px 16px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.fn{font-size:20px;font-weight:700;color:var(--ac)}
+.note svg{flex-shrink:0;margin-top:1px;color:var(--mu2)}
+.footer{border-top:1px solid var(--bd);margin-top:40px;padding:24px 16px;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.footer>div{padding:0 24px;border-left:1px solid var(--bd)}
+.footer>div:first-child{border-left:none}
+.fn{font-size:24px;font-weight:700;color:var(--ac);letter-spacing:.02em}
 .fl{font-size:12px;color:var(--mu2);margin-top:2px;text-align:center}
-@media(max-width:480px){.hdr{padding:0 14px}.hero{padding:28px 0 20px}.hero h1{font-size:22px}.card{padding:16px}.btns{flex-direction:column}.footer{gap:18px;padding:20px 14px}.legend{gap:10px}}
-@media print{.hdr,.hero,.btns,.footer,.btn-go,.err{display:none!important}.result{display:block!important}body{background:#fff;color:#000}}
+@media(max-width:480px){.hdr{padding:0 14px}.hero{padding:28px 0 20px}.hero h1{font-size:22px}.card{padding:16px}.btns{flex-direction:column}.footer{gap:14px;padding:20px 14px}.footer>div{border-left:none;padding:0}.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}}
+@media print{
+  .hdr,.hero,.trustbar,.btns,.footer,.btn-go,.err{display:none!important}
+  .result{display:block!important}
+  .print-head{display:block!important;font-weight:700;font-size:13px;margin-bottom:12px;color:#000}
+  body{background:#fff;color:#000}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+}
 </style>
 </head>
 <body>
 <header class="hdr">
-  <div class="logo"><div class="logo-dot">T</div>Terra<em>Check</em></div>
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z" fill="var(--ac)"/>
+      <path d="M8.6 9.3l2.3 2.3L15.6 7" fill="none" stroke="var(--bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span><span class="lt">Terra</span><span class="lc">Check</span></span>
+  </div>
   <div class="tag">Beta</div>
 </header>
 <div class="page">
   <div id="homeSection">
     <div class="hero">
+      <div class="eyebrow">IGN &middot; G&Eacute;ORISQUES &middot; BAN — DONN&Eacute;ES OFFICIELLES DE L'&Eacute;TAT</div>
       <h1>Contraintes de chantier<br><b>en 30 secondes</b></h1>
-      <p>TerraCheck interroge les bases officielles de l'Etat, vous montre ce qu'elles contiennent pour votre adresse, et vous dit quoi faire quand l'information n'y figure pas.</p>
+      <p>TerraCheck interroge les bases officielles, vous montre ce qu'elles contiennent pour votre adresse, et vous dit quoi faire quand l'information n'y figure pas.</p>
+      <div class="trustbar">
+        <div class="trust-it"><div class="trust-n">11</div><div class="trust-l">Sources</div></div>
+        <div class="trust-it"><div class="trust-n">35 000+</div><div class="trust-l">Communes</div></div>
+        <div class="trust-it"><div class="trust-n">0</div><div class="trust-l">Interp. inventee</div></div>
+      </div>
     </div>
     <div class="card">
       <div class="field">
         <label class="flabel">Adresse du chantier</label>
         <div class="ac-w">
-          <input type="text" id="aIn" placeholder="Ex : 180 chemin de la Bayole, Sollies-Pont" autocomplete="off" inputmode="search">
+          <input type="text" id="aIn" placeholder="Ex : 12 rue de la Mairie, votre commune" autocomplete="off" inputmode="search">
           <div class="ac-drop" id="acDrop"></div>
         </div>
         <div class="addr-hint" id="aHint"></div>
@@ -147,8 +200,8 @@ select option{background:#1a1a1a}
       <div class="field">
         <label class="flabel">Votre metier</label>
         <div class="pills">
-          <div class="pill on" data-v="paysagiste">Paysagiste / Bucheron</div>
-          <div class="pill" data-v="terrassier">Terrassier</div>
+          <div class="pill on" data-v="paysagiste"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>Paysagiste / Bucheron</div>
+          <div class="pill" data-v="terrassier"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l6.5-6.5"/><path d="M13 3l6 6-3.5 3.5L9 6z"/><path d="M12 11l-2.5 2.5a3 3 0 1 0 4 4L16 15"/></svg>Terrassier</div>
         </div>
         <input type="hidden" id="fMet" value="paysagiste">
       </div>
@@ -156,7 +209,7 @@ select option{background:#1a1a1a}
         <label class="flabel">Type de travaux</label>
         <div class="sel-w"><select id="fTrav"><option value="">-- Selectionnez --</option></select></div>
       </div>
-      <button class="btn-go" onclick="go()">Analyser ce chantier &rarr;</button>
+      <button class="btn-go" onclick="go()">Analyser ce chantier <span class="arrow">&rarr;</span></button>
       <div class="err" id="errBox"></div>
     </div>
   </div>
@@ -165,12 +218,12 @@ select option{background:#1a1a1a}
     <h3>Interrogation des bases officielles...</h3>
     <p>Merci de patienter</p>
     <div class="steps">
-      <div class="step on" id="st1">📍 Geolocalisation de l'adresse</div>
-      <div class="step" id="st2">🗺 Couverture et zone PLU — IGN</div>
-      <div class="step" id="st3">🌿 Zones protegees — IGN Nature</div>
-      <div class="step" id="st4">🌊 Risques naturels — Georisques</div>
-      <div class="step" id="st5">🚛 Acces vehicules — OpenStreetMap</div>
-      <div class="step" id="st6">📋 Compilation du rapport</div>
+      <div class="step on" id="st1"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Geolocalisation de l'adresse</div>
+      <div class="step" id="st2"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>Couverture et zone PLU — IGN</div>
+      <div class="step" id="st3"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>Zones protegees — IGN Nature</div>
+      <div class="step" id="st4"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c1 1 2 1.5 3.5 1.5S8 8 9.5 8 12 9.5 13.5 9.5 16 8 17.5 8 20 9 21 9.5"/><path d="M2 14c1 1 2 1.5 3.5 1.5S8 14 9.5 14 12 15.5 13.5 15.5 16 14 17.5 14 20 15 21 15.5"/><path d="M2 20c1 1 2 1.5 3.5 1.5S8 20 9.5 20 12 21.5 13.5 21.5 16 20 17.5 20 20 21 21 21.5"/></svg>Risques naturels — Georisques</div>
+      <div class="step" id="st5"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Acces vehicules — OpenStreetMap</div>
+      <div class="step" id="st6"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>Compilation du rapport</div>
     </div>
   </div>
   <div class="result" id="resSec">
@@ -180,7 +233,7 @@ select option{background:#1a1a1a}
       <button class="btn-pri" onclick="window.print()">Imprimer</button>
     </div>
     <div class="note">
-      <span>i</span>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
       <span>TerraCheck reunit en un seul endroit les donnees officielles dispersees sur plusieurs services de l'Etat (IGN GPU, IGN Nature, Georisques, BAN) et OpenStreetMap. Il affiche ce que ces sources contiennent et signale ce qu'elles ne couvrent pas. Il ne remplace pas la consultation de la mairie, seule autorite pour confirmer les regles applicables a une parcelle.</span>
     </div>
   </div>
@@ -381,14 +434,52 @@ async function go(){
   render({label,ml,tl,met:curMet,trav:tv,geoOk,pluZ,pluD,presc,muni,siteC,resN,natH,natO,zni,geo,rga,seis,osm,littor,isRnu,lat,lon,insee});
 }
 
-// dr(statut, ico, label, valeur, recsKeys, todoArr)
+// Systeme d'icones SVG inline (trait, currentColor, viewBox 24x24) — remplace les emoji.
+// Un sujet = une icone, reutilisee partout ou ce sujet apparait (cf. direction UX/UI 2026-07, §7).
+const ICONS={
+  pin:'<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  map:'<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',
+  leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  landmark:'<line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
+  tree:'<path d="M12 3 7 10h3l-4 6h4v5h4v-5h4l-4-6h3z"/>',
+  bird:'<path d="M3 16c3 2 6 1 8-2-1 4-4 6-8 5 1-1 1-2 0-3z"/><path d="M10 15c4-5 8-8 11-7-2 1-3 2-3 4 2 0 3-1 4-2-2 5-7 7-11 6-1 0-1-1-1-1z"/>',
+  search:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+  waves:'<path d="M2 8c1 1 2 1.5 3.5 1.5S8 8 9.5 8 12 9.5 13.5 9.5 16 8 17.5 8 20 9 21 9.5"/><path d="M2 14c1 1 2 1.5 3.5 1.5S8 14 9.5 14 12 15.5 13.5 15.5 16 14 17.5 14 20 15 21 15.5"/><path d="M2 20c1 1 2 1.5 3.5 1.5S8 20 9.5 20 12 21.5 13.5 21.5 16 20 17.5 20 20 21 21 21.5"/>',
+  flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  mountain:'<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
+  truck:'<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+  weight:'<circle cx="12" cy="6" r="3"/><path d="M7 21h10l-2-9H9l-2 9z"/>',
+  width:'<line x1="4" y1="12" x2="20" y2="12"/><polyline points="9 6 4 12 9 18"/><polyline points="15 6 20 12 15 18"/>',
+  lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  cone:'<path d="M12 3 8 19h8L12 3z"/><line x1="9.2" y1="12" x2="14.8" y2="12"/><line x1="7.5" y1="19" x2="16.5" y2="19"/>',
+  satellite:'<rect x="9" y="9" width="6" height="6" rx="1" transform="rotate(45 12 12)"/><line x1="12" y1="4" x2="12" y2="7"/><line x1="20" y1="12" x2="17" y2="12"/><line x1="7" y1="17" x2="4.5" y2="19.5"/>',
+  zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+  link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+  info:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+  clipboard:'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>',
+  layers:'<path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/>', // sol/argile — sujet ajoute (absent de la charte UX initiale, la ligne argile a ete introduite par le correctif fiabilite precedent)
+  activity:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>', // sismicite — meme remarque que layers
+  ban:'<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>',
+  cross:'<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+  alert:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  check:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+  help:'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+};
+function svg(key,size,cls){const s=size||18;return`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"${cls?` class="${cls}"`:""} aria-hidden="true">${ICONS[key]||""}</svg>`;}
+// Icone d'etat (codage redondant a la couleur, cf. §6.8) : rouge=croix, ambre=triangle, vert=coche, gris=point d'interrogation
+function stIco(statut){return{conf:"cross",["conf-o"]:"alert",none:"check",nc:"help"}[statut]||"help";}
+
+// dr(statut, sujetIcone, label, valeur, recsKeys, todoArr)
 // statut: 'conf'(rouge) 'conf-o'(orange) 'none'(vert) 'nc'(gris/non couvert)
-function dr(statut,ico,labelHtml,valHtml,recKeys,todo){
+// sujetIcone: cle du sujet dans ICONS (ex. "pin","truck","waves"...)
+function dr(statut,sujetIcone,labelHtml,valHtml,recKeys,todo){
   const cls={conf:"s-conf",["conf-o"]:"s-conf-o",none:"s-none",nc:"s-nc"}[statut]||"";
   let extra="";
   if(recKeys&&recKeys.length){const items=[];recKeys.forEach(k=>{if(REC[k])REC[k].forEach(r=>items.push(r));});if(items.length)extra+='<div class="rec-list">'+items.map(r=>'<div class="rec-item">'+r+'</div>').join("")+'</div>';}
   if(todo&&todo.length){extra+='<div class="todo-list">'+todo.map(t=>'<div class="todo-item">'+t+'</div>').join("")+'</div>';}
-  return`<div class="dr ${cls}"><div class="dr-ico">${ico}</div><div class="dr-body"><div class="dr-top"><span class="dr-label">${labelHtml}</span></div><div class="dr-val">${valHtml}</div>${extra}</div></div>`;
+  const icoHtml=svg(stIco(statut),13,"dr-state")+svg(sujetIcone,18,"dr-subj");
+  return`<div class="dr ${cls}"><div class="dr-ico">${icoHtml}</div><div class="dr-body"><div class="dr-top"><span class="dr-label">${labelHtml}</span></div><div class="dr-val">${valHtml}</div>${extra}</div></div>`;
 }
 function chip(t,c){return`<span class="chip ${c}">${t}</span>`;}
 function sh(t){return`<div class="sec"><div class="sec-head">${t}</div>`;}
@@ -432,10 +523,10 @@ function render(D){
   if(littor===null)nbNonCouvert++;
 
   let vcl,vic,vtit,vdesc;
-  if(nbConf>0){vcl="danger";vic="🚫";vtit="Contraintes confirmees sur cette adresse";vdesc="Une ou plusieurs contraintes reglementaires sont confirmees par les sources officielles. Detail et demarches ci-dessous.";}
-  else if(nbAttention>0){vcl="warn";vic="⚠️";vtit="Points de vigilance confirmes";vdesc="Des zones de vigilance sont confirmees sur cette adresse. Demarches a prevoir ci-dessous.";}
-  else if(nbNonCouvert>=3){vcl="info";vic="ℹ️";vtit="Couverture des donnees limitee sur cette adresse";vdesc="Plusieurs sources n'ont pas de donnee pour cette adresse. Suivez les actions indiquees dans chaque rubrique.";}
-  else{vcl="ok";vic="✅";vtit="Aucune contrainte trouvee dans les sources officielles";vdesc="Les sources interrogees ne signalent ni zone protegee ni risque sur cette adresse. La mairie reste l'autorite a consulter pour confirmer.";}
+  if(nbConf>0){vcl="danger";vic="cross";vtit="Contraintes confirmees sur cette adresse";vdesc="Une ou plusieurs contraintes reglementaires sont confirmees par les sources officielles. Detail et demarches ci-dessous.";}
+  else if(nbAttention>0){vcl="warn";vic="alert";vtit="Points de vigilance confirmes";vdesc="Des zones de vigilance sont confirmees sur cette adresse. Demarches a prevoir ci-dessous.";}
+  else if(nbNonCouvert>=3){vcl="info";vic="info";vtit="Couverture des donnees limitee sur cette adresse";vdesc="Plusieurs sources n'ont pas de donnee pour cette adresse. Suivez les actions indiquees dans chaque rubrique.";}
+  else{vcl="ok";vic="check";vtit="Aucune contrainte trouvee dans les sources officielles";vdesc="Les sources interrogees ne signalent ni zone protegee ni risque sur cette adresse. La mairie reste l'autorite a consulter pour confirmer.";}
 
   const lGPU=lat?`https://www.geoportail-urbanisme.gouv.fr/map/#tile=1&lon=${lon}&lat=${lat}&zoom=18`:"https://www.geoportail-urbanisme.gouv.fr";
   const lGeo=lat?`https://www.georisques.gouv.fr/mes-risques/connaitre-les-risques-pres-de-chez-moi/rapport2?typeForm=adresse&adresse=${encodeURIComponent(label)}&lon=${lon}&lat=${lat}`:"https://www.georisques.gouv.fr";
@@ -443,23 +534,24 @@ function render(D){
   const lSV=lat?`https://www.google.com/maps?q=&layer=c&cbll=${lat},${lon}`:"";
 
   let h="";
-  h+=`<div class="addr-bar"><span>📍</span><div><strong>${label}</strong><span style="font-size:12px;color:var(--mu2)">${ml} — ${tl}</span></div></div>`;
-  h+=`<div class="verdict ${vcl}"><div class="v-ico">${vic}</div><div><div class="v-title">${vtit}</div><div class="v-desc">${vdesc}</div></div></div>`;
-  // Legende des 3 etats
-  h+=`<div class="legend"><div class="legend-it"><span class="legend-dot ld-conf"></span>Contrainte confirmee par la source</div><div class="legend-it"><span class="legend-dot ld-none"></span>Aucune contrainte dans la source</div><div class="legend-it"><span class="legend-dot ld-nc"></span>Source non disponible — action indiquee</div></div>`;
+  h+=`<div class="print-head">TerraCheck — Rapport pour ${label} — genere le ${new Date().toLocaleDateString("fr-FR")}</div>`;
+  h+=`<div class="addr-bar">${svg("pin",16)}<div><strong>${label}</strong><span style="font-size:12px;color:var(--mu2)">${ml} — ${tl}</span></div></div>`;
+  h+=`<div class="verdict ${vcl}"><div class="v-ico-badge">${svg(vic,30)}</div><div><div class="v-title">${vtit}</div><div class="v-desc">${vdesc}</div></div></div>`;
+  // Legende des 4 etats reellement utilises par le systeme de couleur (rouge/ambre/vert/gris)
+  h+=`<div class="legend"><div class="legend-it"><span class="legend-dot ld-conf"></span>Contrainte confirmee — bloquante</div><div class="legend-it"><span class="legend-dot ld-conf-o"></span>Contrainte confirmee — vigilance / demarche a prevoir</div><div class="legend-it"><span class="legend-dot ld-none"></span>Aucune contrainte dans la source</div><div class="legend-it"><span class="legend-dot ld-nc"></span>Source non disponible — action indiquee</div></div>`;
 
   if(!geoOk){
     h+=sh("Geolocalisation");
-    h+=dr("nc","📍","Adresse non localisee","Les services de geolocalisation n'ont pas pu situer cette adresse precisement.",null,["Verifier l'orthographe et le format de l'adresse (numero, voie, code postal, commune)","Reessayer en selectionnant une suggestion dans la liste deroulante"]);
+    h+=dr("nc","pin","Adresse non localisee","Les services de geolocalisation n'ont pas pu situer cette adresse precisement.",null,["Verifier l'orthographe et le format de l'adresse (numero, voie, code postal, commune)","Reessayer en selectionnant une suggestion dans la liste deroulante"]);
     h+="</div>";
   }
 
   // ── 1. ACCES VEHICULES (priorite artisan)
   h+=sh("Acces au chantier — vehicules et engins");
   if(!lat||!lon){
-    h+=dr("nc","🚛","Acces vehicules","Adresse non localisee — impossible d'interroger les donnees de voirie.",null,["Verifier l'adresse pour relancer l'analyse"]);
+    h+=dr("nc","truck","Acces vehicules","Adresse non localisee — impossible d'interroger les donnees de voirie.",null,["Verifier l'adresse pour relancer l'analyse"]);
   }else if(!osm.ok){
-    h+=dr("nc","🚛","Restrictions de circulation","Le service OpenStreetMap n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants","Verifier sur place les panneaux en debut de voie (limitation de tonnage, largeur, sens interdit)"]);
+    h+=dr("nc","truck","Restrictions de circulation","Le service OpenStreetMap n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants","Verifier sur place les panneaux en debut de voie (limitation de tonnage, largeur, sens interdit)"]);
   }else if(osm.restr&&osm.restr.length>0){
     const w=osm.restr.filter(r=>r.type==="weight"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
     const wd=osm.restr.filter(r=>r.type==="width"&&!isNaN(r.val)).sort((a,b)=>a.val-b.val);
@@ -468,58 +560,58 @@ function render(D){
     const hgvDest=osm.restr.find(r=>r.type==="hgv_dest");
     const priv=osm.restr.find(r=>r.type==="private");
     const dest=osm.restr.find(r=>r.type==="dest");
-    if(vehNo)h+=dr("conf","⛔",`Circulation interdite — ${vehNo.name}`,"Une voie proche est fermee a la circulation des vehicules dans OpenStreetMap.",null,["Identifier un autre acces au chantier","Verifier sur place et contacter la mairie en cas de doute"]);
-    if(hgvNo)h+=dr("conf","🚛",`Poids lourds interdits — ${hgvNo.name}`,"Une voie proche interdit les poids lourds dans OpenStreetMap. L'acces en vehicule > 3,5 t n'est pas autorise sans derogation.",null,["Prevoir un vehicule leger ou un transbordement","Demander une derogation de tonnage a la mairie (voie communale) ou au Departement (route departementale)"]);
-    if(w.length>0){const mn=w[0];const st=mn.val<=3.5?"conf":"conf-o";h+=dr(st,"⚖️",`Limite de tonnage : ${mn.raw} t — ${mn.name}`,`Une voie proche porte une limite de masse de ${mn.raw} tonnes dans OpenStreetMap.`,null,[`Verifier le PTAC charge de votre vehicule par rapport a ${mn.raw} t`,"Si depassement : demander une derogation au gestionnaire de voirie (mairie ou Departement)"]);}
-    if(wd.length>0){const mn=wd[0];h+=dr("conf-o","↔️",`Largeur max : ${mn.raw} m — ${mn.name}`,`Une voie proche porte une limite de largeur de ${mn.raw} metres dans OpenStreetMap.`,null,[`Verifier la largeur de votre vehicule par rapport a ${mn.raw} m`]);}
-    if(hgvDest&&!hgvNo)h+=dr("conf-o","🚛",`Poids lourds : riverains uniquement — ${hgvDest.name}`,"Une voie proche reserve l'acces poids lourds aux riverains dans OpenStreetMap.",null,["Justifier l'intervention sur place (chantier riverain)","Contacter la mairie pour les conditions d'acces"]);
-    if(priv)h+=dr("conf-o","🔒",`Voie privee — ${priv.name}`,"Une voie d'acces est marquee comme privee dans OpenStreetMap.",null,["Obtenir l'autorisation du proprietaire, du syndic ou de l'association de riverains"]);
-    if(dest&&!hgvDest)h+=dr("conf-o","🚧",`Acces riverains — ${dest.name}`,"Une voie proche est reservee a la desserte locale dans OpenStreetMap.",null,["Acces autorise pour une intervention sur place ; verifier en cas de controle"]);
+    if(vehNo)h+=dr("conf","ban",`Circulation interdite — ${vehNo.name}`,"Une voie proche est fermee a la circulation des vehicules dans OpenStreetMap.",null,["Identifier un autre acces au chantier","Verifier sur place et contacter la mairie en cas de doute"]);
+    if(hgvNo)h+=dr("conf","truck",`Poids lourds interdits — ${hgvNo.name}`,"Une voie proche interdit les poids lourds dans OpenStreetMap. L'acces en vehicule > 3,5 t n'est pas autorise sans derogation.",null,["Prevoir un vehicule leger ou un transbordement","Demander une derogation de tonnage a la mairie (voie communale) ou au Departement (route departementale)"]);
+    if(w.length>0){const mn=w[0];const st=mn.val<=3.5?"conf":"conf-o";h+=dr(st,"weight",`Limite de tonnage : ${mn.raw} t — ${mn.name}`,`Une voie proche porte une limite de masse de ${mn.raw} tonnes dans OpenStreetMap.`,null,[`Verifier le PTAC charge de votre vehicule par rapport a ${mn.raw} t`,"Si depassement : demander une derogation au gestionnaire de voirie (mairie ou Departement)"]);}
+    if(wd.length>0){const mn=wd[0];h+=dr("conf-o","width",`Largeur max : ${mn.raw} m — ${mn.name}`,`Une voie proche porte une limite de largeur de ${mn.raw} metres dans OpenStreetMap.`,null,[`Verifier la largeur de votre vehicule par rapport a ${mn.raw} m`]);}
+    if(hgvDest&&!hgvNo)h+=dr("conf-o","truck",`Poids lourds : riverains uniquement — ${hgvDest.name}`,"Une voie proche reserve l'acces poids lourds aux riverains dans OpenStreetMap.",null,["Justifier l'intervention sur place (chantier riverain)","Contacter la mairie pour les conditions d'acces"]);
+    if(priv)h+=dr("conf-o","lock",`Voie privee — ${priv.name}`,"Une voie d'acces est marquee comme privee dans OpenStreetMap.",null,["Obtenir l'autorisation du proprietaire, du syndic ou de l'association de riverains"]);
+    if(dest&&!hgvDest)h+=dr("conf-o","cone",`Acces riverains — ${dest.name}`,"Une voie proche est reservee a la desserte locale dans OpenStreetMap.",null,["Acces autorise pour une intervention sur place ; verifier en cas de controle"]);
     // Verif physique systematique
-    h+=dr("nc","🛰️","Verification de l'acces physique",`OpenStreetMap ne renseigne pas la largeur reelle ni la praticabilite de toutes les voies, en particulier les chemins ruraux. ${lat?`<a href="${lSat}" target="_blank">Vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:""}`,null,["Verifier visuellement l'acces (largeur, virages, surface, hauteur sous branches/cables) avant d'engager un vehicule lourd"]);
+    h+=dr("nc","satellite","Verification de l'acces physique",`OpenStreetMap ne renseigne pas la largeur reelle ni la praticabilite de toutes les voies, en particulier les chemins ruraux. ${lat?`<a href="${lSat}" target="_blank">Vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:""}`,null,["Verifier visuellement l'acces (largeur, virages, surface, hauteur sous branches/cables) avant d'engager un vehicule lourd"]);
   }else{
     // OSM a repondu mais aucune restriction trouvee : etat NON COUVERT, pas un feu vert
-    h+=dr("nc","🚛","Restrictions de tonnage sur la voie d'acces","Aucune restriction n'est repertoriee dans OpenStreetMap autour de cette adresse. Pour les chemins ruraux, l'absence de donnee ne garantit pas l'absence de restriction ou d'obstacle physique.",null,["Verifier sur place les panneaux en debut de voie (tonnage, largeur, hauteur)",`Verifier l'acces physique : ${lat?`<a href="${lSat}" target="_blank">vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:"vue aerienne"} (largeur, virages, surface)`,"En cas de doute, contacter la mairie pour les arretes de circulation en vigueur"]);
+    h+=dr("nc","truck","Restrictions de tonnage sur la voie d'acces","Aucune restriction n'est repertoriee dans OpenStreetMap autour de cette adresse. Pour les chemins ruraux, l'absence de donnee ne garantit pas l'absence de restriction ou d'obstacle physique.",null,["Verifier sur place les panneaux en debut de voie (tonnage, largeur, hauteur)",`Verifier l'acces physique : ${lat?`<a href="${lSat}" target="_blank">vue satellite</a> · <a href="${lSV}" target="_blank">Street View</a>`:"vue aerienne"} (largeur, virages, surface)`,"En cas de doute, contacter la mairie pour les arretes de circulation en vigueur"]);
   }
   h+="</div>";
 
   // ── 2. URBANISME PLU
   h+=sh("Urbanisme — PLU (IGN Geoportail)");
-  if(!lat||!lon){h+=dr("nc","🗂","Zone PLU","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
-  else if(!pluZ.ok){h+=dr("nc","🗂","Zone PLU","Le service IGN Geoportail n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants",`Consulter directement <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a> pour cette parcelle`]);}
+  if(!lat||!lon){h+=dr("nc","map","Zone PLU","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
+  else if(!pluZ.ok){h+=dr("nc","map","Zone PLU","Le service IGN Geoportail n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse dans quelques instants",`Consulter directement <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a> pour cette parcelle`]);}
   else{
     const feats=pluZ.d?.features||[];
     if(!feats.length){
       // Pas de zonage numerise a ce point : distinguer RNU confirme vs document simplement non restitue (statut officiel IGN)
       if(isRnu===true){
-        h+=dr("conf-o","🗂","Commune au Reglement National d'Urbanisme "+chip("RNU","co"),"Cette commune n'a pas de document d'urbanisme local : c'est le Reglement National d'Urbanisme qui s'applique (statut confirme par l'IGN).",["rnu"],["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
+        h+=dr("conf-o","map","Commune au Reglement National d'Urbanisme "+chip("RNU","co"),"Cette commune n'a pas de document d'urbanisme local : c'est le Reglement National d'Urbanisme qui s'applique (statut confirme par l'IGN).",["rnu"],["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
       }else if(isRnu===false){
-        h+=dr("nc","🗂","Zonage non restitue a cette adresse","La commune dispose bien d'un document d'urbanisme (elle n'est pas au RNU), mais aucun zonage n'est renvoye pour ce point precis : document seulement partiellement numerise sur le Geoportail, ou point en limite de parcelle.",null,["Demander un certificat d'urbanisme gratuit en mairie : seul document qui fait foi sur les regles de la parcelle",`Verifier la parcelle sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);
+        h+=dr("nc","map","Zonage non restitue a cette adresse","La commune dispose bien d'un document d'urbanisme (elle n'est pas au RNU), mais aucun zonage n'est renvoye pour ce point precis : document seulement partiellement numerise sur le Geoportail, ou point en limite de parcelle.",null,["Demander un certificat d'urbanisme gratuit en mairie : seul document qui fait foi sur les regles de la parcelle",`Verifier la parcelle sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);
       }else{
-        h+=dr("nc","🗂","Document d'urbanisme","Aucun zonage numerise n'est renvoye pour cette adresse et le statut RNU de la commune n'a pas pu etre verifie.",null,["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
+        h+=dr("nc","map","Document d'urbanisme","Aucun zonage numerise n'est renvoye pour cette adresse et le statut RNU de la commune n'a pas pu etre verifie.",null,["Demander un certificat d'urbanisme gratuit en mairie : il indique officiellement les regles applicables a la parcelle"]);
       }
     }else{
       const p=feats[0].properties;const zone=p.typezone||"?";const lib=p.libelle||p.libelong||zone;const typeDoc=p.typedoc||"PLU";const commune=p.nomcommune||"";
       const zkey=zone.startsWith("AU")?"zone_AU":"zone_"+zone.charAt(0);
-      h+=dr("conf-o","🗂","Zone "+chip(zone,"cz"),`${lib}${commune?" — "+commune:""}${feats.length>1?` (${feats.length} zonages a cette adresse)`:""}`,[zkey],null);
-      if(pluD.ok&&pluD.d?.features?.length>0){const dp=pluD.d.features[0].properties;h+=dr("conf-o","📄","Document applicable",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,null,null);}
-      if(presc.ok){const pf=presc.d?.features||[];if(!pf.length){h+=dr("none","📌","Prescriptions (EBC, etc.)","Aucune prescription surfacique relevee sur cette parcelle.",null,null);}else{pf.forEach(f=>{const pr=f.properties||{};const pl=pr.libelle||pr.txt||pr.lib_idpsc||"Prescription";const code=String(pr.typepsc||"");const lc=(pl||"").toLowerCase();const isEBC=code==="01"||/espaces*bois|ebc/.test(lc);const isPaysage=code==="07"||code==="08"||/paysage|haie|arbre|alignement|planta/.test(lc);const ico=isEBC?"🌳":"📌";h+=dr("conf",ico,(isEBC?"Espace Boise Classe (EBC) ":"Prescription ")+chip("Confirmee","cr"),pl,isEBC?["ebc"]:(isPaysage?["paysage"]:null),null);});}}
-      else{h+=dr("nc","📌","Prescriptions (EBC, etc.)","Donnee des prescriptions non disponible lors de cette recherche.",null,[`Verifier sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);}
-      h+=dr("none","🔗","Plan de la parcelle",`<a href="${lGPU}" target="_blank">Ouvrir cette parcelle sur le Geoportail Urbanisme →</a>`,null,null);
+      h+=dr("conf-o","map","Zone "+chip(zone,"cz"),`${lib}${commune?" — "+commune:""}${feats.length>1?` (${feats.length} zonages a cette adresse)`:""}`,[zkey],null);
+      if(pluD.ok&&pluD.d?.features?.length>0){const dp=pluD.d.features[0].properties;h+=dr("conf-o","file","Document applicable",`${dp.nomdoc||dp.libelle||typeDoc}${dp.datappro?" — approuve le "+dp.datappro:""}`,null,null);}
+      if(presc.ok){const pf=presc.d?.features||[];if(!pf.length){h+=dr("none","file","Prescriptions (EBC, etc.)","Aucune prescription surfacique relevee sur cette parcelle.",null,null);}else{pf.forEach(f=>{const pr=f.properties||{};const pl=pr.libelle||pr.txt||pr.lib_idpsc||"Prescription";const code=String(pr.typepsc||"");const lc=(pl||"").toLowerCase();const isEBC=code==="01"||/espaces*bois|ebc/.test(lc);const isPaysage=code==="07"||code==="08"||/paysage|haie|arbre|alignement|planta/.test(lc);const ico=isEBC?"tree":"file";h+=dr("conf",ico,(isEBC?"Espace Boise Classe (EBC) ":"Prescription ")+chip("Confirmee","cr"),pl,isEBC?["ebc"]:(isPaysage?["paysage"]:null),null);});}}
+      else{h+=dr("nc","file","Prescriptions (EBC, etc.)","Donnee des prescriptions non disponible lors de cette recherche.",null,[`Verifier sur <a href="${lGPU}" target="_blank">le Geoportail Urbanisme</a>`]);}
+      h+=dr("none","link","Plan de la parcelle",`<a href="${lGPU}" target="_blank">Ouvrir cette parcelle sur le Geoportail Urbanisme →</a>`,null,null);
     }
   }
   h+="</div>";
 
   // ── 3. ZONES PROTEGEES
   h+=sh("Zones protegees — IGN Nature");
-  if(!lat||!lon){h+=dr("nc","🌿","Zones protegees","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
+  if(!lat||!lon){h+=dr("nc","leaf","Zones protegees","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
   else{
     const blocks=[
-      {r:siteC,ic:"🏛",nom:"Site classe",rec:"site_classe"},
-      {r:resN,ic:"🌳",nom:"Reserve naturelle",rec:"reserve_naturelle"},
-      {r:natH,ic:"🌿",nom:"Natura 2000 (Habitats)",rec:"natura_habitat"},
-      {r:natO,ic:"🦅",nom:"Natura 2000 (Oiseaux)",rec:"natura_oiseaux"},
-      {r:zni,ic:"🔬",nom:"ZNIEFF type 1",rec:"znieff1"},
+      {r:siteC,ic:"landmark",nom:"Site classe",rec:"site_classe"},
+      {r:resN,ic:"tree",nom:"Reserve naturelle",rec:"reserve_naturelle"},
+      {r:natH,ic:"leaf",nom:"Natura 2000 (Habitats)",rec:"natura_habitat"},
+      {r:natO,ic:"bird",nom:"Natura 2000 (Oiseaux)",rec:"natura_oiseaux"},
+      {r:zni,ic:"search",nom:"ZNIEFF type 1",rec:"znieff1"},
     ];
     blocks.forEach(b=>{
       if(!b.r.ok){h+=dr("nc",b.ic,b.nom,"Donnee non disponible lors de cette recherche.",null,["Relancer l'analyse, ou verifier aupres de la DDT du departement"]);}
@@ -530,24 +622,24 @@ function render(D){
 
   // ── 4. LOI LITTORAL
   h+=sh("Loi Littoral");
-  if(littor===null){h+=dr("nc","🌊","Loi Littoral","Statut littoral de la commune non verifie (service IGN indisponible ou commune non identifiee).",null,["Selectionner l'adresse dans la liste deroulante","Ou verifier le statut littoral aupres de la mairie"]);}
-  else if(littor===true){h+=dr("conf-o","🌊","Loi Littoral "+chip("Applicable","co"),"Commune classee littorale par l'IGN (Geoportail de l'Urbanisme), au titre de la loi n°86-2 du 3 janvier 1986.",["loi_littoral"],null);}
-  else{h+=dr("none","🌊","Loi Littoral",chip("Non applicable","cg")+" — commune non classee littorale (mer/estuaire) par l'IGN. Certaines communes riveraines de grands lacs peuvent l'etre sans figurer ici.",null,null);}
+  if(littor===null){h+=dr("nc","waves","Loi Littoral","Statut littoral de la commune non verifie (service IGN indisponible ou commune non identifiee).",null,["Selectionner l'adresse dans la liste deroulante","Ou verifier le statut littoral aupres de la mairie"]);}
+  else if(littor===true){h+=dr("conf-o","waves","Loi Littoral "+chip("Applicable","co"),"Commune classee littorale par l'IGN (Geoportail de l'Urbanisme), au titre de la loi n°86-2 du 3 janvier 1986.",["loi_littoral"],null);}
+  else{h+=dr("none","waves","Loi Littoral",chip("Non applicable","cg")+" — commune non classee littorale (mer/estuaire) par l'IGN. Certaines communes riveraines de grands lacs peuvent l'etre sans figurer ici.",null,null);}
   h+="</div>";
 
   // ── 5. RISQUES NATURELS
   h+=sh("Risques naturels — Georisques (GASPAR)");
-  if(!lat||!lon){h+=dr("nc","🌊","Risques naturels","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
-  else if(!geo.ok){h+=dr("nc","🌊","Risques naturels","Le service Georisques n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse",`Consulter directement <a href="${lGeo}" target="_blank">le rapport Georisques</a> pour cette adresse`]);}
+  if(!lat||!lon){h+=dr("nc","waves","Risques naturels","Adresse non localisee.",null,["Verifier l'adresse pour relancer l'analyse"]);}
+  else if(!geo.ok){h+=dr("nc","waves","Risques naturels","Le service Georisques n'a pas repondu lors de cette recherche.",null,["Relancer l'analyse",`Consulter directement <a href="${lGeo}" target="_blank">le rapport Georisques</a> pour cette adresse`]);}
   else{
     const fam=geoFamilies(geo)||[];
     let shown=0;
     fam.forEach(f=>{
-      let rk=null,hard=false,ico="⚠️";
-      if(f.code==="11"){rk=["risque_inondation"];hard=true;ico="🌊";}
-      else if(f.code==="16"){rk=["risque_feu_foret"];ico="🔥";}
-      else if(f.code==="12"){rk=["risque_mvt"];ico="⛰";}
-      else if(f.code==="14"){ico="🏔";}
+      let rk=null,hard=false,ico="alert";
+      if(f.code==="11"){rk=["risque_inondation"];hard=true;ico="waves";}
+      else if(f.code==="16"){rk=["risque_feu_foret"];ico="flame";}
+      else if(f.code==="12"){rk=["risque_mvt"];ico="mountain";}
+      else if(f.code==="14"){ico="mountain";}
       else if(f.code==="13"||f.code==="18"||f.code==="17"){return;} // seisme traite via zonage dedie ; radon/tempete non lies aux travaux
       shown++;
       h+=dr(hard?"conf":"conf-o",ico,f.label+" "+chip("Confirme",hard?"cr":"co"),"Risque repertorie dans la base officielle Georisques pour cette commune.",rk,null);
@@ -556,10 +648,10 @@ function render(D){
     {
       const ce=rgaExpo(rga);const ex=rga.d?.exposition||"";
       if(ce!==null){
-        if(ce>=2){h+=dr("conf-o","🧱","Retrait-gonflement des argiles "+chip(ex,"co"),"Sol argileux, "+(ex||"").toLowerCase()+" au retrait-gonflement (Georisques). Peut imposer une etude geotechnique avant construction.",["risque_argile"],null);shown++;}
-        else{h+=dr("none","🧱","Retrait-gonflement des argiles",chip(ex||"Exposition faible ou nulle","cg"),null,null);shown++;}
+        if(ce>=2){h+=dr("conf-o","layers","Retrait-gonflement des argiles "+chip(ex,"co"),"Sol argileux, "+(ex||"").toLowerCase()+" au retrait-gonflement (Georisques). Peut imposer une etude geotechnique avant construction.",["risque_argile"],null);shown++;}
+        else{h+=dr("none","layers","Retrait-gonflement des argiles",chip(ex||"Exposition faible ou nulle","cg"),null,null);shown++;}
       }else{
-        h+=dr("nc","🧱","Retrait-gonflement des argiles","Le service Georisques (argiles) n'a pas repondu ou a renvoye une reponse vide lors de cette recherche.",null,["Relancer l'analyse","Verifier ce risque aupres de la mairie ou d'un bureau d'etudes geotechniques avant fondations"]);
+        h+=dr("nc","layers","Retrait-gonflement des argiles","Le service Georisques (argiles) n'a pas repondu ou a renvoye une reponse vide lors de cette recherche.",null,["Relancer l'analyse","Verifier ce risque aupres de la mairie ou d'un bureau d'etudes geotechniques avant fondations"]);
       }
     }
     // Sismicite (zone precise) — parasismique a partir de la zone 2. Filtre sur le code INSEE cible (la source renvoie plusieurs communes voisines).
@@ -567,13 +659,13 @@ function render(D){
       const zc=seisFor(seis,insee);
       if(zc){
         const cz=parseInt(zc.code_zone);
-        if(cz>=2){h+=dr("conf-o","〰","Sismicite : "+(zc.zone_sismicite||cz),"Zone sismique : regles parasismiques (Eurocode 8) applicables aux constructions neuves selon leur categorie.",["risque_seisme"],null);shown++;}
+        if(cz>=2){h+=dr("conf-o","activity","Sismicite : "+(zc.zone_sismicite||cz),"Zone sismique : regles parasismiques (Eurocode 8) applicables aux constructions neuves selon leur categorie.",["risque_seisme"],null);shown++;}
       }else{
-        h+=dr("nc","〰","Zone de sismicite","Le service Georisques (zonage sismique) n'a pas repondu ou n'a pas identifie cette commune precisement lors de cette recherche.",null,["Consulter le zonage sismique national aupres de la mairie ou sur georisques.gouv.fr"]);
+        h+=dr("nc","activity","Zone de sismicite","Le service Georisques (zonage sismique) n'a pas repondu ou n'a pas identifie cette commune precisement lors de cette recherche.",null,["Consulter le zonage sismique national aupres de la mairie ou sur georisques.gouv.fr"]);
       }
     }
-    if(!shown)h+=dr("none","🌊","Risques naturels","Aucun risque naturel repertorie pour cette commune (base GASPAR).",null,null);
-    h+=dr("none","🔗","Rapport complet",`<a href="${lGeo}" target="_blank">Ouvrir le rapport Georisques de cette adresse →</a>`,null,null);
+    if(!shown)h+=dr("none","waves","Risques naturels","Aucun risque naturel repertorie pour cette commune (base GASPAR).",null,null);
+    h+=dr("none","link","Rapport complet",`<a href="${lGeo}" target="_blank">Ouvrir le rapport Georisques de cette adresse →</a>`,null,null);
   }
   h+="</div>";
 
@@ -582,22 +674,22 @@ function render(D){
     const feuFam=(geoFamilies(geo)||[]).some(f=>f.code==="16");
     h+=sh("Arbres, haies et debroussaillement");
     if(feuFam){
-      h+=dr("conf-o","🔥","Obligation Legale de Debroussaillement (OLD) "+chip("Probable","co"),"Commune concernee par le risque feu de foret : une OLD s'applique tres probablement autour des constructions et le long des voies (art. L131-10 et suivants du Code forestier).",["old"],["Verifier le zonage OLD exact et le rayon (souvent 50 m autour du bati, parfois porte a 100 m) aupres de la mairie, de la DDT(M) ou du SDIS"]);
+      h+=dr("conf-o","flame","Obligation Legale de Debroussaillement (OLD) "+chip("Probable","co"),"Commune concernee par le risque feu de foret : une OLD s'applique tres probablement autour des constructions et le long des voies (art. L131-10 et suivants du Code forestier).",["old"],["Verifier le zonage OLD exact et le rayon (souvent 50 m autour du bati, parfois porte a 100 m) aupres de la mairie, de la DDT(M) ou du SDIS"]);
     }
     if(["elagage","debroussaillage","amenagement_ext","cloture"].includes(trav)){
-      h+=dr("nc","🌳","Haies, arbres et alignements proteges","Ces protections ne figurent pas dans une base interrogeable en ligne : au-dela des EBC (verifies ci-dessus), un arbre ou une haie peut etre protege par le PLU, par un arrete, ou au titre des alignements d'arbres bordant les voies (art. L350-3 Code env.).",["haies"],["Avant tout abattage/arrachage : verifier le reglement du PLU en mairie et l'eventuelle protection des haies/alignements","Eviter la periode de nidification (mi-mars a fin juillet) pour la taille et l'arrachage des haies"]);
+      h+=dr("nc","tree","Haies, arbres et alignements proteges","Ces protections ne figurent pas dans une base interrogeable en ligne : au-dela des EBC (verifies ci-dessus), un arbre ou une haie peut etre protege par le PLU, par un arrete, ou au titre des alignements d'arbres bordant les voies (art. L350-3 Code env.).",["haies"],["Avant tout abattage/arrachage : verifier le reglement du PLU en mairie et l'eventuelle protection des haies/alignements","Eviter la periode de nidification (mi-mars a fin juillet) pour la taille et l'arrachage des haies"]);
     }
     h+="</div>";
   }
 
   // ── 6. DICT (systematique terrassement/fouille)
   h+=sh("Avant de creuser — toutes zones");
-  h+=dr("conf-o","⚡","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","co"),"Obligatoire avant tout terrassement, fouille ou abattage avec engins, pour eviter d'endommager les reseaux enterres.",["dict"],[`Deposer la DICT sur <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">le guichet unique</a> au moins 10 jours ouvres avant`]);
+  h+=dr("conf-o","zap","DICT — Declaration d'Intention de Commencement de Travaux "+chip("Obligatoire","co"),"Obligatoire avant tout terrassement, fouille ou abattage avec engins, pour eviter d'endommager les reseaux enterres.",["dict"],[`Deposer la DICT sur <a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">le guichet unique</a> au moins 10 jours ouvres avant`]);
   h+="</div>";
 
   // ── LIENS
   h+=sh("Sources officielles");
-  h+=`<div class="links"><a href="${lGPU}" target="_blank">🗺 Geoportail Urbanisme</a><a href="${lGeo}" target="_blank">🌊 Georisques</a>${lSat?`<a href="${lSat}" target="_blank">🛰️ Vue satellite</a>`:""}<a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">⚡ DICT reseaux</a><a href="https://www.service-public.fr/particuliers/vosdroits/N319" target="_blank">🏛 Autorisations</a></div></div>`;
+  h+=`<div class="links"><a href="${lGPU}" target="_blank">${svg("map",14)} Geoportail Urbanisme</a><a href="${lGeo}" target="_blank">${svg("waves",14)} Georisques</a>${lSat?`<a href="${lSat}" target="_blank">${svg("satellite",14)} Vue satellite</a>`:""}<a href="https://www.reseaux-et-canalisations.ineris.fr/" target="_blank">${svg("zap",14)} DICT reseaux</a><a href="https://www.service-public.fr/particuliers/vosdroits/N319" target="_blank">${svg("landmark",14)} Autorisations</a></div></div>`;
 
   document.getElementById("resContent").innerHTML=h;
 }
